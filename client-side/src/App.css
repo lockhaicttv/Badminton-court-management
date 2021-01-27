@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.court{
+  height: 600px;
+  width: 400px;
+  magrin: 50px;
+}
+
+.court-background {
+  background-image: url("/image/50055964_1956764354443766_7173773502439227392_n.png");
+  background-size: cover;
+}

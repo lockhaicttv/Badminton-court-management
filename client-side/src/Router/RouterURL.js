@@ -10,7 +10,7 @@ import { Route, Switch } from "react-router-dom";
 // import LogInDashBoardForm from "../Components/DashBoard/LogInDashboard/LogInDashBoardForm";
 // import ManagerRoutes_0 from "./ManagerRoute_0";
 // import ManagerRoutes_2 from "./ManagerRoute_2";
-import Court from '../../src/Component/Court';
+import Court from '../Component/CourtManager';
 class RouterURL extends Component {
     render() {
         return (

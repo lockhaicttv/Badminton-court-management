@@ -19,10 +19,10 @@ const Header = withRouter(({ history }) => (
         onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
     >
         <Nav.Item>
-            <Nav.Link href="/home">Active</Nav.Link>
+            <Nav.Link href="/home">Trang chủ</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-            <Nav.Link href="/home/court" eventKey="link-1">Link</Nav.Link>
+            <Nav.Link href="/home/court" eventKey="link-1">Quản lý sân</Nav.Link>
         </Nav.Item>
         <Nav.Item>
             <Nav.Link eventKey="link-2">Link</Nav.Link>
