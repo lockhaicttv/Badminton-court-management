@@ -1,7 +1,7 @@
-var user_model = require('../models/user_model');
+var account_model = require('../models/account_model');
 
-exports.get_list_user = (req, res) =>{
-    user_model
+exports.get_list_account = (req, res) =>{
+    account_model
         .find((err, list) =>{
             if (err) {
                 console.log(err);
@@ -15,8 +15,8 @@ exports.get_list_user = (req, res) =>{
         })
 };
 
-exports.add_one_user = (req, res) =>{
-    let item = new user_model(req.body);
+exports.add_one_account = (req, res) =>{
+    let item = new account_model(req.body);
     console.log(item);
     item.save()
         .then((item) =>{

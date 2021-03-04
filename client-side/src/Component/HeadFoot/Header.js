@@ -22,10 +22,10 @@ const Header = withRouter(({ history }) => (
             <Nav.Link href="/home">Trang chủ</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-            <Nav.Link href="/home/court" eventKey="link-1">Quản lý sân</Nav.Link>
+            <Nav.Link href="/home/court" >Quản lý sân</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-            <Nav.Link eventKey="link-2">Link</Nav.Link>
+            <Nav.Link>Link</Nav.Link>
         </Nav.Item>
         <Nav.Item>
             <Nav.Link eventKey="disabled" disabled>

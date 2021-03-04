@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const timeZone = require('mongoose-timezone');
 
-const user_model = new Schema(
+const account_model = new Schema(
     {
         username: {type: String},
         password_1: {type: String},
@@ -18,6 +18,6 @@ const user_model = new Schema(
 
 );
 
-user_model.plugin(timeZone);
+account_model.plugin(timeZone);
 
-module.exports = mongoose.model("user", user_model);
+module.exports = mongoose.model("account", account_model);

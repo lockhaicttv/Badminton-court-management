@@ -38,9 +38,10 @@
 }
 
 .court{
-  height: 600px;
-  width: 400px;
+  height: 400px;
+  width: 200px;
   magrin: 50px;
+  border-radius: 20px;
 }
 
 .court-background {

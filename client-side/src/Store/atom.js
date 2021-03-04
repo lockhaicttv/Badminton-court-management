@@ -1,26 +1,21 @@
-import { atom } from 'recoil';
+import {atom} from 'recoil';
 
-const defaultCourt = [
-    {
-        id: 0,
-        isUse: false,
-        timeCheckIn: null,
-        timeCheckOut: null
-    },
-    {
-        id: 1,
-        isUse: false,
-        timeCheckIn: null,
-        timeCheckOut: null
-    },
-    {
-        id: 2,
-        isUse: false,
-        timeCheckIn: null,
-        timeCheckOut: null
-    }
-]
-export const courtState = atom({
-    key:'courtState',
-    default: defaultCourt
+export const areasState = atom({
+    key: 'areasState',
+    default: []
+});
+
+export const categoryState = atom({
+    key: 'categoryState',
+    default: []
+});
+
+export const billState = atom({
+    key: 'billState',
+    default: []
+});
+
+export const billDetailState = atom({
+    key: 'billDetailState',
+    default: []
 });

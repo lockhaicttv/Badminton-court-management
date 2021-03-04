@@ -13,12 +13,22 @@ app.use(bodyParser.json());
 
 
 //import routes
-let user_route = require("./route/user_route");
-
+let account_route = require("./route/account_route");
+let court_route = require("./route/court_route");
+let court_area_route = require('./route/court_area_route');
+let product_category_route = require('./route/product_category_route');
+let product_route = require('./route/product_route');
+let court_bill_route = require('./route/court_bill_route');
+let court_bill_detail_route = require('./route/court_bill_detail_route');
 
 //use route
-app.use("/users", user_route);
-
+app.use("/accounts", account_route);
+app.use("/courts", court_route);
+app.use("/court_areas", court_area_route)
+app.use("/product_category", product_category_route);
+app.use('/product', product_route);
+app.use('/court_bill', court_bill_route);
+app.use('/court_bill_detail', court_bill_detail_route);
 
 //connect db
 mongoose.Promise = global.Promise;
