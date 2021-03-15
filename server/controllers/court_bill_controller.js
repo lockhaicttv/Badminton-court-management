@@ -52,6 +52,37 @@ exports.get_bill_by_court_area = (req, res) =>{
         });
 }
 
+exports.get_court_bill_by_account = (req, res) =>{
+    let onComplte = (list) => {
+        if (list.length !== 0) {
+            list = list.filter(bill => bill.court_area_id !== null);
+            res.status(200).json(list)
+        } else {
+            res.status(200).send('Thất bại');
+        }
+
+    }
+    let taskToGo = 1;
+    let list = [];
+    if (taskToGo === 0) {
+        onComplte(list);
+    } else {
+        court_bill_model
+            .find()
+            .populate({
+                path: 'court_area_id',
+                populate: {
+                    path: 'court_id',
+                    match: {account_id: req.params.account_id}
+                }
+            })
+            .exec((err, list) => {
+                taskToGo = 1;
+                onComplte(list)
+            })
+    }
+}
+
 exports.add_one_bill = (req, res) => {
     let item = new court_bill_model(req.body);
     item
@@ -73,6 +104,23 @@ exports.update_bill_status = async (req, res) => {
             err? console.log(err)
                 :
                 res.status(200).send('Cập nhật thành công');
+        })
+}
+
+exports.delete = (req, res) => {
+    let objDel = {
+        _id:{
+            $in: req.body
+        }
+    }
+    court_bill_model
+        .deleteMany(objDel, (err, result)=>{
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.status(200).send('Xoá thành công');
+            }
         })
 }
 

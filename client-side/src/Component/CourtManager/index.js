@@ -1,13 +1,17 @@
-import Header from '../../Component/HeadFoot/Header'
+import HeaderCourtMangement from '../HeadFoot/HeaderCourtMangement'
 import React, {Component} from "react";
-import { Route } from "react-router-dom";
-import CourtManager from './Court'
+import {Route} from "react-router-dom";
+import CourtManager from './Court';
+import CourtAdmin from "./CourtAdmin";
+import Switch from "react-bootstrap/Switch";
+
 export default class Court extends Component {
-    render(){
-        return(
+    render() {
+        return (
             <div>
-                <Header />
-                <Route path="/home/court" component={CourtManager}/>
+                <HeaderCourtMangement/>
+                <Route exact path="/home/court" component={CourtManager}/>
+                <Route path="/home/admin" component={CourtAdmin}/>
             </div>
         )
     }

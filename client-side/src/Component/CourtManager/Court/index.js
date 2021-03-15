@@ -14,7 +14,7 @@ function CourtManger() {
     useEffect(() => {
         let item;
         let court_id = `60207b5a3dd41d22d8861cd0`;
-        callApi(`court_areas/?court_id=${court_id}`, 'get', null).then((res) => {
+        callApi(`court_area/?court_id=${court_id}`, 'get', null).then((res) => {
             item = res.data;
             console.log(item);
             let initAreasState = [];

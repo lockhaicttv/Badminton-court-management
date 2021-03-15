@@ -32,7 +32,7 @@ function Bill(props) {
             newArea[index] = temp;
             setArea(newArea);
 
-            callApi(`court_areas/update-status/?_id=${_id}&status=false`, 'put', null)
+            callApi(`court_area/update-status/?_id=${_id}&status=false`, 'put', null)
                 .then((res) => {
                     console.log(res.data.message);
                 })

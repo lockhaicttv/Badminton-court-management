@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router";
 
 // import SignUp from "../Components/SignUp";
 // import DashBoard from "../Components/DashBoard";
@@ -10,13 +10,14 @@ import { Route, Switch } from "react-router-dom";
 // import LogInDashBoardForm from "../Components/DashBoard/LogInDashboard/LogInDashBoardForm";
 // import ManagerRoutes_0 from "./ManagerRoute_0";
 // import ManagerRoutes_2 from "./ManagerRoute_2";
-import Court from '../Component/CourtManager';
+import CourtManager from "../Component/CourtManager";
+
 class RouterURL extends Component {
     render() {
         return (
             <div>
                 <Switch>
-                    <Route path="/" component={Court} />
+                    <Route path="/" component={CourtManager} />
                 </Switch>
             </div>
         );
