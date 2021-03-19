@@ -23,7 +23,7 @@ exports.add_one_account = (req, res) =>{
            res.status(200).json({message: "Tài khoản đã được tạo thành công"})
            })
         .catch((err)=>{
-            res.json({message: "Tài khoản thất bại"})
+            res.json({message: "Tạo tài khoản thất bại"})
             })
 
 };
@@ -37,7 +37,7 @@ exports.check_login = (req, res) => {
             console.log(err)
         else {
             if (account !== null){
-                res.status(200).json({message: 'Đăng nhập thành công'})
+                res.status(200).json({message: 'Đăng nhập thành công', info: account, type: 'owner'})
             }
             else {
                 user_model.findOne({username: username, password: password}, (err, user)=>{
@@ -45,7 +45,7 @@ exports.check_login = (req, res) => {
                         console.log(err)
                     else {
                         if (user !== null) {
-                            res.status(200).json({message: 'Đăng nhập thành công'});
+                            res.status(200).json({message: 'Đăng nhập thành công', info: user, type: 'user'});
                         } else {
                             res.status(500).send('Something went wrong');
                         }
@@ -57,4 +57,23 @@ exports.check_login = (req, res) => {
         res.status(400).send('Tài khoản hoặc mật khẩu không tồn tại');
     })
 
+}
+
+exports.check_exist = (req, res) => {
+    let username = req.params.username;
+    account_model
+        .findOne({username: username}, (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                if (result === null) {
+                    res.status(200).json({message: 'Tài khoản có thể dùng'});
+                } else {
+                    res.status(200).json({message: 'Tài khoản đã tồn tại'});
+                }
+            }
+        })
+        .catch(err=>{
+            res.status(400).send('Something went wrong');
+        })
 }

@@ -1,32 +1,52 @@
 import CourtArea from "./CourtArea";
 import React, {useState, useEffect} from "react";
-import {useRecoilState} from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 import callApi from "../../../Utils/apiCaller";
 import {Container} from 'react-bootstrap'
 import Bill from './Bill';
-import {areasState} from "../../../Store/atom";
+import {accountIdState, areasState, courtIdState} from "../../../Store/atom";
+import {useHistory} from "react-router";
 
 function CourtManger() {
-
+    const history = useHistory();
     const [areas, setAreas] = useRecoilState(areasState);
     const [idBill, setIdBill] = useState('');
+    const account_id = useRecoilValue(accountIdState);
+    console.log(account_id)
+    const [CourtId, setCourtId] = useRecoilState(courtIdState);
 
     useEffect(() => {
+        // call api => select * from court where account-idn= ""
+        //if res.length > 0{
+        //
+        // }
+        //else
+        //redirect về trang ...
         let item;
-        let court_id = `60207b5a3dd41d22d8861cd0`;
-        callApi(`court_area/?court_id=${court_id}`, 'get', null).then((res) => {
-            item = res.data;
-            console.log(item);
-            let initAreasState = [];
-            let initBillState = [];
-            initAreasState = res.data;
-                initBillState.push(
-                    {
-
+        callApi(`court/get-by-id/${account_id}`, 'get', null)
+            .then((res)=>{
+                if (res.data !==null) {
+                    if (typeof res.data === "object") {
+                        console.log('ok')
+                        callApi(`court_area/?court_id=${res.data._id}`, 'get', null).then((res) => {
+                            item = res.data;
+                            console.log(item);
+                            let initAreasState = [];
+                            let initBillState = [];
+                            initAreasState = res.data;
+                            initBillState.push(
+                                {}
+                            )
+                            setAreas(initAreasState);
+                        });
                     }
-                )
-            setAreas(initAreasState);
-        });
+                }
+                else {
+                    history.push('/add-info');
+                }
+            })
+        let court_id = `60207b5a3dd41d22d8861cd0`;
+
     }, []);
 
     const allCourt = areas.map((item, key) => {

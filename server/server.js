@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 
 //import routes
 let account_route = require("./route/account_route");
+let user_route = require('./route/user_route');
 let court_route = require("./route/court_route");
 let court_area_route = require('./route/court_area_route');
 let product_category_route = require('./route/product_category_route');
@@ -23,6 +24,7 @@ let court_bill_detail_route = require('./route/court_bill_detail_route');
 
 //use route
 app.use("/account", account_route);
+app.use('/user', user_route);
 app.use("/court", court_route);
 app.use("/court_area", court_area_route)
 app.use("/product_category", product_category_route);

@@ -4,7 +4,7 @@ const timeZone = require('mongoose-timezone');
 
 const user_model = new Schema(
     {
-        username: {type: String},
+        username: {type: String, unique: true},
         password: {type: String},
         full_name: {type: String},
         address: {type: String},

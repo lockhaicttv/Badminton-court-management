@@ -3,10 +3,9 @@ import React, {Component} from "react";
 import {Route} from "react-router-dom";
 import CourtManager from './Court';
 import CourtAdmin from "./CourtAdmin";
-import Switch from "react-bootstrap/Switch";
 
-export default class Court extends Component {
-    render() {
+
+const Court = () => {
         return (
             <div>
                 <HeaderCourtMangement/>
@@ -14,5 +13,6 @@ export default class Court extends Component {
                 <Route path="/home/admin" component={CourtAdmin}/>
             </div>
         )
-    }
 }
+
+export default Court;

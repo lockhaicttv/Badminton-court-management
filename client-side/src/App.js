@@ -14,13 +14,18 @@ import {
 import {Switch} from "react-router-dom";
 import CourtManger from "./Component/CourtManager";
 import Route from "react-router-dom/es/Route";
-import LoginPage from './Component/LoginPage'
+import LoginPage from './Component/LoginPage';
+import Customer from './Component/Customer'
+import AddInfo from "./Component/LoginPage/Register/AddInfo";
+
 function App() {
     return (
         <RecoilRoot>
             <Router>
                 <div className="App">
                     <Switch>
+                        <Route path='/add-info' component={AddInfo}/>
+                        <Route path='/customer' component={Customer}/>
                         <Route path='/login-page' component={LoginPage} />
                         <Route path="/" component={CourtManger}/>
                     </Switch>

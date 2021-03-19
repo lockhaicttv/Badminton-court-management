@@ -2,12 +2,12 @@ import {atom} from 'recoil';
 
 export const accountIdState = atom({
     key: 'accountIdState',
-    default: '6019f135b7409a239c8564e7'
+    default: 'ádasda'
 });
 
 export const courtIdState = atom({
     key: 'courtIdState',
-    default: '60207b5a3dd41d22d8861cd0'
+    default: ''
 });
 
 export const realTimeState = atom({
