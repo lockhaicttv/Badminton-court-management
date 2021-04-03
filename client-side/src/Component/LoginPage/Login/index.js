@@ -6,6 +6,7 @@ import Register from '../Register';
 import {useSetRecoilState, useRecoilState} from "recoil";
 import {accountIdState, authenticationState} from "../../../Store/atom";
 import {useHistory} from 'react-router-dom';
+import ls from '../../../Utils/localStorage'
 
 function Login() {
     const history = useHistory();
@@ -26,6 +27,7 @@ function Login() {
                         isAuthenticated: true,
                         role: 'owner'
                     });
+                    ls.setAuthenticate('owner', res.data.info._id);
                     history.push('/');
                 }
                 else {
@@ -34,6 +36,7 @@ function Login() {
                         isAuthenticated: true,
                         role: 'customer'
                     });
+                    ls.setAuthenticate('customer',res.data.info._id);
                     history.push('/customer');
                 }
             }

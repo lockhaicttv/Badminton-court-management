@@ -4,6 +4,10 @@ import {Button, Nav, NavLink, Row, Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {useSetRecoilState} from "recoil";
 import EditInfo from "./EditInfo";
+import Bill from "./Bill";
+import EditAddress from "./EditAddress";
+
+
 
 const CustomerAdmin = () => {
 
@@ -32,8 +36,8 @@ const CustomerAdmin = () => {
                 </Col>
                 <Col sm={8} className='m-4 ml-0 bg-white'>
                     <Route exact path='/customer/info/edit' component={EditInfo}/>
-                    <Route/>
-                    <Route/>
+                    <Route exact path='/customer/info/bill' component={Bill}/>
+                    <Route exact path='/customer/info/address' component={EditAddress}/>
                 </Col>
             </Row>
         </div>

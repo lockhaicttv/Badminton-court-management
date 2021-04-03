@@ -7,23 +7,23 @@ import {Form, Button, Row, Col} from "react-bootstrap";
 const EditInfo = () => {
     const [accountID, setAccountID] = useRecoilState(accountIdState);
     const [info, setInfo] = useState({
-        username: "",
-        password: "",
         full_name: "",
         address: "",
         phone_number: 0,
-        id_card: null,
         gender: "male",
-        birth_day: null,
+        birthday: new Date(),
     });
     console.log(accountID)
     const loadInfo = () => {
         callApi(`user/?_id=${accountID}`, 'get', null)
             .then(res => {
+                console.log(res.data[0])
                 setInfo(res.data[0])
             })
             .catch(() => {
-                setInfo({})
+                setInfo(prevState => {
+                    return {...prevState}
+                })
             })
     }
 
@@ -36,8 +36,16 @@ const EditInfo = () => {
             ...info,
             [e.target.name]: e.target.value
         })
-        console.log(info)
+        console.log(info.birthday)
     }
+
+    const handleUpdate = () => {
+        callApi(`user/${accountID}`, 'put', info)
+            .then(res=>{
+                alert(res.data)
+            })
+    }
+
     return (
         <Form className='px-5  p-5 '>
             <Form.Group controlId="formBasicEmail">
@@ -70,14 +78,15 @@ const EditInfo = () => {
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
                 <Form.Control size='lg' type="date" placeholder="Ngày sinh"
-                              name='birth_day'
-                              value={info.birth_day}
+                              name='birthday'
+                              value={Date.parse(info.birthday)}
                               onChange={handleChangeInfo}
                 />
             </Form.Group>
             <Row>
                 <Col>
                     <Button size='lg' variant="success"
+                            onClick={handleUpdate}
                             block
                     >
                         Cập nhật

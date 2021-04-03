@@ -30,7 +30,7 @@ exports.add_one_user = (req, res) => {
 exports.update_one_row = (req, res) => {
     let objUpdate = new user(req.body);
     let id = req.params._id;
-
+    console.log(id, req.body)
     user
         .findByIdAndUpdate({_id: id}, req.body, {new: true}, (err, result) => {
             if (err)

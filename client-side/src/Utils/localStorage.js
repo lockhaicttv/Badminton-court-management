@@ -14,8 +14,9 @@ ls.updateItem = (key, value) => {
     localStorage.setItem(key, value)
 }
 
-ls.setAuthenticate = (role) => {
+ls.setAuthenticate = (role, accountId) => {
     localStorage.setItem('authentication', JSON.stringify({
+        account_id: accountId,
         isAuthenticated: true,
         role: role
     }) )
@@ -23,6 +24,10 @@ ls.setAuthenticate = (role) => {
 
 ls.getAuthenticate = () => {
     return JSON.parse(localStorage.getItem('authentication'))
+}
+
+ls.logOut =() =>{
+    localStorage.removeItem('authentication');
 }
 
 module.exports = ls;

@@ -18,8 +18,8 @@ import LoginPage from './Component/LoginPage';
 import Customer from './Component/Customer'
 import AddInfo from "./Component/LoginPage/Register/AddInfo";
 import OwnerRoute from "./Router/OwnerRoute";
-import CustomerRoute from './Router/CustomerRoute';
-import ls from './Utils/localStorage';
+import LoginRoute from "./Router/LoginRoute";
+
 function App() {
     return (
         <RecoilRoot>
@@ -28,7 +28,7 @@ function App() {
                     <Switch>
                         <Route path='/add-info' component={AddInfo}/>
                         <Route path='/customer' component={Customer}/>
-                        <Route path='/login-page' component={LoginPage}/>
+                        <LoginRoute path='/login-page' component={LoginPage}/>
                         <OwnerRoute path="/" component={CourtManger}/>
                     </Switch>
                 </Router>

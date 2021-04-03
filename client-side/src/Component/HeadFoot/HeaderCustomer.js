@@ -31,9 +31,9 @@ const HeaderCustomer = withRouter(({history}) => {
             })
     }
 
-    useEffect(
-        loadUserInfo
-    , [authentication.isAuthenticated])
+    useEffect(() => {
+        setTimeout(loadUserInfo, 1000);
+    }, [account_id])
 
 
     const handleClose = () => {
@@ -47,7 +47,7 @@ const HeaderCustomer = withRouter(({history}) => {
         })
     }
 
-    const handleLogOut = () =>{
+    const handleLogOut = () => {
         setAuthentication({
             isAuthenticated: false,
             role: ''
@@ -66,7 +66,8 @@ const HeaderCustomer = withRouter(({history}) => {
                     </Nav>
                     <Nav className="mr-auto">
                         <Form inline>
-                            <FormControl type="text" placeholder="Tìm sản phẩm, loại sản phẩm mong muốn" className="mr-sm-2" />
+                            <FormControl type="text" placeholder="Tìm sản phẩm, loại sản phẩm mong muốn"
+                                         className="mr-sm-2"/>
                             <Button variant="outline-info">Tìm kiếm</Button>
                         </Form>
                         {

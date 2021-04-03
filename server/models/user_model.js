@@ -11,7 +11,7 @@ const user_model = new Schema(
         phone_number: {type: Number},
         id_card: {type: Number},
         gender: {type: String},
-        birthday: {type: Date}
+        birthday: {type: Date, default: new Date()}
     },
     {versionKey: false}
 
