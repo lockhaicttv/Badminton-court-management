@@ -4,6 +4,8 @@ import BootStrapTable from "react-bootstrap-table-next";
 import cellEditFactory from 'react-bootstrap-table2-editor';
 import {Button, Modal} from "react-bootstrap";
 import AddArea from "./AddArea";
+import {accountIdState} from "../../../../Store/atom";
+import {useRecoilValue} from "recoil";
 
 const columns = [
     {
@@ -31,6 +33,7 @@ const columns = [
 
 
 function Area() {
+    const account_id = useRecoilValue(accountIdState)
     const [data, setData] = useState([]);
     const [isShowModalAdd, setIsShowModalAdd] = useState(false);
     const [listDel, setListDel] = useState([]);
@@ -68,7 +71,7 @@ function Area() {
     };
 
     useEffect(() => {
-        callApi(`court_areas/6019f135b7409a239c8564e7`, 'get', null)
+        callApi(`court_area/${account_id}`, 'get', null)
             .then(res => {
                 setData(res.data);
             })

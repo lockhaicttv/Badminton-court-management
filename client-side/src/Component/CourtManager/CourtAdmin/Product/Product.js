@@ -4,8 +4,8 @@ import BootStrapTable from "react-bootstrap-table-next";
 import cellEditFactory, {Type} from 'react-bootstrap-table2-editor';
 import Button from "react-bootstrap/Button";
 import AddProduct from "./AddProduct";
-import {realTimeState} from '../../../../Store/atom';
-import {useRecoilState} from "recoil";
+import {accountIdState, realTimeState} from '../../../../Store/atom';
+import {useRecoilState, useRecoilValue} from "recoil";
 
 const options = callApi('product_category/get-by-court/6019f135b7409a239c8564e7', 'get', null)
     .then((res) => {
@@ -85,6 +85,7 @@ const columns = [
 
 
 function Product() {
+    const account_id = useRecoilValue(accountIdState);
     const [data, setData] = useState([]);
     const [isShowModalAdd, setIsShowModalAdd] = useState(false);
     const [listDel, setListDel] = useState([]);
@@ -137,7 +138,7 @@ function Product() {
     };
 
     useEffect(() => {
-        callApi(`product/6019f135b7409a239c8564e7`, 'get', null)
+        callApi(`product/get-by-account-id/${account_id}`, 'get', null)
             .then(res => {
                 setData(res.data);
             })

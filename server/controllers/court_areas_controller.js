@@ -2,7 +2,6 @@ var court_areas_model = require('../models/court_areas_models');
 const mongoose = require('mongoose');
 exports.get_list_court_areas = (req, res) =>{
     let queries = req.query;
-    console.log(queries);
     court_areas_model
         .find(queries,(err, list)=>{
             if (err) {

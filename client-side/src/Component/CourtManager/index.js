@@ -15,7 +15,7 @@ const Court = () => {
         const shopPageRoute = `/home/shop-page/${account_id}`;
 
         const loadCourtInfo = () =>{
-            callApi(`court/get-by-id/${account_id}`, 'get', null)
+            callApi(`court/get-by-account-id/${account_id}`, 'get', null)
                 .then(res=>{
                     console.log(res.data)
                     setCourtInfo(res.data);

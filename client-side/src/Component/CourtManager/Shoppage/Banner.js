@@ -15,7 +15,7 @@ const Banner = () => {
     const [courtInfo, setCourtInfo] = useRecoilState(courtIdState);
 
     useEffect(() => {
-        callApi(`court/get-by-id/${account_id}`, 'get', null)
+        callApi(`court/get-by-account-id/${account_id}`, 'get', null)
             .then(res => {
                 setCourtInfo(res.data);
                 console.log(courtInfo)

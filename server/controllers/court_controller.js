@@ -15,7 +15,6 @@ exports.get_list_court = (req, res) => {
 };
 
 exports.get_court_by_account = (req, res) => {
-    console.log(req.params.account_id);
     court_model
         .findOne({account_id: req.params.account_id})
         .populate('account_id')
@@ -29,9 +28,8 @@ exports.get_court_by_account = (req, res) => {
 }
 
 exports.get_court_by_id = (req, res) => {
-    console.log(req.params._id)
     court_model
-        .findOne({account_id: req.params._id})
+        .findOne({_id: req.params._id})
         .populate('account_id')
         .exec((err, court) => {
             if (err) {

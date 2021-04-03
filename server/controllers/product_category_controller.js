@@ -27,6 +27,35 @@ exports.get_product_category_by_court = (req, res) => {
         })
 }
 
+exports.get_product_category_by_account_id = (req, res) => {
+    let onComplte = (list) => {
+        if (list.length !== 0) {
+            list = list.filter(product_category => product_category.court_id !== null);
+            res.status(200).json(list)
+        } else {
+            res.status(200).send('Thất bại');
+        }
+
+    }
+    let taskToGo = 1;
+    let list = [];
+    if (taskToGo === 0) {
+        onComplte(list);
+    } else {
+        product_category
+            .find()
+            .populate({
+                path: 'court_id',
+                match: {account_id: req.params.account_id}
+            })
+            .exec((err, list) => {
+                taskToGo = 1;
+                onComplte(list)
+            })
+    }
+}
+
+
 exports.add_product_category = (req, res) => {
     let item = new product_category(req.body);
     item.save()

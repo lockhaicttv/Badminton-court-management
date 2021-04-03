@@ -18,7 +18,7 @@ function CourtManger() {
 
     const loadCourtInfo = () => {
         let item=[]
-        callApi(`court/get-by-id/${account_id}`, 'get', null)
+        callApi(`court/get-by-account-id/${account_id}`, 'get', null)
             .then((res)=>{
                 console.log(res.data)
                 if (res.data !==null) {

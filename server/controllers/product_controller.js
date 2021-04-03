@@ -1,6 +1,6 @@
 var product = require('../models/product_model');
 
-exports.get_product =  (req, res) => {
+exports.get_product = (req, res) => {
     let queries = req.query;
     console.log(queries)
     product
@@ -78,6 +78,38 @@ exports.get_product_by_court = (req, res) => {
     }
 }
 
+exports.get_product_by_account_id = (req, res) => {
+    let onComplte = (list) => {
+        if (list.length !== 0) {
+            list = list.filter(area => area.product_category_id !== null);
+            res.status(200).json(list)
+        } else {
+            res.status(200).send('Thất bại');
+        }
+
+    }
+    let taskToGo = 1;
+    let list = [];
+    if (taskToGo === 0) {
+        onComplte(list);
+    } else {
+        product
+            .find()
+            .populate({
+                path: 'product_category_id',
+                populate:
+                    {
+                        path: 'account_id',
+                        match: {account_id: req.params.account_id}
+                    }
+            })
+            .exec((err, list) => {
+                taskToGo = 1;
+                onComplte(list)
+            })
+    }
+}
+
 exports.get_court_by_product = (req, res) => {
     console.log(req.params)
     product
@@ -89,7 +121,7 @@ exports.get_court_by_product = (req, res) => {
             }
         })
         .exec((err, product) => {
-            err?
+            err ?
                 console.log(err)
                 :
                 res.status(200).json(product.product_category_id.court_id)

@@ -19,7 +19,7 @@ const Shoppage = () => {
     const [isAddProduct, setIsAddProduct] = useState(false);
 
     const loadCategory = () => {
-        callApi(`product_category/get-by-account/${account_id}`, 'get', null)
+        callApi(`product_category/get-by-account-id/${account_id}`, 'get', null)
             .then((res) => {
                 setCategory(res.data)
             })
