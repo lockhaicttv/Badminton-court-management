@@ -38,10 +38,10 @@
   background-color: rgb(237, 236, 232);
 }
 
-.court{
+.court {
   height: 400px;
   width: 200px;
-  magrin: 50px;
+  margin: 10px;
   border-radius: 20px;
 }
 
@@ -50,17 +50,17 @@
   background-size: cover;
 }
 
-.banner{
+.banner {
   position: relative;
 }
 
-.logo{
+.logo {
   position: absolute;
   bottom: 0%;
   left: 1%;
 }
 
-.edit-banner{
+.edit-banner {
   position: absolute;
   top: 1%;
   right: 0.5%;
@@ -68,13 +68,52 @@
   text-decoration-color: white;
 }
 
-.edit-logo{
+.edit-logo {
   position: absolute;
   right: 0.1%;
   bottom: 0.1%;
 }
 
-.card-size{
+.card-size {
   height: 300px;
   size: 300px;
+}
+
+.btn-web-success {
+  background-color: #57f2cc;
+  width: 130px;
+  padding: 10px;
+  border: #57f2cc;
+  border-radius: 5px;
+  font-size: larger;
+}
+.btn-web-primary {
+  background-color: #4596fb;
+  width: 130px;
+  padding: 10px;
+  border: #4596fb;
+  border-radius: 5px;
+  color: #fff;
+  font-size: larger;
+}
+
+.btn-web-success:hover {
+  background-color: #44e0b9;
+}
+.btn-web-primary:hover {
+  background-color: #3083e7;
+}
+
+.header-border {
+  background-image: url("/image/line.png");
+  height: 5px;
+  width: 100%;
+  background-repeat: repeat-x;
+}
+
+.header-border-customer {
+  background-image: url("/image/line-customer.png");
+  height: 5px;
+  width: 100%;
+  background-repeat: repeat-x;
 }
