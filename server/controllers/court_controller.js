@@ -29,8 +29,9 @@ exports.get_court_by_account = (req, res) => {
 }
 
 exports.get_court_by_id = (req, res) => {
+    console.log(req.params._id)
     court_model
-        .findOne({_id: req.params._id})
+        .findOne({account_id: req.params._id})
         .populate('account_id')
         .exec((err, court) => {
             if (err) {

@@ -10,16 +10,20 @@ import callApi from "../../Utils/apiCaller";
 
 const Court = () => {
         const account_id = useRecoilValue(accountIdState);
+        console.log(account_id)
         const setCourtInfo = useSetRecoilState(courtIdState);
         const shopPageRoute = `/home/shop-page/${account_id}`;
 
+        const loadCourtInfo = () =>{
+            callApi(`court/get-by-id/${account_id}`, 'get', null)
+                .then(res=>{
+                    console.log(res.data)
+                    setCourtInfo(res.data);
+                })
+        }
 
         useEffect(()=>{
-           callApi(`court/get-by-id/${account_id}`, 'get', null)
-               .then(res=>{
-                        console.log(res.data)
-                       setCourtInfo(res.data);
-               })
+           loadCourtInfo();
         },[])
 
         return (
@@ -27,7 +31,7 @@ const Court = () => {
                 <HeaderCourtMangement/>
                 <Route exact path="/home/court" component={CourtManager}/>
                 <Route path="/home/admin" component={CourtAdmin}/>
-                <Route exact path={shopPageRoute} component={Shoppage}/>
+                <Route exact path={`/home/shop-page/${account_id}`} component={Shoppage}/>
             </div>
         )
 }

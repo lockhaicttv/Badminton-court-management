@@ -16,16 +16,12 @@ function CourtManger() {
     console.log(account_id)
     const [CourtId, setCourtId] = useRecoilState(courtIdState);
 
-    useEffect(() => {
-        // call api => select * from court where account-idn= ""
-        //if res.length > 0{
-        //
-        // }
-        //else
-        //redirect về trang ...
-        let item;
+
+    const loadCourtInfo = () => {
+        let item=[]
         callApi(`court/get-by-id/${account_id}`, 'get', null)
             .then((res)=>{
+                console.log(res.data)
                 if (res.data !==null) {
                     if (typeof res.data === "object") {
                         console.log('ok')
@@ -46,6 +42,10 @@ function CourtManger() {
                     history.push('/add-info');
                 }
             })
+    }
+
+    useEffect(() => {
+       loadCourtInfo();
         let court_id = `60207b5a3dd41d22d8861cd0`;
 
     }, []);
