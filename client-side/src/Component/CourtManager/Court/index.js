@@ -13,7 +13,6 @@ function CourtManger() {
     const [areas, setAreas] = useRecoilState(areasState);
     const [idBill, setIdBill] = useState('');
     const account_id = useRecoilValue(accountIdState);
-    console.log(account_id)
     const [CourtId, setCourtId] = useRecoilState(courtIdState);
 
 
