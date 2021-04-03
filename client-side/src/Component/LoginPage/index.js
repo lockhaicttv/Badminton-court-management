@@ -3,6 +3,7 @@ import {Route} from "react-router-dom";
 import Login from '../LoginPage/Login/index'
 import Switch from "react-bootstrap/Switch";
 import HeaderLogin from "../HeadFoot/HeaderLogin";
+import Register from "./Register";
 
 function LoginPage() {
         return (

@@ -1,8 +1,10 @@
 var product = require('../models/product_model');
 
-exports.get_product = (req, res) => {
+exports.get_product =  (req, res) => {
+    let queries = req.query;
+    console.log(queries)
     product
-        .find((err, list) => {
+        .find(queries, (err, list) => {
             err ?
                 res.status(500).send('Cannot get list')
                 :
@@ -11,6 +13,18 @@ exports.get_product = (req, res) => {
         .catch(() => {
             res.status(400).send('Something went wrong');
         });
+}
+
+exports.get_all_on_shop_page = (req, res) => {
+    product.find({on_shop_page: true}, (err, list) => {
+        err ?
+            res.status(500).send('Can not get list')
+            :
+            res.json(list);
+
+    }).catch(() => {
+        res.status(400).send(`somthing went wrong`);
+    })
 }
 
 exports.get_product_by_category = (req, res) => {
@@ -25,7 +39,18 @@ exports.get_product_by_category = (req, res) => {
         })
 }
 
-exports.get_product_by_account = (req, res) => {
+exports.get_product_by_category_on_shoppage = (req, res) => {
+    product
+        .find({product_category_id: req.params.product_category_id, on_shop_page: true})
+        .exec((err, list) => {
+            err ?
+                res.status(500).json('cannot get list')
+                :
+                res.json(list);
+        })
+}
+
+exports.get_product_by_court = (req, res) => {
     let onComplte = (list) => {
         if (list.length !== 0) {
             list = list.filter(area => area.product_category_id !== null);
@@ -44,13 +69,31 @@ exports.get_product_by_account = (req, res) => {
             .find()
             .populate({
                 path: 'product_category_id',
-                match: {account_id: req.params.account_id}
+                match: {court_id: req.params.court_id}
             })
             .exec((err, list) => {
                 taskToGo = 1;
                 onComplte(list)
             })
     }
+}
+
+exports.get_court_by_product = (req, res) => {
+    console.log(req.params)
+    product
+        .findOne({_id: req.params._id})
+        .populate({
+            path: 'product_category_id',
+            populate: {
+                path: 'court_id'
+            }
+        })
+        .exec((err, product) => {
+            err?
+                console.log(err)
+                :
+                res.status(200).json(product.product_category_id.court_id)
+        })
 }
 
 exports.add_one_product = (req, res) => {
@@ -71,7 +114,7 @@ exports.update_one_row = (req, res) => {
     let id = req.params._id;
 
     product
-        .findByIdAndUpdate({_id: id}, req.body, {new: true}, (err, result)=>{
+        .findByIdAndUpdate({_id: id}, req.body, {new: true}, (err, result) => {
             if (err)
                 console.log(err);
             else {
@@ -82,16 +125,15 @@ exports.update_one_row = (req, res) => {
 
 exports.delete = (req, res) => {
     let objDel = {
-        _id:{
+        _id: {
             $in: req.body
         }
     }
     product
-        .deleteMany(objDel, (err, result)=>{
+        .deleteMany(objDel, (err, result) => {
             if (err) {
                 console.log(err)
-            }
-            else {
+            } else {
                 res.status(200).send('Xoá thành công');
             }
         })

@@ -1,16 +1,33 @@
 import HeaderCourtMangement from '../HeadFoot/HeaderCourtMangement'
-import React, {Component} from "react";
+import React, {useEffect} from "react";
 import {Route} from "react-router-dom";
 import CourtManager from './Court';
 import CourtAdmin from "./CourtAdmin";
-
+import Shoppage from "./Shoppage";
+import {accountIdState, courtIdState} from "../../Store/atom";
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import callApi from "../../Utils/apiCaller";
 
 const Court = () => {
+        const account_id = useRecoilValue(accountIdState);
+        const setCourtInfo = useSetRecoilState(courtIdState);
+        const shopPageRoute = `/home/shop-page/${account_id}`;
+
+
+        useEffect(()=>{
+           callApi(`court/get-by-id/${account_id}`, 'get', null)
+               .then(res=>{
+                        console.log(res.data)
+                       setCourtInfo(res.data);
+               })
+        },[])
+
         return (
             <div>
                 <HeaderCourtMangement/>
                 <Route exact path="/home/court" component={CourtManager}/>
                 <Route path="/home/admin" component={CourtAdmin}/>
+                <Route exact path={shopPageRoute} component={Shoppage}/>
             </div>
         )
 }

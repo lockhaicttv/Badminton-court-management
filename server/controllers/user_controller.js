@@ -1,8 +1,9 @@
 var user = require('../models/user_model');
 
 exports.get_user = (req, res) => {
+    let queries = req.query;
     user
-        .find((err, list) => {
+        .find(queries,(err, list) => {
             err ?
                 res.status(500).send('Cannot get list')
                 :
@@ -18,7 +19,7 @@ exports.add_one_user = (req, res) => {
     item
         .save()
         .then((item) => {
-            res.status(200).json({message: 'Đã thêm thành công'})
+            res.status(200).json({message: 'Thêm tài khoản thành công thành công'})
         })
         .catch((err) => {
             res.json({message: 'Thêm thất bại'});

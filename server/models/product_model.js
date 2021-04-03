@@ -14,7 +14,8 @@ const product_model = new Schema(
             name: {type: String},
             size: {type: String},
         },
-        product_category_id: {type: Schema.Types.ObjectId, ref: product_category}
+        product_category_id: {type: Schema.Types.ObjectId, ref: product_category},
+        on_shop_page: {type: Boolean, default: false}
     },
     {versionKey: false}
 );

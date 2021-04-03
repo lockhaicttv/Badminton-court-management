@@ -34,6 +34,10 @@
   }
 }
 
+.background-silver {
+  background-color: rgb(237, 236, 232);
+}
+
 .court{
   height: 400px;
   width: 200px;
@@ -44,4 +48,33 @@
 .court-background {
   background-image: url("/image/50055964_1956764354443766_7173773502439227392_n.png");
   background-size: cover;
+}
+
+.banner{
+  position: relative;
+}
+
+.logo{
+  position: absolute;
+  bottom: 0%;
+  left: 1%;
+}
+
+.edit-banner{
+  position: absolute;
+  top: 1%;
+  right: 0.5%;
+  background-color: black;
+  text-decoration-color: white;
+}
+
+.edit-logo{
+  position: absolute;
+  right: 0.1%;
+  bottom: 0.1%;
+}
+
+.card-size{
+  height: 300px;
+  size: 300px;
 }

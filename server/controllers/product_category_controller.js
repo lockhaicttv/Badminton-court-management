@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 
 exports.get_product_category = (req, res) => {
     product_category
-        .find((err, list) => {
+        .find({},(err, list) => {
             err ?
                 res.status(500).send('Cannot get list')
                 :
@@ -15,9 +15,9 @@ exports.get_product_category = (req, res) => {
 }
 
 
-exports.get_product_category_by_account = (req, res) => {
+exports.get_product_category_by_court = (req, res) => {
     product_category
-        .find({account_id: req.params.account_id}, 'name')
+        .find({court_id: req.params.court_id}, 'name')
         .exec((err, product) => {
             if (err) {
                 res.status(500).send(`something went wrong`);

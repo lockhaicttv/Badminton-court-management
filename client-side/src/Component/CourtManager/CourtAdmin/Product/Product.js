@@ -7,7 +7,7 @@ import AddProduct from "./AddProduct";
 import {realTimeState} from '../../../../Store/atom';
 import {useRecoilState} from "recoil";
 
-const options = callApi('product_category/get-by-account/6019f135b7409a239c8564e7', 'get', null)
+const options = callApi('product_category/get-by-court/6019f135b7409a239c8564e7', 'get', null)
     .then((res) => {
         let options = res.data.map((item, key) => {
             return {
@@ -49,12 +49,26 @@ const columns = [
         hidden: true
     },
     {
+        dataField: 'on_shop_page',
+        text: 'Đang bán online',
+        editor: {
+            type: Type.SELECT,
+            options: [{
+                value: false,
+                label: 'Không'
+            }, {
+                value: true,
+                label: 'Có'
+            }]
+        }
+    },
+    {
         dataField: 'product_category_id.name',
         text: 'Loại sản phẩm',
         editor: {
             type: Type.SELECT,
             getOptions: (setOptions) => {
-                    callApi('product_category/get-by-account/6019f135b7409a239c8564e7', 'get', null)
+                    callApi('product_category/get-by-court/6019f135b7409a239c8564e7', 'get', null)
                         .then((res) => {
                             let options = res.data.map((item, key) => {
                                 return {

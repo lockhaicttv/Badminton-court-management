@@ -29,7 +29,7 @@ function AddProduct(props) {
     }
 
     const loadCategory = () => {
-        callApi(`product_category/get-by-account/${account_id}`, 'get',null)
+        callApi(`product_category/get-by-court/${account_id}`, 'get',null)
             .then((res)=>{
                 setCategory(res.data);
             })

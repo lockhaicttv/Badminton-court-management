@@ -6,6 +6,7 @@ import {Container} from 'react-bootstrap'
 import Bill from './Bill';
 import {accountIdState, areasState, courtIdState} from "../../../Store/atom";
 import {useHistory} from "react-router";
+import Banner from "../Shoppage/Banner";
 
 function CourtManger() {
     const history = useHistory();

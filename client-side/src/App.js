@@ -11,26 +11,28 @@ import {
     useRecoilState,
     useRecoilValue
 } from "recoil";
-import {Switch} from "react-router-dom";
+import {Switch, BrowserRouter} from "react-router-dom";
 import CourtManger from "./Component/CourtManager";
 import Route from "react-router-dom/es/Route";
 import LoginPage from './Component/LoginPage';
 import Customer from './Component/Customer'
 import AddInfo from "./Component/LoginPage/Register/AddInfo";
-
+import OwnerRoute from "./Router/OwnerRoute";
+import CustomerRoute from './Router/CustomerRoute';
+import ls from './Utils/localStorage';
 function App() {
     return (
         <RecoilRoot>
-            <Router>
-                <div className="App">
+            <div className="">
+                <Router>
                     <Switch>
                         <Route path='/add-info' component={AddInfo}/>
                         <Route path='/customer' component={Customer}/>
-                        <Route path='/login-page' component={LoginPage} />
-                        <Route path="/" component={CourtManger}/>
+                        <Route path='/login-page' component={LoginPage}/>
+                        <OwnerRoute path="/" component={CourtManger}/>
                     </Switch>
-                </div>
-            </Router>
+                </Router>
+            </div>
         </RecoilRoot>
     );
 }

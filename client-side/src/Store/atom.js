@@ -1,14 +1,27 @@
 import {atom} from 'recoil';
 
+export const authenticationState = atom({
+    key: 'authenticationState',
+    default: {
+        isAuthenticated: false,
+        role: ''
+    }
+})
+
 export const accountIdState = atom({
     key: 'accountIdState',
-    default: 'ádasda'
+    default: ''
 });
 
 export const courtIdState = atom({
     key: 'courtIdState',
     default: ''
 });
+
+export const courtState = atom({
+    key: 'courtState',
+    default: {}
+})
 
 export const realTimeState = atom({
     key: 'realTimeState',
@@ -35,3 +48,9 @@ export const billDetailState = atom({
     key: 'billDetailState',
     default: []
 });
+
+//For shopping cart
+export const cartState = atom({
+    key: 'cartState',
+    default: []
+})

@@ -71,7 +71,7 @@ function Category() {
             });
     }
     useEffect(() => {
-        callApi('product_category/get-by-account/6019f135b7409a239c8564e7', 'get', null)
+        callApi('product_category/get-by-court/6019f135b7409a239c8564e7', 'get', null)
             .then(res => {
                 setData(res.data);
             })

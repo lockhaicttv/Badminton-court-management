@@ -4,6 +4,12 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 4000;
 const cors = require('cors');
 
+app.use(bodyParser.json({ limit: '50mb' }))
+app.use(bodyParser.urlencoded({
+    limit: '50mb',
+    extended: false,
+}))
+
 const mongoose = require('mongoose');
 const db = require('./db');
 const global_var = require('./global_variables')

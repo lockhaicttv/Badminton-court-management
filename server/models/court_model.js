@@ -17,6 +17,12 @@ const court_model = new Schema(
             size: {type: String},
             base64:{type: String}
         },
+        banner: {
+            name: {type: String},
+            type: {type: String},
+            size: {type: String},
+            base64:{type: String}
+        },
         court_total: {type: Number},
         account_id: {type: Schema.Types.ObjectId, ref: account_model}
     }
