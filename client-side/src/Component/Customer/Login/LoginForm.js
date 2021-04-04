@@ -4,6 +4,7 @@ import {useHistory} from "react-router-dom";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {accountIdState, authenticationState} from "../../../Store/atom";
 import callApi from "../../../Utils/apiCaller";
+import ls from "../../../Utils/localStorage";
 
 
 const LoginForm = (props) => {
@@ -26,6 +27,7 @@ const LoginForm = (props) => {
                             isAuthenticated: true,
                             role: 'owner'
                         });
+                        ls.setAuthenticate('owner', res.data.info._id);
                         history.push('/')
                     } else {
                         setAccountId(res.data.info._id);
@@ -33,6 +35,7 @@ const LoginForm = (props) => {
                             isAuthenticated: true,
                             role: 'customer'
                         });
+                        ls.setAuthenticate('customer', res.data.info._id);
                         props.handleClose();
                     }
                 }

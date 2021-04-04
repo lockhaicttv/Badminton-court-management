@@ -1,6 +1,7 @@
 import {Button} from "react-bootstrap";
 import React, {useCallback, useState} from "react";
 import Clock from 'react-digital-clock';
+import ReactStopwatch from 'react-stopwatch';
 import {useEffect} from 'react';
 import {useRecoilState, useSetRecoilState} from "recoil";
 import AddService from './AddService';
@@ -9,6 +10,7 @@ import callApi from "../../../Utils/apiCaller";
 
 function CourtArea(props) {
     const [area, setArea] = useRecoilState(areasState);
+    const [useTime, setUseTime] = useState('');
     const [isShowModal, setIsShowModal] = useState(false);
     const [bill,setBill] = useRecoilState(billState);
     const setBillDetail = useSetRecoilState(billDetailState);
@@ -16,7 +18,6 @@ function CourtArea(props) {
 
     function handleOpen() {
         let newArea = [...area];
-
         let index = newArea.findIndex(x => x.area === props.idCourtArea);
         // console.log(newArea[index]._id)
         let _id = newArea[index]._id;
@@ -101,7 +102,26 @@ function CourtArea(props) {
             <div className="m-2">
                 <div className="court court-background" onClick={handleShowBill}></div>
                 <div className="justify-content-center bg-dark m-auto">
-                    <Clock/>
+                    <ReactStopwatch
+                        seconds={0}
+                        minutes={0}
+                        hours={0}
+                        limit="99:99:99"
+                        onChange={({ hours, minutes, seconds }) => {
+                            // setUseTime(`${hours}: ${minutes}: ${seconds}`)
+                            // console.log(useTime)
+                        }}
+                        onCallback={() => console.log('Finish')}
+                        render={({ formatted, hours, minutes, seconds }) => {
+                            return (
+                                <div className='bg-white text-center'>
+                                    <p>
+                                        { formatted }
+                                    </p>
+                                </div>
+                            );
+                        }}
+                    />
                 </div>
                 <div className="justify-content-center">
                     {/*<Button className="btn-danger "*/}

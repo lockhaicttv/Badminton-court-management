@@ -30,7 +30,6 @@ const EditAddress = () => {
 
     const changeUpdateState = () => {
         setIsEdit(!isEdit);
-        console.log(isEdit)
     }
 
 

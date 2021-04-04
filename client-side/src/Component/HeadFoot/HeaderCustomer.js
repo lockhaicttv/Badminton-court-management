@@ -11,7 +11,8 @@ import {totalCartState} from "../../Store/selector";
 import Login from "../Customer/Login";
 import callApi from "../../Utils/apiCaller";
 import Media from "react-bootstrap/Media";
-
+import ls from '../../Utils/localStorage';
+import {cleanup} from "@testing-library/react";
 
 const HeaderCustomer = withRouter(({history}) => {
     const [account_id, setAccountId] = useRecoilState(accountIdState);
@@ -19,7 +20,6 @@ const HeaderCustomer = withRouter(({history}) => {
     const [isShow, setIsShow] = useState(false);
     const [authentication, setAuthentication] = useRecoilState(authenticationState);
     const [userInfo, setUserInfo] = useState({});
-    console.log(account_id)
 
     const loadUserInfo = () => {
         callApi(`user/?_id=${account_id}`, 'get', null)
@@ -32,8 +32,8 @@ const HeaderCustomer = withRouter(({history}) => {
     }
 
     useEffect(() => {
-        setTimeout(loadUserInfo, 1000);
-    }, [account_id])
+        loadUserInfo();
+    }, [authentication.isAuthenticated])
 
 
     const handleClose = () => {
@@ -53,8 +53,9 @@ const HeaderCustomer = withRouter(({history}) => {
             role: ''
         })
         setAccountId('');
+        ls.logOut();
     }
-    // console.log(authentication)
+
     return (
         <div>
             <Login isShow={isShow} handleClose={handleClose} setAuthentication={setAuthenticationForm}/>
@@ -90,8 +91,9 @@ const HeaderCustomer = withRouter(({history}) => {
                                     }
                                 >
                                     <NavDropdown.Item>
-                                        <NavLink to={`/customer/info/bill`} className='text-dark'>Đơn hàng của
-                                            tôi</NavLink>
+                                        <NavLink to={`/customer/info/bill`} className='text-dark'>
+                                            Đơn hàng của tôi
+                                        </NavLink>
                                     </NavDropdown.Item>
                                     <NavDropdown.Divider/>
                                     <NavDropdown.Item>
@@ -121,6 +123,7 @@ const HeaderCustomer = withRouter(({history}) => {
                                     </NavDropdown.Item>
                                 </NavDropdown>
                         }
+
                     </Nav>
                     <Nav>
                         <Nav.Link href="">

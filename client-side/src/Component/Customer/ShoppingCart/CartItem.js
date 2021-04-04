@@ -12,6 +12,7 @@ import {Link, NavLink} from "react-router-dom";
 
 const CartItem = (props) => {
     const item = props.item;
+    console.log(item)
     const [cartDetail, setCartDetail] = useState();
     const [cart, setCart] = useRecoilState(cartState);
     const loadCartDetail = () => {
@@ -28,12 +29,8 @@ const CartItem = (props) => {
     const increaseQuantity = () =>{
         console.log(item.quantity)
         let index = cart.findIndex(cartItem=>cartItem.productId===item.productId);
-        let newQuantity = item.quantity*1+1;
-        let newCartItem = {
-            productId: item.productId,
-            quantity: newQuantity,
-            price: item.price
-        }
+        let newCartItem = {...item}
+        newCartItem['quantity'] = newCartItem['quantity']*1 + 1;
         let newCart = [...cart];
         newCart[index] = newCartItem;
         setCart(newCart);
@@ -43,12 +40,8 @@ const CartItem = (props) => {
 
     const decreaseQuantity = () =>{
         let index = cart.findIndex(cartItem=>cartItem.productId===item.productId);
-        let newQuantity = item.quantity*1-1;
-        let newCartItem = {
-            productId: item.productId,
-            quantity: newQuantity,
-            price: item.price
-        }
+        let newCartItem = {...item}
+        newCartItem['quantity'] = newCartItem['quantity']*1 - 1;
         let newCart = [...cart];
         newCart[index] = newCartItem;
         setCart(newCart);

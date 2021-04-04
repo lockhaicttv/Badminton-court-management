@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var user_bill = require('../models/user_bill_model');
+var user_bill_detail = require('../models/user_bill_detail_model');
 const url = require('url');
 
 exports.get_user_bill = (req, res) => {
@@ -29,18 +30,42 @@ exports.get_user_bill_by_account = (req, res) => {
         })
 }
 
-exports.add_one_bill = (req, res) => {
-    let item = new user_bill(req.body);
-    item
-        .save()
-        .then(item => {
-            res.status(200).json({message: `Đã thêm thành công!`});
+//For payment on client side, add bill and bill details
+exports.add_one_bill = async (req, res) => {
+    let bill = new user_bill(req.body.bill);
+    console.log(req.body.bill)
+    let listBillDetails = [];
+    if (req.body.bill_details.length > 0) {
+        listBillDetails = req.body.bill_details
+            .map(old_bill_detail =>
+                (
+                    new user_bill_detail(
+                        {
+                            product_id: old_bill_detail.productId,
+                            user_bill_id: bill._id,
+                            quantity: old_bill_detail.quantity * 1
+                        }
+                    )
+                )
+            )
+    }
+
+    bill
+        .save(err => {
+           if (err) {
+               res.status(400).send('Thanh toán thất bại');
+           }
+           else {
+               user_bill_detail.create(listBillDetails)
+                   .then((list)=>{
+                       res.status(200).send('Thanh toán thành công');
+                   })
+                   .catch(()=>{
+                       res.status(400).send('Thanh toán thất bại');
+                   })
+           }
         })
-        .catch(
-            err => {
-                res.status(400).json({message: `Thêm thất bại`});
-            }
-        )
+
 }
 
 exports.update_bill_status = async (req, res) => {
