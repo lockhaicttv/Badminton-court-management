@@ -2,11 +2,12 @@ import {Button, InputGroup} from "react-bootstrap";
 import React, {useState, useEffect} from "react";
 import {Modal, Form} from "react-bootstrap";
 import callApi from "../../../Utils/apiCaller";
-import {categoryState} from "../../../Store/atom";
-import {useRecoilState} from "recoil";
+import {categoryState, courtIdState} from "../../../Store/atom";
+import {useRecoilState, useRecoilValue} from "recoil";
 import NumericInput, {number} from 'react-numeric-input';
 
 function AddService(props) {
+    const courtInfo = useRecoilValue(courtIdState)
     const [category, setCategory] = useRecoilState(categoryState);
     const [product, setProduct] = useState([]);
     const [billDetail, setBillDetail] = useState({
@@ -16,7 +17,7 @@ function AddService(props) {
     })
 
     useEffect(() => {
-        callApi('product_category/get-by-court/6019f135b7409a239c8564e7', 'get', null)
+        callApi(`product_category/get-by-court/${courtInfo._id}`, 'get', null)
             .then((res) => {
                 let item = res.data;
                 setCategory(item);
