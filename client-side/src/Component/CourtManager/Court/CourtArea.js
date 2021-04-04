@@ -15,6 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import callApi from "../../../Utils/apiCaller";
+import ReactStopwatch from "react-stopwatch";
 
 function CourtArea(props) {
   const [area, setArea] = useRecoilState(areasState);
@@ -120,20 +121,44 @@ function CourtArea(props) {
     return (
       <div className="m-2">
         <div className="court court-background" onClick={handleShowBill}></div>
+        <div className="justify-content-center bg-dark m-auto"></div>
+        <div className="justify-content-center">
+          {/*<Button className="btn-danger "*/}
+          {/*        onClick={handleClick}*/}
+          {/*>*/}
+          {/*    Thanh toán*/}
+          {/*</Button>*/}
 
-        <div className="col-lg-12">
-          <Button variant="outline-dark" onClick={handleShowModal}>
-            <FontAwesomeIcon icon={faPlusSquare} className="mr-2" />
-            Thêm
-          </Button>
-          <Button variant="danger">
-            <Clock />
-          </Button>
-          <AddService
-            handleClose={handleShowModal}
-            isShow={isShowModal}
-            idBill={idBill}
-          />
+          <div className="col-lg-12">
+            <Button variant="outline-dark" onClick={handleShowModal}>
+              <FontAwesomeIcon icon={faPlusSquare} className="mr-2" />
+              Thêm
+            </Button>
+
+            <ReactStopwatch
+              seconds={0}
+              minutes={0}
+              hours={0}
+              limit="99:99:99"
+              onChange={({ hours, minutes, seconds }) => {
+                // setUseTime(`${hours}: ${minutes}: ${seconds}`)
+                // console.log(useTime)
+              }}
+              onCallback={() => console.log("Finish")}
+              render={({ formatted, hours, minutes, seconds }) => {
+                return (
+                  <div className="btn btn-danger">
+                    <span>{formatted}</span>
+                  </div>
+                );
+              }}
+            />
+            <AddService
+              handleClose={handleShowModal}
+              isShow={isShowModal}
+              idBill={idBill}
+            />
+          </div>
         </div>
       </div>
     );

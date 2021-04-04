@@ -18,7 +18,8 @@ const ProductDetails = () => {
     const [cartItem, setCartItem] = useState({
         productId: product_id,
         quantity: 0,
-        price: productDetails.price
+        price: productDetails.price,
+        shop_id: '',
     })
     const [cart, setCart] = useRecoilState(cartState);
 
@@ -54,7 +55,13 @@ const ProductDetails = () => {
     const loadOwner = () => {
         callApi(`product/get-court-by-product/${product_id}`, 'get', null)
             .then(res => {
-                    setOwner(res.data)
+                    setOwner(res.data);
+                    setCartItem(prevState => {
+                        return {
+                            ...prevState,
+                            shop_id: res.data._id
+                        }
+                    })
                 }
             )
     }
@@ -83,15 +90,20 @@ const ProductDetails = () => {
             newCart.push(cartItem)
             setCart(newCart)
         } else {
-            let oldQuantity = newCart[index].quantity;
-            setCartItem(prevState => {
-                return {
-                    ...prevState,
-                    quantity: prevState.quantity + oldQuantity
+            if (cartItem.shop_id !== newCart[0].shop_id) {
+                if (window.confirm('Thêm đơn hàng từ cửa hàng khác sẽ xoá hết!!!')){
+                    newCart = [];
+                    newCart.push(cartItem)
+                    setCart(newCart);
                 }
-            });
-            newCart[index] = cartItem;
-            setCart(newCart);
+            } else {
+                let oldQuantity = newCart[index].quantity;
+                let oldCartItem = {...newCart[index]};
+                let newCartItem = {...cartItem};
+                newCartItem['quantity'] = newCartItem.quantity*1 + oldQuantity*1;
+                newCart[index] = newCartItem;
+                setCart(newCart);
+            }
         }
         ls.setItem('cart', JSON.stringify(newCart));
     }
@@ -149,7 +161,8 @@ const ProductDetails = () => {
                 </div>
             </div>
     }
-    console.log(cart)
+    // console.log(cart)
+
     return (
         <div className='container pt-5 '>
             <Row className='bg-white border'>

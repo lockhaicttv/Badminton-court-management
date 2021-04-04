@@ -13,52 +13,42 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const CartItem = (props) => {
-  const item = props.item;
-  const [cartDetail, setCartDetail] = useState();
-  const [cart, setCart] = useRecoilState(cartState);
-  const loadCartDetail = () => {
-    callApi(`product/?_id=${item.productId}`, "get", null).then((res) =>
-      setCartDetail(res.data[0])
-    );
-  };
+    const item = props.item;
+    console.log(item)
+    const [cartDetail, setCartDetail] = useState();
+    const [cart, setCart] = useRecoilState(cartState);
+    const loadCartDetail = () => {
+        callApi(`product/?_id=${item.productId}`, 'get', null)
+            .then(res =>
+                setCartDetail(res.data[0])
+            )
+    }
 
   useEffect(() => {
     loadCartDetail();
   }, []);
 
-  const increaseQuantity = () => {
-    console.log(item.quantity);
-    let index = cart.findIndex(
-      (cartItem) => cartItem.productId === item.productId
-    );
-    let newQuantity = item.quantity * 1 + 1;
-    let newCartItem = {
-      productId: item.productId,
-      quantity: newQuantity,
-      price: item.price,
-    };
-    let newCart = [...cart];
-    newCart[index] = newCartItem;
-    setCart(newCart);
+    const increaseQuantity = () =>{
+        console.log(item.quantity)
+        let index = cart.findIndex(cartItem=>cartItem.productId===item.productId);
+        let newCartItem = {...item}
+        newCartItem['quantity'] = newCartItem['quantity']*1 + 1;
+        let newCart = [...cart];
+        newCart[index] = newCartItem;
+        setCart(newCart);
 
     ls.setItem("cart", JSON.stringify(newCart));
   };
 
-  const decreaseQuantity = () => {
-    let index = cart.findIndex(
-      (cartItem) => cartItem.productId === item.productId
-    );
-    let newQuantity = item.quantity * 1 - 1;
-    let newCartItem = {
-      productId: item.productId,
-      quantity: newQuantity,
-      price: item.price,
-    };
-    let newCart = [...cart];
-    newCart[index] = newCartItem;
-    setCart(newCart);
-    ls.setItem("cart", JSON.stringify(newCart));
-  };
+    const decreaseQuantity = () =>{
+        let index = cart.findIndex(cartItem=>cartItem.productId===item.productId);
+        let newCartItem = {...item}
+        newCartItem['quantity'] = newCartItem['quantity']*1 - 1;
+        let newCart = [...cart];
+        newCart[index] = newCartItem;
+        setCart(newCart);
+        ls.setItem('cart', JSON.stringify(newCart));
+    }
 
   const handleDeleteCart = () => {
     let newCart = [...cart];

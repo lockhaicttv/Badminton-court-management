@@ -45,6 +45,9 @@ const HeaderCustomer = withRouter(({ history }) => {
   const handleClose = () => {
     setIsShow(!isShow);
   };
+    useEffect(() => {
+        loadUserInfo();
+    }, [authentication.isAuthenticated])
 
   const setAuthenticationForm = (role) => {
     setAuthentication({
