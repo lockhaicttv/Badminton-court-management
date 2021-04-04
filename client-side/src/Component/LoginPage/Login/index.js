@@ -81,6 +81,7 @@ function Login() {
               name="username"
               value={account.username}
               onChange={handleChange}
+              className="rounded-pill"
             />
           </Form.Group>
 
@@ -91,6 +92,7 @@ function Login() {
               placeholder="Mật khẩu"
               name="password"
               value={account.password}
+              className="rounded-pill"
               onChange={handleChange}
             />
           </Form.Group>
@@ -104,6 +106,7 @@ function Login() {
                 size="lg"
                 variant="success"
                 bsPrefix="btn-web-success"
+                className="rounded-pill"
                 onClick={handleClose}
               >
                 Đăng ký
@@ -113,6 +116,7 @@ function Login() {
               <Button
                 size="lg"
                 bsPrefix="btn-web-primary"
+                className="rounded-pill"
                 onClick={handleSubmit}
               >
                 Đăng nhập

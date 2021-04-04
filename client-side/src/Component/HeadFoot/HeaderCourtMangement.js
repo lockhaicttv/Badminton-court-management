@@ -31,6 +31,7 @@ const HeaderCourtMangement = withRouter(({ history }) => {
             height="35"
             className="d-inline-block align-top"
           />
+          <span className="font-weight-bold mx-3 text-dark">BCM</span>
         </Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="#home">

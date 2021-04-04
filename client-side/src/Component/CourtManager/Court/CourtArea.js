@@ -5,7 +5,14 @@ import { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import AddService from "./AddService";
 import { areasState, billDetailState, billState } from "../../../Store/atom";
-import { faHome, faPlus, faUserCog } from "@fortawesome/free-solid-svg-icons";
+import {
+  faClock,
+  faHome,
+  faLightbulb,
+  faPlus,
+  faPlusSquare,
+  faUserCog,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import callApi from "../../../Utils/apiCaller";
 
@@ -99,7 +106,12 @@ function CourtArea(props) {
     return (
       <div className="m-2">
         <div className="court court-background"></div>
-        <Button className="btn-danger" onClick={handleOpen}>
+        <Button
+          variant="outline-dark"
+          onClick={handleOpen}
+          className="col-lg-4 offset-lg-4"
+        >
+          <FontAwesomeIcon icon={faLightbulb} className="mr-2" />
           Bật
         </Button>
       </div>
@@ -108,18 +120,14 @@ function CourtArea(props) {
     return (
       <div className="m-2">
         <div className="court court-background" onClick={handleShowBill}></div>
-        <div className="justify-content-center bg-dark m-auto">
-          <Clock />
-        </div>
-        <div className="justify-content-center">
-          {/*<Button className="btn-danger "*/}
-          {/*        onClick={handleClick}*/}
-          {/*>*/}
-          {/*    Thanh toán*/}
-          {/*</Button>*/}
-          <Button className="btn-danger" onClick={handleShowModal}>
-            <FontAwesomeIcon icon={faPlus} className="mr-2" />
-            Thêm dịch vụ
+
+        <div className="col-lg-12">
+          <Button variant="outline-dark" onClick={handleShowModal}>
+            <FontAwesomeIcon icon={faPlusSquare} className="mr-2" />
+            Thêm
+          </Button>
+          <Button variant="danger">
+            <Clock />
           </Button>
           <AddService
             handleClose={handleShowModal}

@@ -80,15 +80,16 @@
 }
 
 .btn-web-success {
-  background-color: #57f2cc;
+  background-color: #a71793;
   width: 130px;
   padding: 10px;
   border: #57f2cc;
   border-radius: 5px;
+  color: #fff;
   font-size: larger;
 }
 .btn-web-primary {
-  background-color: #4596fb;
+  background-color: #5ba5ff;
   width: 130px;
   padding: 10px;
   border: #4596fb;
@@ -98,10 +99,10 @@
 }
 
 .btn-web-success:hover {
-  background-color: #44e0b9;
+  background-color: #920980;
 }
 .btn-web-primary:hover {
-  background-color: #3083e7;
+  background-color: rgb(40, 124, 226);
 }
 
 .header-border {
@@ -110,10 +111,14 @@
   width: 100%;
   background-repeat: repeat-x;
 }
-
-.header-border-customer {
-  background-image: url("/image/line-customer.png");
-  height: 5px;
+.header-border-table {
+  background-image: url("/image/line.png");
+  height: 2px;
   width: 100%;
+  background-repeat: repeat-x;
+}
+
+.header-customer {
+  background-image: url("/image/bg-customer.png");
   background-repeat: repeat-x;
 }

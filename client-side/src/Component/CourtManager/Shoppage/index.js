@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {accountIdState, courtIdState} from "../../../Store/atom";
-import {useRecoilValue} from "recoil";
-import Banner from "./Banner"
-import {Button, CardDeck} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { accountIdState, courtIdState } from "../../../Store/atom";
+import { useRecoilValue } from "recoil";
+import Banner from "./Banner";
+import { Button, CardDeck } from "react-bootstrap";
 import callApi from "../../../Utils/apiCaller";
 import ProductCard from "./ProductCard";
 import Row from "react-bootstrap/Row";
@@ -12,63 +12,80 @@ import AddProduct from "../CourtAdmin/Product/AddProduct";
 import AddCategory from "../CourtAdmin/Category/AddCategory";
 
 const Shoppage = () => {
-    const account_id = useRecoilValue(accountIdState);
-    const [category, setCategory] = useState([]);
-    const [product, setProduct] = useState([]);
-    const [isAddCategory, setIsAddCategory] = useState(false);
-    const [isAddProduct, setIsAddProduct] = useState(false);
+  const account_id = useRecoilValue(accountIdState);
+  const [category, setCategory] = useState([]);
+  const [product, setProduct] = useState([]);
+  const [isAddCategory, setIsAddCategory] = useState(false);
+  const [isAddProduct, setIsAddProduct] = useState(false);
 
-    const loadCategory = () => {
-        callApi(`product_category/get-by-account-id/${account_id}`, 'get', null)
-            .then((res) => {
-                setCategory(res.data)
-            })
-    }
+  const loadCategory = () => {
+    callApi(
+      `product_category/get-by-account-id/${account_id}`,
+      "get",
+      null
+    ).then((res) => {
+      setCategory(res.data);
+    });
+  };
 
-    useEffect(() => {
-        loadCategory();
-    }, [])
+  useEffect(() => {
+    loadCategory();
+  }, []);
 
-    const handleLoadProduct = (_id) => {
-        callApi(`product/get-product-on-shop-page/${_id}`, 'get', null)
-            .then((res) => {
-                setProduct(res.data);
-            })
-    }
+  const handleLoadProduct = (_id) => {
+    callApi(`product/get-product-on-shop-page/${_id}`, "get", null).then(
+      (res) => {
+        setProduct(res.data);
+      }
+    );
+  };
 
-    const handleCloseAddProduct = () => {
-        setIsAddProduct(!isAddProduct);
-    }
+  const handleCloseAddProduct = () => {
+    setIsAddProduct(!isAddProduct);
+  };
 
-    const handleCloseAddCategory = () => {
-        setIsAddCategory(!isAddCategory);
-    }
+  const handleCloseAddCategory = () => {
+    setIsAddCategory(!isAddCategory);
+  };
 
-    const listCategoryButton = category.map((item, key) => {
-        return <Button key={key} onClick={() => handleLoadProduct(item._id)}>{item.name}</Button>
-    })
-    const listProduct = product.map((item, key) => {
-        return <ProductCard key={item._id} item={item}/>
-    })
-
+  const listCategoryButton = category.map((item, key) => {
     return (
-        <div className='container'>
-            <AddProduct isShow={isAddProduct} handleClose={handleCloseAddProduct}/>
-            <AddCategory isShow={isAddCategory} handleClose={handleCloseAddCategory}/>
-            <Banner/>
-            <Row>
-                <Col md={4}>{listCategoryButton}</Col>
-                <Col md={{span: 4, offset: 4}}>
-                    <Button onClick={handleCloseAddProduct}>Thêm sản phẩm</Button>
-                    <Button onClick={handleCloseAddCategory}>Thêm loại sản phẩm</Button>
-                </Col>
-            </Row>
+      <Button
+        key={key}
+        onClick={() => handleLoadProduct(item._id)}
+        variant="outline-dark"
+      >
+        {item.name}
+      </Button>
+    );
+  });
+  const listProduct = product.map((item, key) => {
+    return <ProductCard key={item._id} item={item} />;
+  });
 
-            <CardDeck>
-                {listProduct}
-            </CardDeck>
-        </div>
-    )
-}
+  return (
+    <div className="container">
+      <AddProduct isShow={isAddProduct} handleClose={handleCloseAddProduct} />
+      <AddCategory
+        isShow={isAddCategory}
+        handleClose={handleCloseAddCategory}
+      />
+      <Banner />
+      <Row className="my-3">
+        <Col md={4}>{listCategoryButton}</Col>
+        <Col md={{ span: 4, offset: 4 }}>
+          <Button onClick={handleCloseAddProduct} variant="outline-success">
+            Thêm sản phẩm
+          </Button>
+          <Button onClick={handleCloseAddCategory} variant="success">
+            Thêm loại sản phẩm
+          </Button>
+        </Col>
+      </Row>
+
+      <CardDeck>{listProduct}</CardDeck>
+    </div>
+  );
+};
 
 export default Shoppage;

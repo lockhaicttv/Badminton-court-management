@@ -51,7 +51,7 @@ function CourtManger() {
     return <CourtArea isUse={item.status} idCourtArea={item.area} key={key} />;
   });
   return (
-    <div className="row justify-content-between p-3 m-0">
+    <div className="row justify-content-between p-3 m-0 bg-light">
       <div
         className="row flex-wrap justify-content-start col-lg-7"
         style={{ overflow: "scroll", height: "85vh" }}
