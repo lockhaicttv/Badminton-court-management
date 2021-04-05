@@ -16,6 +16,7 @@ const PriceTotal = () => {
   const priceTotal = useRecoilValue(totalCartState);
   const authentication = useRecoilValue(authenticationState);
   const user_id = useRecoilValue(accountIdState);
+  const court_id = ls.getItem('court_id');
   const cart = ls.getItem("cart");
   const [recoilCart, setRecoilCart] = useRecoilState(cartState);
   const [bill, setBill] = useState({
@@ -24,6 +25,7 @@ const PriceTotal = () => {
     price_total: priceTotal.subTotal,
     status: "Chưa thanh toán",
     user_id: "",
+    court_id: "",
   });
   const [billDetail, setBillDetail] = useState([]);
   useEffect(() => {
@@ -42,7 +44,7 @@ const PriceTotal = () => {
 
   const addBill = () => {
     callApi("user_bill", "post", {
-      bill: { ...bill, user_id: user_id },
+      bill: { ...bill, user_id: user_id, court_id: court_id},
       bill_details: billDetail,
     })
       .then((res) => {

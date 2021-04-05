@@ -91,7 +91,7 @@ function Bill(props) {
                 </div>
             </div>
         ),
-        showExpandColumn: false,
+        showExpandColumn: true,
         onExpand: async (row, isExpand, rowIndex, e) => {
             await callApi(`court_bill_detail/get-by-bill-id/${row._id}`, 'get', null).then(
                 (res) => {

@@ -73,6 +73,7 @@ function Category() {
                 alert('Update thành công');
             });
     }
+
     useEffect(() => {
         callApi(`product_category/get-by-account-id/${account_id}`, 'get', null)
             .then(res => {

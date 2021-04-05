@@ -1,3 +1,3 @@
 module.exports = {
-  DB: "mongodb://localhost:27017/chatbot_chien",
+  DB: "mongodb://localhost:27017/chatbot",
 };

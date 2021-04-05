@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const user = require('./user_model');
+const court = require('./court_model')
 const timeZone = require('mongoose-timezone');
 
 const user_bill_model = new Schema(
@@ -9,7 +10,8 @@ const user_bill_model = new Schema(
         description: {type: String},
         price_total: {type: Number},
         status: {type: String, default: 'Chưa thanh toán'},
-        user_id: {type: Schema.Types.ObjectId, ref: user}
+        user_id: {type: Schema.Types.ObjectId, ref: user},
+        court_id: {type: Schema.Types.ObjectId, ref: court}
     },
     {versionKey: false}
 )

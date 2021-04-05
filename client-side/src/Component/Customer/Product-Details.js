@@ -98,13 +98,13 @@ const ProductDetails = () => {
                 }
             } else {
                 let oldQuantity = newCart[index].quantity;
-                let oldCartItem = {...newCart[index]};
                 let newCartItem = {...cartItem};
                 newCartItem['quantity'] = newCartItem.quantity*1 + oldQuantity*1;
                 newCart[index] = newCartItem;
                 setCart(newCart);
             }
         }
+        ls.setItem('court_id', JSON.stringify(cartItem.shop_id));
         ls.setItem('cart', JSON.stringify(newCart));
     }
 

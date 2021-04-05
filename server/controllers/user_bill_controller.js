@@ -30,10 +30,21 @@ exports.get_user_bill_by_account = (req, res) => {
         })
 }
 
+exports.get_by_court_id = (req, res) => {
+    user_bill.find({court_id: req.params.court_id})
+        .populate('user_id')
+        .exec((err, list)=>{
+            err?
+                console.log(err)
+                :
+                res.status(200).json(list);
+        })
+}
+
 //For payment on client side, add bill and bill details
 exports.add_one_bill = async (req, res) => {
     let bill = new user_bill(req.body.bill);
-    console.log(req.body.bill)
+    console.log(bill)
     let listBillDetails = [];
     if (req.body.bill_details.length > 0) {
         listBillDetails = req.body.bill_details
@@ -52,18 +63,17 @@ exports.add_one_bill = async (req, res) => {
 
     bill
         .save(err => {
-           if (err) {
-               res.status(400).send('Thanh toán thất bại');
-           }
-           else {
-               user_bill_detail.create(listBillDetails)
-                   .then((list)=>{
-                       res.status(200).send('Thanh toán thành công');
-                   })
-                   .catch(()=>{
-                       res.status(400).send('Thanh toán thất bại');
-                   })
-           }
+            if (err) {
+                res.status(400).send('Thanh toán thất bại');
+            } else {
+                user_bill_detail.create(listBillDetails)
+                    .then((list) => {
+                        res.status(200).send('Thanh toán thành công');
+                    })
+                    .catch(() => {
+                        res.status(400).send('Thanh toán thất bại');
+                    })
+            }
         })
 
 }
@@ -80,6 +90,19 @@ exports.update_bill_status = async (req, res) => {
             err ? console.log(err)
                 :
                 res.status(200).send('Cập nhật thành công');
+        })
+}
+
+exports.update_one_row = (req, res) => {
+    let id = req.params._id;
+
+    user_bill
+        .findByIdAndUpdate({_id: id}, req.body, {new: true}, (err, result) => {
+            if (err)
+                console.log(err);
+            else {
+                res.status(200).send('Update thành công');
+            }
         })
 }
 
