@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, FormControl, Nav } from "react-bootstrap";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { NavLink, Link } from "react-router-dom";
+import {NavLink, Link, useHistory} from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
@@ -17,8 +17,9 @@ import callApi from "../../Utils/apiCaller";
 import Media from "react-bootstrap/Media";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import ls from '../../Utils/localStorage';
 
-const HeaderCustomer = withRouter(({ history }) => {
+const HeaderCustomer = () => {
   const [account_id, setAccountId] = useRecoilState(accountIdState);
   const totalCart = useRecoilValue(totalCartState);
   const [isShow, setIsShow] = useState(false);
@@ -26,7 +27,7 @@ const HeaderCustomer = withRouter(({ history }) => {
     authenticationState
   );
   const [userInfo, setUserInfo] = useState({});
-  console.log(account_id);
+  const history = useHistory();
 
   const loadUserInfo = () => {
     callApi(`user/?_id=${account_id}`, "get", null)
@@ -62,8 +63,10 @@ const HeaderCustomer = withRouter(({ history }) => {
       role: "",
     });
     setAccountId("");
+    ls.logOut();
+    history.push('/login-page/login');
   };
-  // console.log(authentication)
+
   return (
     <div className="header-customer shadow">
       <Login
@@ -161,5 +164,5 @@ const HeaderCustomer = withRouter(({ history }) => {
       <div className="header-border" />
     </div>
   );
-});
+}
 export default HeaderCustomer;

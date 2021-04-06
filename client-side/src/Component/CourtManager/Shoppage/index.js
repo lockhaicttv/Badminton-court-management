@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { accountIdState, courtIdState } from "../../../Store/atom";
 import { useRecoilValue } from "recoil";
 import Banner from "./Banner";
-import { Button, CardDeck } from "react-bootstrap";
+import {Button, CardColumns, CardDeck} from "react-bootstrap";
 import callApi from "../../../Utils/apiCaller";
 import ProductCard from "./ProductCard";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import AddProduct from "../CourtAdmin/Product/AddProduct";
+import AddProduct from "./AddProduct";
 import AddCategory from "../CourtAdmin/Category/AddCategory";
 
 const Shoppage = () => {
@@ -41,6 +41,7 @@ const Shoppage = () => {
   };
 
   const handleCloseAddProduct = () => {
+    loadCategory();
     setIsAddProduct(!isAddProduct);
   };
 
@@ -65,7 +66,7 @@ const Shoppage = () => {
 
   return (
     <div className="container">
-      <AddProduct isShow={isAddProduct} handleClose={handleCloseAddProduct} />
+      <AddProduct isShow={isAddProduct} handleClose={handleCloseAddProduct} category={category} />
       <AddCategory
         isShow={isAddCategory}
         handleClose={handleCloseAddCategory}
@@ -83,7 +84,7 @@ const Shoppage = () => {
         </Col>
       </Row>
 
-      <CardDeck>{listProduct}</CardDeck>
+      <CardColumns>{listProduct}</CardColumns>
     </div>
   );
 };

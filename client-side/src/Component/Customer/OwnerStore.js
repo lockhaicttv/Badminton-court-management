@@ -12,49 +12,51 @@ const OwnerStore = () => {
     const [product, setProduct] = useState([]);
 
     const loadProductCategory = () => {
-        callApi(`product_category/get-by-court/${shop_id}`,'get',null)
-            .then(res=>{
+        callApi(`product_category/get-by-court/${shop_id}`, 'get', null)
+            .then(res => {
                 console.log(res.data)
                 setCategory(res.data);
             })
-            .catch(err=>{
+            .catch(err => {
                 setCategory([])
             })
     }
 
     const loadProduct = () => {
-        callApi(`product/${shop_id}`,'get',null)
-            .then(res=>{
+        callApi(`product//get-product-by-court-on-shoppage/${shop_id}`, 'get', null)
+            .then(res => {
                 setProduct(res.data)
             })
-            .catch(err=>{
+            .catch(err => {
                 setProduct([])
             })
     }
 
-    useEffect(()=>{
-       loadProductCategory();
+    useEffect(() => {
+        loadProductCategory();
+    }, [])
+    useEffect(() => {
         loadProduct();
     }, [])
 
     const handleGetProduct = (product_category_id) => {
         callApi(`product/get-by-category/${product_category_id}`, 'get', null)
-            .then(res=>{
+            .then(res => {
                 setProduct(res.data)
             })
     }
 
-    const listCategoryButton = category.map((item, key)=>{
-        return <Button key={key} onClick={()=>handleGetProduct(item._id)}>{item.name}</Button>
+    const listCategoryButton = category.map((item, key) => {
+        return <Button key={key} onClick={() => handleGetProduct(item._id)}>{item.name}</Button>
     })
 
-    const listProduct = product.map((item, key)=>{
-        return <ProductCard  item={item} key={key}/>
+    const listProduct = product.map((item, key) => {
+        return <ProductCard item={item} key={key}/>
     })
 
     return (
-        <div  className='container'>
-            <Banner _id={shop_id}/>
+        <div className='container'>
+            <div><Banner _id={shop_id}/></div>
             {listCategoryButton}
             <CardColumns>
                 {listProduct}

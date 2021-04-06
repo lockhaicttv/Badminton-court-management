@@ -2,16 +2,20 @@ import {Button, FormControl, InputGroup, Modal} from "react-bootstrap";
 import React, {useState, useEffect} from "react";
 import {accountIdState, areasState, courtIdState} from "../../../../Store/atom";
 import {useRecoilValue} from "recoil";
+import callApi from "../../../../Utils/apiCaller";
 
 function AddCategory(props) {
     const account_id = useRecoilValue(accountIdState);
-    const court_id = useRecoilValue(courtIdState);
+    const courtInfo = useRecoilValue(courtIdState);
     const [item, setItem] = useState({
         name: '',
     })
 
     const handleSave = () => {
-        console.log(item);
+        callApi('product_category', 'post',item)
+            .then(()=>alert('Thêm thành công'))
+            .catch(()=>alert('Thêm thất bại'))
+        setItem({name: ''});
     }
 
     const handleChange = (e) =>{
@@ -19,7 +23,7 @@ function AddCategory(props) {
         setItem({
             ...item,
             [e.target.name]: value,
-            account_id: account_id
+            court_id: courtInfo._id
         });
     }
 

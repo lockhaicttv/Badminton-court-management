@@ -22,7 +22,7 @@ const ProductDetails = () => {
         shop_id: '',
     })
     const [cart, setCart] = useRecoilState(cartState);
-
+    const shop = ls.getItem('court_id')
     const [props, setProps] = useState({
         width: 200,
         height: 350,
@@ -31,8 +31,14 @@ const ProductDetails = () => {
         // zoomPosition: 'original',
         img: '/image/logon'
     });
+    useEffect(() => {
+        loadProductDetails();
 
+    }, [])
 
+    useEffect(() => {
+        loadOwner();
+    }, [])
     const loadProductDetails = () => {
         callApi(`product/?_id=${product_id}`, 'get', null)
             .then(res => {
@@ -66,11 +72,6 @@ const ProductDetails = () => {
             )
     }
 
-    useEffect(() => {
-        loadOwner();
-        loadProductDetails();
-    }, [product_id])
-
 
     const handleChangeQuantity = (e) => {
         let value = e.target.value;
@@ -90,8 +91,9 @@ const ProductDetails = () => {
             newCart.push(cartItem)
             setCart(newCart)
         } else {
-            if (cartItem.shop_id !== newCart[0].shop_id) {
-                if (window.confirm('Thêm đơn hàng từ cửa hàng khác sẽ xoá hết!!!')){
+            let check_shop = owner._id !== shop;
+            if (check_shop) {
+                if (window.confirm('Thêm đơn hàng từ cửa hàng khác sẽ xoá hết hàng trong giỏ!!!')){
                     newCart = [];
                     newCart.push(cartItem)
                     setCart(newCart);
@@ -161,7 +163,6 @@ const ProductDetails = () => {
                 </div>
             </div>
     }
-    // console.log(cart)
 
     return (
         <div className='container pt-5 '>

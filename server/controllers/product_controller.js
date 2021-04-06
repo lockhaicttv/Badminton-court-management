@@ -78,6 +78,34 @@ exports.get_product_by_court = (req, res) => {
     }
 }
 
+exports.get_product_by_court_on_shoppage = (req, res) => {
+    let onComplte = (list) => {
+        if (list.length !== 0) {
+            list = list.filter(area => area.product_category_id !== null);
+            res.status(200).json(list)
+        } else {
+            res.status(200).send('Thất bại');
+        }
+
+    }
+    let taskToGo = 1;
+    let list = [];
+    if (taskToGo === 0) {
+        onComplte(list);
+    } else {
+        product
+            .find({on_shop_page: true})
+            .populate({
+                path: 'product_category_id',
+                match: {court_id: req.params.court_id}
+            })
+            .exec((err, list) => {
+                taskToGo = 1;
+                onComplte(list)
+            })
+    }
+}
+
 exports.get_product_by_account_id = (req, res) => {
     let onComplte = (list) => {
         if (list.length !== 0) {

@@ -19,6 +19,9 @@ import Customer from './Component/Customer'
 import AddInfo from "./Component/LoginPage/Register/AddInfo";
 import OwnerRoute from "./Router/OwnerRoute";
 import LoginRoute from "./Router/LoginRoute";
+import HomePage from "./Component/Customer/HomePage";
+import OwnerStore from "./Component/Customer/OwnerStore";
+import ProductDetails from "./Component/Customer/Product-Details";
 
 function App() {
     return (
@@ -26,6 +29,7 @@ function App() {
             <div className="">
                 <Router>
                     <Switch>
+
                         <Route path='/add-info' component={AddInfo}/>
                         <Route path='/customer' component={Customer}/>
                         <LoginRoute path='/login-page' component={LoginPage}/>

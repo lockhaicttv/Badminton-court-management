@@ -8,14 +8,17 @@ const Banner = (props) => {
     const _id = props._id;
     const [courtInfo, setCourtInfo] = useState();
 
-    useEffect(async () => {
-        await callApi(`court/get-by-id/${props._id}`, 'get', null)
+    useEffect( () => {
+        loadBanner()
+    }, [])
+    const loadBanner =() => {
+        callApi(`court/get-by-id/${props._id}`, 'get', null)
             .then(res => {
                 console.log(res.data)
                 setCourtInfo(res.data);
 
             })
-    }, [])
+    }
 
     let renderEle = <div></div>
     if (courtInfo !== undefined){

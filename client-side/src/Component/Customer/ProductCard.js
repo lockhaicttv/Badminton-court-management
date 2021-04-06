@@ -5,7 +5,7 @@ import FileBase64 from "react-file-base64";
 import Modal from "react-bootstrap/Modal";
 import callApi from "../../Utils/apiCaller";
 import {useHistory} from "react-router";
-
+import {Link} from "react-router-dom";
 
 const ProductCard = (props) => {
     const [isEdit, setIsEdit] = useState(false);
@@ -15,8 +15,8 @@ const ProductCard = (props) => {
     const history = useHistory();
 
 
-    const handleDirectToDetail = (product_id) => {
-        let url=`/customer/product-detail/${product_id}`;
+    const handleDirectToDetail = () => {
+        let url=`/customer/product-detail/${props.item._id}`;
         history.push(url)
     }
 
@@ -49,7 +49,7 @@ const ProductCard = (props) => {
     }
 
     let cardRender =
-        <Card onClick={()=>handleDirectToDetail(props.item._id)}>
+        <Card onClick={handleDirectToDetail} className='product-mouse-over'>
             <Card.Img variant="top" src={props.item.image.base64} className='card-size'/>
             <Card.Body>
                 <Card.Title>{props.item.name}</Card.Title>
