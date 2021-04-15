@@ -14,9 +14,9 @@ import {faTrash} from "@fortawesome/free-solid-svg-icons";
 
 const CartItem = (props) => {
     const item = props.item;
-    console.log(item)
     const [cartDetail, setCartDetail] = useState();
     const [cart, setCart] = useRecoilState(cartState);
+
     const loadCartDetail = () => {
         callApi(`product/?_id=${item.productId}`, 'get', null)
             .then(res =>
@@ -29,7 +29,6 @@ const CartItem = (props) => {
     }, []);
 
     const increaseQuantity = () => {
-        console.log(item.quantity)
         let index = cart.findIndex(cartItem => cartItem.productId === item.productId);
         let newCartItem = {...item}
         newCartItem['quantity'] = newCartItem['quantity'] * 1 + 1;
@@ -41,6 +40,7 @@ const CartItem = (props) => {
     };
 
     const decreaseQuantity = () => {
+        if (item.quantity===1) return
         let index = cart.findIndex(cartItem => cartItem.productId === item.productId);
         let newCartItem = {...item}
         newCartItem['quantity'] = newCartItem['quantity'] * 1 - 1;
@@ -54,6 +54,7 @@ const CartItem = (props) => {
         console.log(item.productId)
         let newCart = [...cart];
         newCart = newCart.filter((cart) => cart.productId !== item.productId);
+        // console.log(newCart)
         setCart(newCart);
         ls.setItem("cart", JSON.stringify(newCart));
     };

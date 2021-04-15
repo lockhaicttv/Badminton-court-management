@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, FormControl, Nav } from "react-bootstrap";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {NavLink, Link, useHistory} from "react-router-dom";
+import {NavLink, Link, useHistory, Redirect} from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
@@ -39,9 +39,18 @@ const HeaderCustomer = () => {
       });
   };
 
+  useEffect(()=>{
+    if (ls.getAuthenticate()!==null) {
+      setAuthentication(ls.getAuthenticate())
+      setAccountId(ls.getAuthenticate().account_id);
+    }
+  },[])
+
   useEffect(() => {
-    setTimeout(loadUserInfo, 1000);
+    loadUserInfo();
   }, [account_id]);
+
+
 
   const handleClose = () => {
     setIsShow(!isShow);
@@ -64,7 +73,7 @@ const HeaderCustomer = () => {
     });
     setAccountId("");
     ls.logOut();
-    history.push('/login-page/login');
+    Redirect('/login-page/login');
   };
 
   return (
@@ -101,17 +110,18 @@ const HeaderCustomer = () => {
             authentication.role === "customer" ? (
               <NavDropdown
                 title={
-                  <Media className="pt-3">
-                    <img
-                      width={25}
-                      height={25}
-                      className="mr-3"
-                      src="/image/logon.jpg"
-                    />
-                    <Media.Body>
-                      <div>{userInfo.full_name}</div>
-                    </Media.Body>
-                  </Media>
+                  // <Media className="pt-3">
+                  //   <img
+                  //     width={25}
+                  //     height={25}
+                  //     className="mr-3"
+                  //     src="/image/logon.jpg"
+                  //   />
+                  //   <Media.Body>
+                  //     <div>{userInfo.full_name}</div>
+                  //   </Media.Body>
+                  // </Media>
+                    'Đã đăng nhập'
                 }
               >
                 <NavDropdown.Item>
@@ -149,7 +159,7 @@ const HeaderCustomer = () => {
             )}
           </Nav>
           <Nav>
-            <Nav.Link href="">
+            <Nav.Item>
               <Link
                 to="/customer/shopping-cart"
                 className="text-decoration-none"
@@ -157,7 +167,7 @@ const HeaderCustomer = () => {
                 <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
                 Giỏ hàng ({totalCart.quantity})
               </Link>
-            </Nav.Link>
+            </Nav.Item>
           </Nav>
         </div>
       </Navbar>

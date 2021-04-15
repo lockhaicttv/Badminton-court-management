@@ -13,7 +13,7 @@ import {
 } from "recoil";
 import {Switch, BrowserRouter} from "react-router-dom";
 import CourtManger from "./Component/CourtManager";
-import Route from "react-router-dom/es/Route";
+import {Route} from 'react-router-dom';
 import LoginPage from './Component/LoginPage';
 import Customer from './Component/Customer'
 import AddInfo from "./Component/LoginPage/Register/AddInfo";
@@ -22,6 +22,7 @@ import LoginRoute from "./Router/LoginRoute";
 import HomePage from "./Component/Customer/HomePage";
 import OwnerStore from "./Component/Customer/OwnerStore";
 import ProductDetails from "./Component/Customer/Product-Details";
+import Chat from './Component/Customer/Chat'
 
 function App() {
     return (
@@ -29,7 +30,7 @@ function App() {
             <div className="">
                 <Router>
                     <Switch>
-
+                        <Route path='/chat' component={Chat}/>
                         <Route path='/add-info' component={AddInfo}/>
                         <Route path='/customer' component={Customer}/>
                         <LoginRoute path='/login-page' component={LoginPage}/>

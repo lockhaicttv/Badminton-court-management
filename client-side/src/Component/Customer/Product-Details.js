@@ -5,11 +5,10 @@ import ReactImageZoom from "react-image-zoom";
 import {useHistory, useParams} from "react-router";
 import {Media} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {cleanup} from "@testing-library/react";
-import {useIsMounted} from "react-tidy";
 import {cartState} from "../../Store/atom";
 import {useSetRecoilState, useRecoilState} from "recoil";
 import ls from '../../Utils/localStorage';
+import ReactImageMagnify from 'react-image-magnify';
 
 const ProductDetails = () => {
     const product_id = useParams().product_id;
@@ -17,19 +16,24 @@ const ProductDetails = () => {
     const [owner, setOwner] = useState();
     const [cartItem, setCartItem] = useState({
         productId: product_id,
-        quantity: 0,
+        quantity: 1,
         price: productDetails.price,
         shop_id: '',
     })
     const [cart, setCart] = useRecoilState(cartState);
     const shop = ls.getItem('court_id')
     const [props, setProps] = useState({
-        width: 200,
-        height: 350,
-        zoomWidth: 500,
-        scale: 1.8,
-        // zoomPosition: 'original',
-        img: '/image/logon'
+        // width: 200,
+        // height: 350,
+        // zoomWidth: 500,
+        // scale: 1.8,
+        // // zoomPosition: 'original',
+        // img: '/image/logon'
+        imageSrc: '',
+        imageAlt: "Example",
+        largeImageSrc: "./large-image.jpg", // Optional
+        // mouseActivation:MOUSE_ACTIVATION.DOUBLE_CLICK, // Optional
+        // touchActivation:TOUCH_ACTIVATION.DOUBLE_TAP
     });
     useEffect(() => {
         loadProductDetails();
@@ -52,7 +56,8 @@ const ProductDetails = () => {
                 setProps(prevState => {
                     return {
                         ...prevState,
-                        img: res.data[0].image.base64
+                        imageSrc: res.data[0].image.base64,
+                        largeImageSrc: res.data[0].image.base64
                     }
                 })
             })
@@ -93,7 +98,7 @@ const ProductDetails = () => {
         } else {
             let check_shop = owner._id !== shop;
             if (check_shop) {
-                if (window.confirm('Thêm đơn hàng từ cửa hàng khác sẽ xoá hết hàng trong giỏ!!!')){
+                if (window.confirm('Thêm đơn hàng từ cửa hàng khác sẽ xoá hết hàng trong giỏ!!!')) {
                     newCart = [];
                     newCart.push(cartItem)
                     setCart(newCart);
@@ -101,7 +106,7 @@ const ProductDetails = () => {
             } else {
                 let oldQuantity = newCart[index].quantity;
                 let newCartItem = {...cartItem};
-                newCartItem['quantity'] = newCartItem.quantity*1 + oldQuantity*1;
+                newCartItem['quantity'] = newCartItem.quantity * 1 + oldQuantity * 1;
                 newCart[index] = newCartItem;
                 setCart(newCart);
             }
@@ -169,8 +174,28 @@ const ProductDetails = () => {
             <Row className='bg-white border'>
                 <Col sm={4}>
                     <div className='border-right border-dark'>
-                        <div className='p-4'>
-                            <ReactImageZoom {...props}/>
+                        <div className='ml-0 p-2'>
+                            {/*<ReactImageZoom {...props}/>*/}
+                            <ReactImageMagnify {...{
+                                smallImage: {
+                                    alt: 'Wristwatch by Ted Baker London',
+                                    // isFluidWidth: true,
+                                    src: props.imageSrc,
+                                    isHintEnabled: true,
+                                    width: 260,
+                                    height: 350,
+                                },
+                                largeImage: {
+                                    src: props.largeImageSrc,
+                                    width: 1000,
+                                    height: 1000,
+                                    className: 'zindex-modal'
+                                },
+                                isHintEnabled: true,
+                                shouldHideHintAfterFirstActivation: false,
+                                enlargedImageContainerClassName: 'z-index-1',
+                                imageClassName: ''
+                            }} />
                         </div>
                     </div>
                 </Col>
@@ -189,7 +214,7 @@ const ProductDetails = () => {
                             <div className='mt-3 col-8'>
                                 <h4>Số lượng:</h4>
                                 <InputGroup className="mb-3">
-                                    <input type='number' className='form-control'
+                                    <input type='number' min="1" className='form-control'
                                            values={cartItem.quantity}
                                            name='quantity'
                                            onChange={handleChangeQuantity}

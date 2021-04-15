@@ -3,8 +3,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 4000;
 const cors = require('cors');
+const http = require("http").createServer(app);
+const io = require('socket.io')(http, {
+    cors: {
+        origin: "http://localhost:3000",
+    }
+});
 
-app.use(bodyParser.json({ limit: '50mb' }))
+app.use(bodyParser.json({limit: '50mb'}))
 app.use(bodyParser.urlencoded({
     limit: '50mb',
     extended: false,
@@ -46,7 +52,7 @@ app.use('/user_bill_detail', user_bill_detail_route);
 //connect db
 mongoose.Promise = global.Promise;
 mongoose
-    .connect(db.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(db.DB, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(
         () => {
             console.log(`Database is connected!`);
@@ -56,6 +62,15 @@ mongoose
         }
     );
 
-app.listen(PORT, () => {
+//socket
+io.on('connection', socket => {
+    socket.on('message', ({name, message}) => {
+        console.log(name, message)
+        socket.emit('message', {name, message})
+    })
+})
+
+
+http.listen(PORT, () => {
     console.log('Server is running on port:', PORT);
 });
