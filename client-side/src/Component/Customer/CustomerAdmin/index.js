@@ -12,9 +12,9 @@ import EditAddress from "./EditAddress";
 const CustomerAdmin = () => {
 
     return (
-        <div className='container-fluid background-silver'>
+        <div className='container background-silver'>
             <Row>
-                <Col className='m-4 mr-0 bg-white m-0' sm={2}>
+                <Col className='m-4 mr-0 bg-white'>
                     <Nav defaultActiveKey="/home" className="flex-column">
                         <NavLink>
                             <Link to='/customer/info/edit'>

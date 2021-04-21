@@ -49,9 +49,8 @@ const Bill = () => {
 
     return (
         <div>
-            <h4 className='pb-4'>Đơn hàng của tôi</h4>
+            <h4>Đơn hàng của tôi</h4>
             <BootstrapTable
-                bootstrap4
                 keyField='_id'
                 data={bill}
                 columns={columns}
