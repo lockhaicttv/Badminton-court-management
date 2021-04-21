@@ -56,7 +56,7 @@
         "muốn đề xuất sản phẩm"
       ],
       "responses": [
-        "Bạn hãy cung cấp tên một số bộ phim mà bạn đã xem trong danh sách nhé!"
+        "Bạn hãy cung cấp tên một số sản phẩm mà bạn đã xem trong danh sách nhé!"
       ],
       "query": "",
       "description": "suggest"
@@ -129,8 +129,8 @@
         "gọi bạn là gì"
       ],
       "responses": [
-        "Mình tên là Nadine nha!",
-        "Nadine là tên của mình đó!"
+        "Mình tên là Upin nha!",
+        "Upin là tên của mình đó!"
       ],
       "query": "",
       "description": "casual"

@@ -9,6 +9,7 @@ import {cartState} from "../../Store/atom";
 import {useSetRecoilState, useRecoilState} from "recoil";
 import ls from '../../Utils/localStorage';
 import ReactImageMagnify from 'react-image-magnify';
+import Chat from "./Chat";
 
 const ProductDetails = () => {
     const product_id = useParams().product_id;
@@ -229,6 +230,7 @@ const ProductDetails = () => {
                     </Row>
                 </Col>
             </Row>
+            <Chat />
         </div>
     )
 }
