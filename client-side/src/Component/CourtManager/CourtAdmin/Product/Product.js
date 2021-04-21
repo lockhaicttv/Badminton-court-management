@@ -1,15 +1,11 @@
 import React, {useState, useEffect} from "react";
 import callApi from "../../../../Utils/apiCaller";
 import BootStrapTable from "react-bootstrap-table-next";
-import paginationFactory from 'react-bootstrap-table2-paginator';
 import cellEditFactory, {Type} from 'react-bootstrap-table2-editor';
 import Button from "react-bootstrap/Button";
 import AddProduct from "./AddProduct";
 import {accountIdState, realTimeState} from '../../../../Store/atom';
 import {useRecoilState, useRecoilValue} from "recoil";
-import FileBase64 from "react-file-base64";
-import ProductDetail from "./ProductDetail";
-import MyCustomImageEditing from "./MyCustomImageEditing";
 
 const options = callApi('product_category/get-by-court/6019f135b7409a239c8564e7', 'get', null)
     .then((res) => {
@@ -47,6 +43,9 @@ const columns = [
     {
         dataField: 'image.base64',
         text: 'Hình ảnh',
+        editor: {
+            type: Type.Image
+        },
         hidden: true
     },
     {
@@ -69,25 +68,20 @@ const columns = [
         editor: {
             type: Type.SELECT,
             getOptions: (setOptions) => {
-                callApi('product_category/get-by-court/6019f135b7409a239c8564e7', 'get', null)
-                    .then((res) => {
-                        let options = res.data.map((item, key) => {
-                            return {
-                                value: item._id,
-                                label: item.name
-                            }
+                    callApi('product_category/get-by-court/6019f135b7409a239c8564e7', 'get', null)
+                        .then((res) => {
+                            let options = res.data.map((item, key) => {
+                                return {
+                                    value: item._id,
+                                    label: item.name
+                                }
+                            })
+                            setOptions(options);
                         })
-                        setOptions(options);
-                    })
             }
         }
     }
 ];
-
-const defaultSorted = [{
-    dataField: 'name',
-    order: 'desc'
-}];
 
 
 function Product() {
@@ -104,16 +98,16 @@ function Product() {
         clickToEdit: true,
         selectColumnPosition: 'right',
         onSelect: (row, isSelect, rowIndex, e) => {
-            if (isSelect) {
+            if (isSelect){
                 setListDel(prevState => {
-                        let newState = [...prevState];
-                        newState.push(row._id);
-                        return newState;
-                    }
-                )
+                    let newState =[...prevState];
+                    newState.push(row._id);
+                    return newState;
+                }
+               )
             } else {
                 setListDel(prevState => {
-                    let newState = [...prevState];
+                    let newState=[...prevState];
                     newState.splice(newState.indexOf(row._id), 1);
                     return newState;
                 })
@@ -133,40 +127,22 @@ function Product() {
 
     const expandRow = {
         showExpandColumn: true,
-        expandHeaderColumnRenderer: ({isAnyExpands}) => {
-            if (isAnyExpands) {
-                return <b>-</b>;
-            }
-            return <b>+</b>;
-        },
-        expandColumnRenderer: ({expanded}) => {
-            if (expanded) {
-                return (
-                    <b>-</b>
-                );
-            }
-            return (
-                <b>+</b>
-            );
-        },
-        onExpand: (row, isExpand, rowIndex, e) => {
-            callApi(`product/?_id=${row._id}`)
-        },
         renderer: row => (
-            <ProductDetail data={row} setData={setData} account_id={account_id}/>
+            <div>
+                <p>{`Hình ảnh sản phẩm`}</p>
+                <div>
+                    <img src={row.image.base64}/>
+                </div>
+            </div>
         )
     };
 
     useEffect(() => {
-       loadData()
-    }, [])
-
-    const loadData = () => {
         callApi(`product/get-by-account-id/${account_id}`, 'get', null)
             .then(res => {
                 setData(res.data);
             })
-    }
+    }, [])
 
     const onBeforeEdit = (oldValue, newValue, row, column) => {
         let id = row._id;
@@ -183,16 +159,16 @@ function Product() {
             });
     }
 
-    const onDelete = () => {
-        if (window.confirm('Bạn muốn xoá những mục đã chọn?')) {
+   const onDelete = () => {
+        if (window.confirm('Bạn muốn xoá những mục đã chọn?')){
             alert(listDel);
-            setRealTime(preventDefault => preventDefault + 1);
+            setRealTime(preventDefault=>preventDefault+1);
         } else {
             return false;
         }
-    }
+   }
 
-    const handleClose = () => {
+    const handleClose = () =>{
         setIsShowModalAdd(false);
     }
     const handleOpen = () => {
@@ -201,7 +177,7 @@ function Product() {
 
     return (
         <div>
-            <AddProduct isShow={isShowModalAdd} handleClose={handleClose}/>
+            <AddProduct isShow={isShowModalAdd} handleClose={handleClose} />
             <div className="">
                 <Button className="ml-auto" onClick={handleOpen}>
                     Thêm
@@ -210,21 +186,17 @@ function Product() {
                     Xoá
                 </Button>
             </div>
-            <BootStrapTable
-                bootstrap4
-                headerWrapperClasses="foo"
-                keyField='_id'
-                columns={columns}
-                data={data}
-                noDataIndication="Table is Empty"
-                cellEdit={cellEditFactory({
-                    mode: 'dbclick',
-                    beforeSaveCell: (oldValue, newValue, row, column) => onBeforeEdit(oldValue, newValue, row, column)
-                })}
-                selectRow={selectRow}
-                expandRow={expandRow}
-                defaultSorted={ defaultSorted }
-                pagination={ paginationFactory()}
+            <BootStrapTable headerWrapperClasses="foo"
+                            keyField='_id'
+                            columns={columns}
+                            data={data}
+                            noDataIndication="Table is Empty"
+                            cellEdit={cellEditFactory({
+                                mode: 'dbclick',
+                                beforeSaveCell: (oldValue, newValue, row, column) => onBeforeEdit(oldValue, newValue, row, column)
+                            })}
+                            selectRow={selectRow}
+                            expandRow={expandRow}
             />
         </div>
     )

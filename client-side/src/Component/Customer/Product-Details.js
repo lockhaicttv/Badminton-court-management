@@ -23,11 +23,18 @@ const ProductDetails = () => {
     const [cart, setCart] = useRecoilState(cartState);
     const shop = ls.getItem('court_id')
     const [props, setProps] = useState({
+        // width: 200,
+        // height: 350,
+        // zoomWidth: 500,
+        // scale: 1.8,
+        // // zoomPosition: 'original',
+        // img: '/image/logon'
         imageSrc: '',
         imageAlt: "Example",
-        largeImageSrc: "./large-image.jpg",
+        largeImageSrc: "./large-image.jpg", // Optional
+        // mouseActivation:MOUSE_ACTIVATION.DOUBLE_CLICK, // Optional
+        // touchActivation:TOUCH_ACTIVATION.DOUBLE_TAP
     });
-
     useEffect(() => {
         loadProductDetails();
 
@@ -36,7 +43,6 @@ const ProductDetails = () => {
     useEffect(() => {
         loadOwner();
     }, [])
-
     const loadProductDetails = () => {
         callApi(`product/?_id=${product_id}`, 'get', null)
             .then(res => {
@@ -83,15 +89,14 @@ const ProductDetails = () => {
     }
 
     const handleAddCart = () => {
-        let newCart = ls.getItem('cart');
-        let shop = ls.getItem('court_id')
+        let newCart = [...cart];
         let index = newCart.findIndex(x => x.productId === cartItem.productId)
 
         if (index === -1) {
             newCart.push(cartItem)
             setCart(newCart)
         } else {
-            let check_shop = owner._id != shop;
+            let check_shop = owner._id !== shop;
             if (check_shop) {
                 if (window.confirm('Thêm đơn hàng từ cửa hàng khác sẽ xoá hết hàng trong giỏ!!!')) {
                     newCart = [];
@@ -99,7 +104,6 @@ const ProductDetails = () => {
                     setCart(newCart);
                 }
             } else {
-                console.log(owner._id, shop)
                 let oldQuantity = newCart[index].quantity;
                 let newCartItem = {...cartItem};
                 newCartItem['quantity'] = newCartItem.quantity * 1 + oldQuantity * 1;
@@ -112,7 +116,7 @@ const ProductDetails = () => {
     }
 
 
-    let eleRender = <div/>;
+    let eleRender = <div></div>;
     if (productDetails !== undefined) {
         eleRender = <Row>
             <Col sm={4}>

@@ -24,9 +24,6 @@ exports.add_one_user = (req, res) => {
         .catch((err) => {
             res.json({message: 'Thêm thất bại'});
         })
-        .catch(()=>{
-            res.status(500).send('Something wrong')
-        })
 
 }
 
@@ -41,9 +38,6 @@ exports.update_one_row = (req, res) => {
             else {
                 res.status(200).send('Update thành công');
             }
-        })
-        .catch(()=>{
-            res.status(500).send('Something wrong')
         })
 }
 
@@ -60,9 +54,6 @@ exports.delete = (req, res) => {
             } else {
                 res.status(200).send('Xoá thành công');
             }
-        })
-        .catch(()=>{
-            res.status(500).send('Something wrong')
         })
 }
 
