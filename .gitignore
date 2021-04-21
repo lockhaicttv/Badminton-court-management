@@ -3,6 +3,7 @@
 # dependencies
 /client-side/node_modules
 /server/node_modules
+/python-side/venv
 /server/db.js
 /.pnp
 .pnp.js

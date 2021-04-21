@@ -59,7 +59,7 @@ const Chat = () => {
                     <p className="msg">{item.message}</p>
                 </div>
                 <div>
-                    <img src="https://i.imgur.com/HpF4BFG.jpg" width="30" className="img1"/>
+                    <img src="/image/Upin1.png" width="30" className="img1"/>
                 </div>
             </div>
         } else {
