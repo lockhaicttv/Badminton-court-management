@@ -1,105 +1,107 @@
-import { Button, Col, Form, Row } from "react-bootstrap";
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { accountIdState, authenticationState } from "../../../Store/atom";
+import {Button, Col, Form, Row} from "react-bootstrap";
+import React, {useState} from "react";
+import {useHistory} from "react-router-dom";
+import {useRecoilState, useSetRecoilState} from "recoil";
+import {accountIdState, authenticationState} from "../../../Store/atom";
 import callApi from "../../../Utils/apiCaller";
 import ls from "../../../Utils/localStorage";
 
 const LoginForm = (props) => {
-  const history = useHistory();
-  const [account, setAccount] = useState({
-    username: "",
-    password: "",
-  });
-
-  const [account_id, setAccountId] = useRecoilState(accountIdState);
-
-  const handleSubmit = () => {
-    callApi("account/check-login", "post", account)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.type === "owner") {
-          setAccountId(res.data.info._id);
-          props.setAuthentication({
-            isAuthenticated: true,
-            role: "owner",
-          });
-          history.push("/");
-        } else {
-          setAccountId(res.data.info._id);
-          props.setAuthentication({
-            isAuthenticated: true,
-            role: "customer",
-          });
-          props.handleClose();
-        }
-      })
-      .catch((err) => {
-        alert("Đăng nhập thất bại");
-        // history.push('/home/court');
-      });
-  };
-
-  const handleChange = (e) => {
-    setAccount({
-      ...account,
-      [e.target.name]: e.target.value,
+    const history = useHistory();
+    const [account, setAccount] = useState({
+        username: "",
+        password: "",
     });
-    console.log(account);
-  };
 
-  const loginForm = (
-    <Form className="px-5  p-5 shadow">
-      <Form.Group controlId="formBasicEmail">
-        <Form.Control
-          size="lg"
-          type="text"
-          placeholder="Tên đăng nhập"
-          name="username"
-          value={account.username}
-          onChange={handleChange}
-          className="rounded-pill"
-        />
-      </Form.Group>
+    const [account_id, setAccountId] = useRecoilState(accountIdState);
 
-      <Form.Group controlId="formBasicPassword">
-        <Form.Control
-          size="lg"
-          type="password"
-          placeholder="Mật khẩu"
-          name="password"
-          value={account.password}
-          className="rounded-pill"
-          onChange={handleChange}
-        />
-      </Form.Group>
+    const handleSubmit = () => {
+        callApi("account/check-login", "post", account)
+            .then((res) => {
+                console.log(res.data);
+                if (res.data.type === "owner") {
+                    ls.setAuthenticate('owner')
+                    setAccountId(res.data.info._id);
+                    props.setAuthentication({
+                        isAuthenticated: true,
+                        role: "owner",
+                    });
+                    history.push("/");
+                } else {
+                    ls.setAuthenticate('customer')
+                    setAccountId(res.data.info._id);
+                    props.setAuthentication({
+                        isAuthenticated: true,
+                        role: "customer",
+                    });
+                    props.handleClose();
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+                alert("Đăng nhập thất bại");
+            });
+    };
 
-      <Form.Group controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Nhớ mật khẩu" />
-      </Form.Group>
+    const handleChange = (e) => {
+        setAccount({
+            ...account,
+            [e.target.name]: e.target.value,
+        });
+        console.log(account);
+    };
 
-      <Button
-        size="lg"
-        variant="info"
-        block
-        onClick={handleSubmit}
-        className="rounded-pill"
-      >
-        Đăng nhập
-      </Button>
-    </Form>
-  );
+    const loginForm = (
+        <Form className="px-5  p-5 shadow">
+            <Form.Group controlId="formBasicEmail">
+                <Form.Control
+                    size="lg"
+                    type="text"
+                    placeholder="Tên đăng nhập"
+                    name="username"
+                    value={account.username}
+                    onChange={handleChange}
+                    className="rounded-pill"
+                />
+            </Form.Group>
 
-  return (
-    <Row>
-      <Col>
-        <h1 className="text-info">Đăng nhập</h1>
-        <p>Đăng nhập để lưu lại thông tin mua hàng, hoá đơn</p>
-      </Col>
-      <Col>{loginForm}</Col>
-    </Row>
-  );
+            <Form.Group controlId="formBasicPassword">
+                <Form.Control
+                    size="lg"
+                    type="password"
+                    placeholder="Mật khẩu"
+                    name="password"
+                    value={account.password}
+                    className="rounded-pill"
+                    onChange={handleChange}
+                />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Nhớ mật khẩu"/>
+            </Form.Group>
+
+            <Button
+                size="lg"
+                variant="info"
+                block
+                onClick={handleSubmit}
+                className="rounded-pill"
+            >
+                Đăng nhập
+            </Button>
+        </Form>
+    );
+
+    return (
+        <Row>
+            <Col>
+                <h1 className="text-info">Đăng nhập</h1>
+                <p>Đăng nhập để lưu lại thông tin mua hàng, hoá đơn</p>
+            </Col>
+            <Col>{loginForm}</Col>
+        </Row>
+    );
 };
 
 export default LoginForm;
