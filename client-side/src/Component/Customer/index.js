@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import {Route, Switch} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Route, Switch, useHistory} from "react-router-dom";
 import OwnerStore from "./OwnerStore";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
@@ -10,12 +10,44 @@ import HeaderCustomer from "../HeadFoot/HeaderCustomer";
 import HomePage from "./HomePage";
 import ShoppingCart from "./ShoppingCart/";
 import ls from "../../Utils/localStorage";
-import {cartState} from "../../Store/atom";
-import {useSetRecoilState} from "recoil";
+import {accountIdState, authenticationState, cartState} from "../../Store/atom";
+import {useSetRecoilState, useRecoilState, useRecoilValue} from "recoil";
 import CustomerAdmin from "./CustomerAdmin";
+import {totalCartState} from "../../Store/selector";
+import callApi from "../../Utils/apiCaller";
 
 const Customer = () => {
     const setCart = useSetRecoilState(cartState);
+    const [account_id, setAccountId] = useRecoilState(accountIdState);
+    const totalCart = useRecoilValue(totalCartState);
+    const [isShow, setIsShow] = useState(false);
+    const [authentication, setAuthentication] = useRecoilState(
+        authenticationState
+    );
+    const [userInfo, setUserInfo] = useState({});
+    const history = useHistory();
+
+    const loadUserInfo = () => {
+        callApi(`user/?_id=${account_id}`, "get", null)
+            .then((res) => {
+                setUserInfo(res.data[0]);
+            })
+            .catch(() => {
+                setUserInfo({});
+            });
+    };
+
+    useEffect(()=>{
+        if (ls.getAuthenticate()!==null) {
+            setAuthentication(ls.getAuthenticate())
+            setAccountId(ls.getAuthenticate().account_id);
+        }
+    },[])
+
+    // useEffect(() => {
+    //     loadUserInfo();
+    // }, [account_id]);
+
     useEffect(() => {
         if (ls.getItem("cart") !== null) {
             setCart(ls.getItem("cart"));
@@ -24,7 +56,7 @@ const Customer = () => {
 
     return (
         <div className="background-silver" style={{minHeight: "100vh"}}>
-            <HeaderCustomer/>
+            <HeaderCustomer authentication={authentication} userInfo={userInfo}/>
             <Route
                 exact
                 path="/customer/product-detail/:product_id"

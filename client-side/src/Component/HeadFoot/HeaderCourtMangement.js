@@ -49,38 +49,38 @@ const HeaderCourtManagement = withRouter(({history}) => {
                     <span className="font-weight-bold mx-3 text-dark">BCM</span>
                 </Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="#home">
+                    <Nav.Item>
                         <Link
                             to="/"
                             className="text-decoration-none text-primary font-weight-bold px-3 header-customer-item"
                         >
                             Home
                         </Link>
-                    </Nav.Link>
-                    <Nav.Link href="">
+                    </Nav.Item>
+                    <Nav.Item>
                         <Link
                             to="/home/court"
                             className="header-customer-item text-decoration-none text-primary font-weight-bold px-3"
                         >
                             Quản lý Sân
                         </Link>
-                    </Nav.Link>
-                    <Nav.Link href="">
+                    </Nav.Item>
+                    <Nav.Item href="">
                         <Link
                             to="/home/admin"
                             className="header-customer-item text-decoration-none text-primary font-weight-bold px-3"
                         >
                             Admin
                         </Link>
-                    </Nav.Link>
-                    <Nav.Link href="">
+                    </Nav.Item>
+                    <Nav.Item>
                         <Link
                             to={shopPageRoute}
                             className="header-customer-item text-decoration-none text-primary font-weight-bold px-3"
                         >
                             Đăng bán
                         </Link>
-                    </Nav.Link>
+                    </Nav.Item>
                 </Nav>
                 <Form inline>
                     <button className='row btn btn-primary' onClick={handleLogout}>

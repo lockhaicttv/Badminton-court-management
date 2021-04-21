@@ -40,10 +40,21 @@ const CartItem = (props) => {
     };
 
     const decreaseQuantity = () => {
-        if (item.quantity===1) return
+        if (item.quantity!==1) {
+            let index = cart.findIndex(cartItem => cartItem.productId === item.productId);
+            let newCartItem = {...item}
+            newCartItem['quantity'] = newCartItem['quantity'] * 1 - 1;
+            let newCart = [...cart];
+            newCart[index] = newCartItem;
+            setCart(newCart);
+            ls.setItem('cart', JSON.stringify(newCart));
+        }
+    }
+
+    const handleChangeQuantity = (e) => {
         let index = cart.findIndex(cartItem => cartItem.productId === item.productId);
         let newCartItem = {...item}
-        newCartItem['quantity'] = newCartItem['quantity'] * 1 - 1;
+        newCartItem['quantity'] = e.target.value;
         let newCart = [...cart];
         newCart[index] = newCartItem;
         setCart(newCart);
@@ -56,6 +67,7 @@ const CartItem = (props) => {
         newCart = newCart.filter((cart) => cart.productId !== item.productId);
         // console.log(newCart)
         setCart(newCart);
+        console.log(cart)
         ls.setItem("cart", JSON.stringify(newCart));
     };
 
@@ -94,7 +106,7 @@ const CartItem = (props) => {
                                 -
                             </Button>
                         </InputGroup.Prepend>
-                        <input type="text" className="form-control" value={item.quantity}/>
+                        <input type="text" className="form-control" value={item.quantity} onChange={handleChangeQuantity}/>
                         <InputGroup.Append>
                             <Button variant="outline-secondary" onClick={increaseQuantity}>
                                 +

@@ -1,0 +1,171 @@
+{
+  "intents": [
+    {
+      "intent_name": "noi sinh chatbot",
+      "training_phrases": [
+        "nơi sinh của bạn",
+        "bạn sinh ra ở đâu"
+      ],
+      "responses": [
+        "Mình sinh ở Cần Thơ"
+      ],
+      "query": "",
+      "description": "casual"
+    },
+    {
+      "intent_name": "tra cuu thong tin products",
+      "training_phrases": [
+        "muốn tra cứu sản phẩm products",
+        "muốn xem sản phẩm products",
+        "muốn coi sản phẩm products",
+        "thông tin sản phẩm products",
+        "muốn coi sản phẩm",
+        "muốn xem sản phẩm"
+      ],
+      "responses": [
+        "Bạn muốn tra cứu sản phẩm gì?"
+      ],
+      "query": "query#products#name#{}",
+      "description": "query"
+    },
+    {
+      "intent_name": "tra cuu loai san pham categories",
+      "training_phrases": [
+        "muốn tra cứu loại sản phẩm categories",
+        "muốn xem loại sản phẩm categories",
+        "muốn coi loại sản phẩm categories",
+        "thông tin loại sản phẩm categories",
+        "muốn coi loại sản phẩm"
+      ],
+      "responses": [
+        "Bạn muốn tìm sản phẩm thuộc loại gì?"
+      ],
+      "query": "query#product_categories#name#{}",
+      "description": "query"
+    },
+    {
+      "intent_name": "yeu cau goi y san pham",
+      "training_phrases": [
+        "gợi ý sản phẩm",
+        "muốn được gợi ý sản phẩm",
+        "có thể gợi ý phim cho tôi sản phẩm",
+        "gợi ý sản phẩm cho tôi",
+        "có gợi ý sản phẩm nào cho tôi không",
+        "bạn đề xuất sản phẩm cho tôi",
+        "đề xuất sản phẩm",
+        "muốn đề xuất sản phẩm"
+      ],
+      "responses": [
+        "Bạn hãy cung cấp tên một số bộ phim mà bạn đã xem trong danh sách nhé!"
+      ],
+      "query": "",
+      "description": "suggest"
+    },
+    {
+      "intent_name": "chao hoi",
+      "training_phrases": [
+        "xin chào",
+        "hi",
+        "chào bạn",
+        "hello",
+        "alo",
+        "bonjour",
+        "chào",
+        "chào bạn nhe"
+      ],
+      "responses": [
+        "Xin chào bạn!",
+        "Xin chào. Rất vui được gặp bạn!",
+        "Chào bạn, bạn cần mình trợ giúp gì?",
+        "Upin nghe đây! Mình có thể giúp gì cho bạn?"
+      ],
+      "query": "",
+      "description": "casual"
+    },
+    {
+      "intent_name": "tam biet",
+      "training_phrases": [
+        "tạm biệt",
+        "tạm biệt bạn nhé",
+        "bye nhé",
+        "bye",
+        "hẹn gặp bạn nhé",
+        "hẹn gặp lại"
+      ],
+      "responses": [
+        "Tạm biệt bạn!",
+        "Bye bye",
+        "Hẹn gặp lại bạn nha!"
+      ],
+      "query": "",
+      "description": "tam biet"
+    },
+    {
+      "intent_name": "hoi tham suc khoe",
+      "training_phrases": [
+        "Bạn khỏe không",
+        "Bạn thế nào rồi",
+        "Bạn khỏe chứ",
+        "Dạo này bạn thế nào",
+        "Bạn có khỏe không",
+        "Sức khỏe bạn thế nào"
+      ],
+      "responses": [
+        "Mình khỏe. Cảm ơn bạn!"
+      ],
+      "query": "",
+      "description": "casual"
+    },
+    {
+      "intent_name": "chatbot ten gi",
+      "training_phrases": [
+        "bạn tên gì",
+        "tên bạn là gì",
+        "what is your name",
+        "what your name",
+        "chatbot tên gì",
+        "chatbot tên",
+        "có thể gọi bạn là gì",
+        "gọi bạn là gì"
+      ],
+      "responses": [
+        "Mình tên là Nadine nha!",
+        "Nadine là tên của mình đó!"
+      ],
+      "query": "",
+      "description": "casual"
+    },
+    {
+      "intent_name": "upin la gi",
+      "training_phrases": [
+        "Upin là gì",
+        "không hiểu Upin là gì",
+        "Upin là ai",
+        "Upin có ý nghĩa gì",
+        "Upin là tên ai"
+      ],
+      "responses": [
+        "Upin là mình, là chatbot gợi ý sản phẩm và thông tin shop cho bạn"
+      ],
+      "query": "",
+      "description": "casual"
+    },
+    {
+      "intent_name": "nhiem vu chatbot",
+      "training_phrases": [
+        "nhiệm vụ của bạn là gì",
+        "có thể làm gì",
+        "bạn có thể làm gì cho tôi",
+        "khả năng của bạn",
+        "nhiệm vụ của bạn như thế nào",
+        "bạn có thể giúp tôi như thế nào",
+        "bạn có thể giúp tôi ra sao"
+      ],
+      "responses": [
+        "Mình có thể đưa ra thông tin shop, những gợi ý sản phẩm, giá cả dành riêng cho bạn. Hãy cung cấp thông tin cho mình nhé!"
+      ],
+      "query": "",
+      "description": "casual"
+    }
+  ]
+}

@@ -24,6 +24,10 @@ const Chat = () => {
 
     const handleSubmitMessage = (e) => {
         e.preventDefault();
+        setChatLog([
+            ...chatLog,
+            chat
+        ])
         socket.emit('message', chat);
         setChat({
             message: '',
@@ -42,14 +46,11 @@ const Chat = () => {
     }
 
     let listChatLog = chatLog.map((item, key) => {
-        return <Form.Group key={key} className='shadow'>
-            <Form.Label>
-                {item.name}
-            </Form.Label>
-            <Form.Control as='textarea'>
-                {item.message}
-            </Form.Control>
-        </Form.Group>
+        return <div key={key} className='shadow'>
+            <img src="/image/Upin1.jpg" alt="upin" height={150} width={150}/>
+            <p>{item.message}</p>
+            <span className="time-right">11:00</span>
+        </div>
     })
     console.log(chatLog)
     return (
