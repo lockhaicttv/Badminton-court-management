@@ -75,12 +75,20 @@ const ProductDetails = () => {
 
     const handleChangeQuantity = (e) => {
         let value = e.target.value;
-        setCartItem(prevState => {
-            return {
-                ...prevState,
-                quantity: value
-            }
-        })
+        callApi(`product/check-quantity-remain/${product_id}`)
+            .then(res => {
+                if (res.data.quantity < value) {
+                    alert('Sản phẩm hiện không đủ số lượgn cung cấp!')
+                    return
+                } else {
+                    setCartItem(prevState => {
+                        return {
+                            ...prevState,
+                            quantity: value
+                        }
+                    })
+                }
+            })
     }
 
     const handleAddCart = () => {
@@ -92,24 +100,32 @@ const ProductDetails = () => {
             newCart.push(cartItem)
             setCart(newCart)
         } else {
-            let check_shop = owner._id != shop;
+            let check_shop = owner._id !== shop;
             if (check_shop) {
                 if (window.confirm('Thêm đơn hàng từ cửa hàng khác sẽ xoá hết hàng trong giỏ!!!')) {
+                    let newCartItem = {...cartItem}
+                    newCartItem['price'] = newCartItem.price * promotionValue
                     newCart = [];
-                    newCart.push(cartItem)
+                    newCart.push(newCartItem)
                     setCart(newCart);
                 }
             } else {
                 console.log(owner._id, shop)
                 let oldQuantity = newCart[index].quantity;
                 let newCartItem = {...cartItem};
-                newCartItem['quantity'] = newCartItem.quantity * 1 + oldQuantity * 1;
+                newCartItem['quantity'] = newCartItem.quantity*1 + oldQuantity * 1;
+                newCartItem['price'] = newCartItem.price * promotionValue
                 newCart[index] = newCartItem;
                 setCart(newCart);
             }
         }
         ls.setItem('court_id', JSON.stringify(cartItem.shop_id));
         ls.setItem('cart', JSON.stringify(newCart));
+    }
+
+    const checkPromotionTime = (day) => {
+        let endTime = new Date(day).getTime();
+        return endTime > new Date().getTime();
     }
 
 
@@ -166,6 +182,16 @@ const ProductDetails = () => {
             </div>
     }
 
+    let promotionEndday = ''
+    let promotionValue = 0
+
+    if (productDetails.promotion_id !== null && productDetails.promotion_id!==undefined) {
+        promotionEndday = productDetails.promotion_id.end
+        if (checkPromotionTime(promotionEndday)) {
+            promotionValue = (100 - productDetails.promotion_id.value) / 100
+        }
+    }
+
     return (
         <div className='container pt-5 '>
             <Row className='bg-white border'>
@@ -200,9 +226,23 @@ const ProductDetails = () => {
                     <h1>{productDetails.name} </h1> {/*Tên sản phẩm*/}
                     <Row>
                         <Col xs={7}>
-                            <div className='my-2 background-silver border-dark border-bottom'> {/*Giá*/}
-                                <h3 className='p-2'>{productDetails.price}đ</h3>
-                            </div>
+                            {promotionEndday !== '' && promotionValue !== 0
+                                ?
+                                <div className='my-2 background-silver border-dark border-bottom'> {/*Giá*/}
+                                    <div className='my-2 background-silver border-dark border-bottom'> {/*Giá*/}
+                                        <h5 className='p-2 card-title'>
+                                            Giá gốc: {productDetails.price} đ
+                                        </h5>
+                                    </div>
+                                    <h5 className='p-2 card-title text-danger'>
+                                        Khuyến mãi: {productDetails.price * promotionValue} đ
+                                    </h5>
+                                </div>
+                                :
+                                <div className='my-2 background-silver border-dark border-bottom'> {/*Giá*/}
+                                    <h5 className='p-2 card-title'>{productDetails.price} đ</h5>
+                                </div>
+                            }
 
                             <div className='my-3 border-bottom border-dark'>
                                 Bạn hãy NHẬP ĐỊA CHỈ nhận hàng để được dự báo thời gian & chi phí giao hàng một cách
@@ -230,7 +270,7 @@ const ProductDetails = () => {
                     </Row>
                 </Col>
             </Row>
-            <Chat />
+            <Chat/>
         </div>
     )
 }

@@ -10,6 +10,7 @@ router.get('/get-product-by-court-on-shoppage/:court_id', product_controller.get
 router.get('/:court_id', product_controller.get_product_by_court);
 router.get('/get-by-account-id/:account_id', product_controller.get_product_by_account_id);
 router.get('/get-court-by-product/:_id', product_controller.get_court_by_product);
+router.get('/check-quantity-remain/:product_id', product_controller.check_quantity_remain)
 
 router.post('/', product_controller.add_one_product);
 

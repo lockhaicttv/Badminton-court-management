@@ -29,18 +29,29 @@ const CartItem = (props) => {
     }, []);
 
     const increaseQuantity = () => {
-        let index = cart.findIndex(cartItem => cartItem.productId === item.productId);
-        let newCartItem = {...item}
-        newCartItem['quantity'] = newCartItem['quantity'] * 1 + 1;
-        let newCart = [...cart];
-        newCart[index] = newCartItem;
-        setCart(newCart);
+        callApi(`product/check-quantity-remain/${item.productId}`, 'get', null)
+            .then(res => {
+                if (res.data.quantity < item.quantity + 1) {
+                    alert('Sản phẩm hiện không đủ số lượng cung cấp')
+                } else {
+                    let index = cart.findIndex(cartItem => cartItem.productId === item.productId);
+                    let newCartItem = {...item}
+                    newCartItem['quantity'] = newCartItem['quantity'] * 1 + 1;
+                    let newCart = [...cart];
+                    newCart[index] = newCartItem;
+                    setCart(newCart);
 
-        ls.setItem("cart", JSON.stringify(newCart));
+                    ls.setItem("cart", JSON.stringify(newCart));
+                }
+            })
+            .catch(() => {
+                alert('Lỗi kiểm tra số lượng')
+                return
+            })
     };
 
     const decreaseQuantity = () => {
-        if (item.quantity!==1) {
+        if (item.quantity !== 1) {
             let index = cart.findIndex(cartItem => cartItem.productId === item.productId);
             let newCartItem = {...item}
             newCartItem['quantity'] = newCartItem['quantity'] * 1 - 1;
@@ -52,13 +63,27 @@ const CartItem = (props) => {
     }
 
     const handleChangeQuantity = (e) => {
-        let index = cart.findIndex(cartItem => cartItem.productId === item.productId);
-        let newCartItem = {...item}
-        newCartItem['quantity'] = e.target.value;
-        let newCart = [...cart];
-        newCart[index] = newCartItem;
-        setCart(newCart);
-        ls.setItem('cart', JSON.stringify(newCart));
+        let value = e.target.value;
+        callApi(`product/check-quantity-remain/${item.productId}`, 'get', null)
+            .then(res => {
+                if (res.data.quantity < value) {
+                    alert('Sản phẩm hiện không đủ số lượng cung cấp')
+                } else {
+
+                    let index = cart.findIndex(cartItem => cartItem.productId === item.productId);
+                    let newCartItem = {...item}
+                    newCartItem['quantity'] = value;
+                    let newCart = [...cart];
+                    newCart[index] = newCartItem;
+                    setCart(newCart);
+                    ls.setItem('cart', JSON.stringify(newCart));
+                }
+            })
+            .catch(() => {
+                alert('Lỗi kiểm tra số lượng')
+                return
+            })
+
     }
 
     const handleDeleteCart = () => {
@@ -106,7 +131,8 @@ const CartItem = (props) => {
                                 -
                             </Button>
                         </InputGroup.Prepend>
-                        <input type="text" className="form-control" value={item.quantity} onChange={handleChangeQuantity}/>
+                        <input type="text" className="form-control" value={item.quantity}
+                               onChange={handleChangeQuantity}/>
                         <InputGroup.Append>
                             <Button variant="outline-secondary" onClick={increaseQuantity}>
                                 +

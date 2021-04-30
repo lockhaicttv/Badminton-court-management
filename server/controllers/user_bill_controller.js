@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var user_bill = require('../models/user_bill_model');
 var user_bill_detail = require('../models/user_bill_detail_model');
+var product = require('../models/product_model');
 const url = require('url');
 
 exports.get_user_bill = (req, res) => {
@@ -33,8 +34,8 @@ exports.get_user_bill_by_account = (req, res) => {
 exports.get_by_court_id = (req, res) => {
     user_bill.find({court_id: req.params.court_id})
         .populate('user_id')
-        .exec((err, list)=>{
-            err?
+        .exec((err, list) => {
+            err ?
                 console.log(err)
                 :
                 res.status(200).json(list);
@@ -43,9 +44,10 @@ exports.get_by_court_id = (req, res) => {
 
 //For payment on client side, add bill and bill details
 exports.add_one_bill = async (req, res) => {
+    let finishTask = 0;
     let bill = new user_bill(req.body.bill);
-    console.log(bill)
     let listBillDetails = [];
+
     if (req.body.bill_details.length > 0) {
         listBillDetails = req.body.bill_details
             .map(old_bill_detail =>
@@ -68,6 +70,26 @@ exports.add_one_bill = async (req, res) => {
             } else {
                 user_bill_detail.create(listBillDetails)
                     .then((list) => {
+                        listBillDetails.forEach(billDetail => {
+                                product.findOne({_id: billDetail.product_id}, (err, newBillDetails) => {
+                                    if (err) {
+                                        console.log(err)
+                                    } else {
+
+                                        newBillDetails.quantity = newBillDetails.quantity - billDetail.quantity
+                                        // console.log('new quantity', newBillDetails.quantity)
+                                        newBillDetails.save((err, updateBllDetail) => {
+                                            if (err) {
+                                                console.log(err)
+                                                finishTask = 0;
+                                            } else {
+                                                finishTask = 1;
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        )
                         res.status(200).send('Thanh toán thành công');
                     })
                     .catch(() => {

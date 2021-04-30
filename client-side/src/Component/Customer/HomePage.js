@@ -28,8 +28,12 @@ const HomePage = () => {
   });
 
   return (
-    <div className="flex-wrap container">
-      <CardColumns>{listProduct}</CardColumns>
+      <div className="container mt-2">
+          <div className="row">
+      {/*<CardColumns>*/}
+          {listProduct}
+      {/*</CardColumns>*/}
+          </div>
     </div>
   );
 };

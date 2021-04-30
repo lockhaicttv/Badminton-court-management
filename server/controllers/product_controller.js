@@ -4,27 +4,26 @@ exports.get_product = (req, res) => {
     let queries = req.query;
     console.log(queries)
     product
-        .find(queries, (err, list) => {
+        .find(queries)
+        .populate('promotion_id')
+        .exec((err, list) => {
             err ?
                 res.status(500).send('Cannot get list')
                 :
                 res.json(list);
         })
-        .catch(() => {
-            res.status(400).send('Something went wrong');
-        });
 }
 
 exports.get_all_on_shop_page = (req, res) => {
-    product.find({on_shop_page: true}, (err, list) => {
-        err ?
-            res.status(500).send('Can not get list')
-            :
-            res.json(list);
+    product.find({on_shop_page: true})
+        .populate('promotion_id')
+        .exec((err, list) => {
+            err ?
+                res.status(500).send('Can not get list')
+                :
+                res.json(list);
 
-    }).catch(() => {
-        res.status(400).send(`somthing went wrong`);
-    })
+        })
 }
 
 exports.get_product_by_category = (req, res) => {
@@ -86,7 +85,6 @@ exports.get_product_by_court_on_shoppage = (req, res) => {
         } else {
             res.status(200).send('Thất bại');
         }
-
     }
     let taskToGo = 1;
     let list = [];
@@ -99,6 +97,7 @@ exports.get_product_by_court_on_shoppage = (req, res) => {
                 path: 'product_category_id',
                 match: {court_id: req.params.court_id}
             })
+            .populate('promotion_id')
             .exec((err, list) => {
                 taskToGo = 1;
                 onComplte(list)
@@ -153,6 +152,19 @@ exports.get_court_by_product = (req, res) => {
                 console.log(err)
                 :
                 res.status(200).json(product.product_category_id.court_id)
+        })
+}
+
+exports.check_quantity_remain = (req, res) => {
+    product.findOne({_id: req.params.product_id}, (err, product) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.status(200).json({quantity: product.quantity})
+        }
+    })
+        .catch((err) => {
+            res.status(400).send('Something wrong');
         })
 }
 

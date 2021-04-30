@@ -8,7 +8,7 @@ const court_model = new Schema(
         name: {type: String},
         address: {type: String},
         phone_number: {type: Number},
-        email: {type: String},
+        email_id: {type: String},
         website: {type: String},
         description: {type: String},
         logo: {

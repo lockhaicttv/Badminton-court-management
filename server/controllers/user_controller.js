@@ -10,7 +10,7 @@ exports.get_user = (req, res) => {
                 res.json(list);
         })
         .catch(() => {
-            res.status(400).send('Something went wrong');
+            res.status(500).send('Something went wrong');
         });
 }
 
@@ -27,7 +27,6 @@ exports.add_one_user = (req, res) => {
         .catch(()=>{
             res.status(500).send('Something wrong')
         })
-
 }
 
 exports.update_one_row = (req, res) => {

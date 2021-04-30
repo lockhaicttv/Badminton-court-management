@@ -7,11 +7,11 @@ import Button from "react-bootstrap/Button";
 import {
     accountIdState,
     authenticationState,
-    cartState,
+    cartState, courtState,
 } from "../../../Store/atom";
 import callApi from "../../../Utils/apiCaller";
 import ls from "../../../Utils/localStorage";
-import PaypalExpressBtn from "react-paypal-express-checkout";
+import Paypal from "./Paypal";
 
 const PriceTotal = () => {
     const priceTotal = useRecoilValue(totalCartState);
@@ -29,6 +29,9 @@ const PriceTotal = () => {
         court_id: "",
     });
     const [billDetail, setBillDetail] = useState([]);
+    const courtInfo = useRecoilValue(courtState)
+    const [emailId, setEmailID] = useState('')
+
     useEffect(() => {
         let description = `Đã mua ${cart.length} sản phẩm. Bấm vào để xem chi tiết`;
         let status = "Đã thanh toán";
@@ -41,7 +44,16 @@ const PriceTotal = () => {
             user_id: user_id,
         });
         setBillDetail(cart);
+
+        getCourtInfo()
     }, []);
+
+    const getCourtInfo = () => {
+        callApi(`court/get-by-id/${court_id}`, 'get', null)
+            .then(res => {
+                setEmailID(res.data.email_id)
+            })
+    }
 
     const addBill = () => {
         callApi("user_bill", "post", {
@@ -49,9 +61,9 @@ const PriceTotal = () => {
             bill_details: billDetail,
         })
             .then((res) => {
-                alert(res.data);
                 setRecoilCart([]);
-                ls.setItem("cart", JSON.stringify(recoilCart));
+                ls.setItem("cart", JSON.stringify([]));
+                alert(res.data);
             })
             .catch(() => {
                 alert("Thanh toán thất bại");
@@ -72,13 +84,39 @@ const PriceTotal = () => {
         }
     };
 
-    const client = {
-        sandbox:    'YOUR-SANDBOX-APP-ID',
-        production: 'YOUR-PRODUCTION-APP-ID',
+    const transactionSuccess = async (details, data) => {
+        return callApi("user_bill", "post", {
+            bill: {
+                ...bill,
+                user_id: user_id,
+                court_id: court_id,
+                payment_data: data
+            },
+            bill_details: billDetail,
+
+        })
+            .then((res) => {
+                console.log('có call')
+                setRecoilCart([]);
+                ls.setItem("cart", JSON.stringify([]));
+                alert(res.data);
+            })
+            .catch((err) => {
+                console.log(err)
+                alert("Thanh toán thất bại");
+            });
     }
 
+    // const transactionError = () => {
+    //     console.log('Paypal error')
+    // }
+    //
+    // const transactionCancel = () => {
+    //     console.log('Paypal cancel')
+    // }
+
     return (
-        <div  style={{width: "18rem"}}>
+        <div style={{width: "18rem"}}>
             <Card>
                 <ListGroup variant="flush">
                     <ListGroup.Item>
@@ -95,16 +133,13 @@ const PriceTotal = () => {
                     </ListGroup.Item>
                 </ListGroup>
             </Card>
-            <PaypalExpressBtn
-                client={client}
-                currency={'VND'}
-                total={1.00}
-                style={{
-                    size: 'large',
-                    color: 'blue',
-                    shape: 'rect',
-                    label: 'checkout'
-                }}
+            <Paypal
+                // onClick={handlePay}
+                toPay={priceTotal.subTotal}
+                email_id={emailId}
+                transactionSuccess={transactionSuccess}
+                // transactionError={transactionError}
+                // // transactionCancel={transactionCancel}
             />
         </div>
     );

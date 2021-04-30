@@ -16,7 +16,7 @@ const ProductCard = (props) => {
 
 
     const handleDirectToDetail = () => {
-        let url=`/customer/product-detail/${props.item._id}`;
+        let url = `/customer/product-detail/${props.item._id}`;
         history.push(url)
     }
 
@@ -48,19 +48,42 @@ const ProductCard = (props) => {
             .then(alert('Cập nhật thông tin sản phẩm thành công!'));
     }
 
+    let price = props.item.price
+    let priceElement =
+        <h5 className='card-title mt-3 mb-3'>
+            Giá: {price} đ
+        </h5>
+
+    if (props.item.promotion_id !== null && (new Date(props.item.promotion_id.end).getTime() > new Date().getTime())) {
+        price = price * (100-props.item.promotion_id.value)/100;
+        priceElement =  <h5 className='card-title mt-3 mb-3 text-danger'>
+            Khuyến mãi: {price} đ
+        </h5>
+    }
+
     let cardRender =
-        <Card onClick={handleDirectToDetail} className='product-mouse-over'>
-            <Card.Img variant="top" src={props.item.image.base64} className='card-size'/>
-            <Card.Body>
-                <Card.Title>{props.item.name}</Card.Title>
-                <Card.Text>
-                    Mô tả: {props.item.description}
-                </Card.Text>
-            </Card.Body>
-            <Card.Footer>
-                <small className="text-muted">Giá: {props.item.price} đ</small>
-            </Card.Footer>
-        </Card>
+        // <Card onClick={handleDirectToDetail} className='product-mouse-over'>
+        //     <Card.Img variant="top" src={props.item.image.base64} className='card-size'/>
+        //     <Card.Body>
+        //         <Card.Title>{props.item.name}</Card.Title>
+        //         <Card.Text>
+        //             Mô tả: {props.item.description}
+        //         </Card.Text>
+        //     </Card.Body>
+        //     <Card.Footer>
+        //         <small className="text-muted">Giá: {props.item.price} đ</small>
+        //     </Card.Footer>
+        <div className="col-md-3 col-sm-6 mt-1" onClick={handleDirectToDetail}>
+            <div className="card card-block p-3">
+                <img src={props.item.image.base64} alt="Photo of sunset" style={{height: '150px', width: '100%'}}/>
+                <h5 className="card-title mt-3 mb-3">{props.item.name}</h5>
+                <p className="card-text">
+                    {props.item.description}
+                </p>
+                {priceElement}
+            </div>
+        </div>
+    // </Card>
 
 
     return (

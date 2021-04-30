@@ -10,6 +10,7 @@ import Col from "react-bootstrap/Col";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import AddProduct from "./AddProduct";
 import AddCategory from "../CourtAdmin/Category/AddCategory";
+import AddPromotion from "../CourtAdmin/Promotion/AddPromotion";
 
 const Shoppage = () => {
   const account_id = useRecoilValue(accountIdState);
@@ -17,6 +18,7 @@ const Shoppage = () => {
   const [product, setProduct] = useState([]);
   const [isAddCategory, setIsAddCategory] = useState(false);
   const [isAddProduct, setIsAddProduct] = useState(false);
+  const [isAddPromotion, setIsAddPromotion] = useState(false)
 
   const loadCategory = () => {
     callApi(
@@ -27,6 +29,8 @@ const Shoppage = () => {
       setCategory(res.data);
     });
   };
+
+
 
   useEffect(() => {
     loadCategory();
@@ -49,6 +53,10 @@ const Shoppage = () => {
     setIsAddCategory(!isAddCategory);
   };
 
+  const handleCloseAddPromotion = () => {
+    setIsAddPromotion(!isAddPromotion)
+  }
+
   const listCategoryButton = category.map((item, key) => {
     return (
       <Button
@@ -66,11 +74,20 @@ const Shoppage = () => {
 
   return (
     <div className="container">
-      <AddProduct isShow={isAddProduct} handleClose={handleCloseAddProduct} category={category} />
+      <AddProduct
+          isShow={isAddProduct}
+          handleClose={handleCloseAddProduct}
+          category={category}
+      />
       <AddCategory
         isShow={isAddCategory}
         handleClose={handleCloseAddCategory}
       />
+      <AddPromotion
+        isShow={isAddPromotion}
+        handleClose={handleCloseAddPromotion}
+      />
+
       <Banner />
       <Row className="my-3">
         <Col md={4}>{listCategoryButton}</Col>
@@ -78,8 +95,11 @@ const Shoppage = () => {
           <Button onClick={handleCloseAddProduct} variant="outline-success">
             Thêm sản phẩm
           </Button>
-          <Button onClick={handleCloseAddCategory} variant="success">
+          <Button onClick={handleCloseAddCategory} variant="outline-success">
             Thêm loại sản phẩm
+          </Button>
+          <Button onClick={handleCloseAddPromotion} variant="outline-success">
+            Thêm khuyến mãi
           </Button>
         </Col>
       </Row>

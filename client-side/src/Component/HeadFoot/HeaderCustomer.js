@@ -47,8 +47,7 @@ const HeaderCustomer = () => {
     }, [])
 
     useEffect(() => {
-        console.log(account_id)
-        if (account_id !== undefined) {
+        if (account_id !== '') {
             loadUserInfo()
         }
     }, [account_id]);
@@ -124,9 +123,9 @@ const HeaderCustomer = () => {
                                 }
                             >
                                 <NavDropdown.Item>
-                                    <NavLink to={`/customer/info/bill`} className="text-dark">
+                                    <Link to={`/customer/info/bill`} className="text-dark">
                                         Đơn hàng của tôi
-                                    </NavLink>
+                                    </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Divider/>
                                 <NavDropdown.Item>

@@ -36,6 +36,7 @@ let court_bill_route = require('./route/court_bill_route');
 let court_bill_detail_route = require('./route/court_bill_detail_route');
 let user_bill_route = require('./route/user_bill_route');
 let user_bill_detail_route = require('./route/user_bill_detail_route')
+let promotion_route = require('./route/promotion_route')
 
 //use route
 app.use("/account", account_route);
@@ -44,6 +45,7 @@ app.use("/court", court_route);
 app.use("/court_area", court_area_route)
 app.use("/product_category", product_category_route);
 app.use('/product', product_route);
+app.use('/promotion', promotion_route)
 app.use('/court_bill', court_bill_route);
 app.use('/court_bill_detail', court_bill_detail_route);
 app.use('/user_bill', user_bill_route);

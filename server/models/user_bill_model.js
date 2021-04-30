@@ -11,7 +11,8 @@ const user_bill_model = new Schema(
         price_total: {type: Number},
         status: {type: String, default: 'Chưa thanh toán'},
         user_id: {type: Schema.Types.ObjectId, ref: user},
-        court_id: {type: Schema.Types.ObjectId, ref: court}
+        court_id: {type: Schema.Types.ObjectId, ref: court},
+        payment_data: {type: Object}
     },
     {versionKey: false}
 )
