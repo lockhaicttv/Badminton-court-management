@@ -2,16 +2,15 @@ var court_model = require('../models/court_model');
 
 exports.get_list_court = (req, res) => {
     court_model
-        .find((err, list) => {
+        .find({})
+        .populate('account_id')
+        .exec((err, list) => {
             if (err) {
                 res.status(500).send(`something went wrong`);
             } else {
                 res.json(list);
             }
         })
-        .catch((err) => {
-            res.status(400).send(`database unreachable`)
-        });
 };
 
 exports.get_court_by_account = (req, res) => {
@@ -42,6 +41,7 @@ exports.get_court_by_id = (req, res) => {
 
 exports.add_one_court = (req, res) => {
     let item = new court_model(req.body);
+    console.log(item)
     item.save()
         .then((item) => {
             res.status(200).json({message: "Đã thêm thông tn sân"});
@@ -63,3 +63,40 @@ exports.edit_banner = (req, res) =>{
             }
         })
 }
+
+exports.update_one_row = (req, res) => {
+    let objUpdate = new court_model(req.body);
+    let id = req.params._id;
+    console.log(id, req.body)
+    court_model
+        .findByIdAndUpdate({_id: id}, req.body, {new: true}, (err, result) => {
+            if (err)
+                console.log(err);
+            else {
+                res.status(200).send('Update thành công');
+            }
+        })
+        .catch(()=>{
+            res.status(500).send('Something wrong')
+        })
+}
+
+exports.delete = (req, res) => {
+    let objDel = {
+        _id: {
+            $in: req.body
+        }
+    }
+    court_model
+        .deleteMany(objDel, (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.status(200).send('Xoá thành công');
+            }
+        })
+        .catch(()=>{
+            res.status(500).send('Something wrong')
+        })
+}
+

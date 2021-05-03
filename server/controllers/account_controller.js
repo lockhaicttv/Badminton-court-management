@@ -77,3 +77,23 @@ exports.check_exist = (req, res) => {
             res.status(400).send('Something went wrong');
         })
 }
+
+
+exports.delete = (req, res) => {
+    let objDel = {
+        _id: {
+            $in: req.body
+        }
+    }
+    account_model
+        .deleteMany(objDel, (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.status(200).send('Xoá thành công');
+            }
+        })
+        .catch(()=>{
+            res.status(500).send('Something wrong')
+        })
+}

@@ -6,15 +6,14 @@ const url = require('url');
 
 exports.get_user_bill = (req, res) => {
     user_bill
-        .find({}, (err, list) => {
+        .find({},)
+        .populate('user_id')
+        .exec((err, list) => {
             console.log(list);
             err ?
                 res.status(500).send(`cannot get list`)
                 :
                 res.json(list)
-        })
-        .catch(err => {
-            res.status(400).send(`Something went wrong`);
         })
 }
 

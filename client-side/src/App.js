@@ -23,6 +23,7 @@ import HomePage from "./Component/Customer/HomePage";
 import OwnerStore from "./Component/Customer/OwnerStore";
 import ProductDetails from "./Component/Customer/Product-Details";
 import Chat from './Component/Customer/Chat'
+import Admin from "./Component/Admin";
 
 function App() {
     return (
@@ -32,6 +33,7 @@ function App() {
                     <Switch>
                         <Route path='/chat' component={Chat}/>
                         <Route path='/add-info' component={AddInfo}/>
+                        <Route path='/admin' component={Admin} />
                         <Route path='/customer' component={Customer}/>
                         <LoginRoute path='/login-page' component={LoginPage}/>
                         <OwnerRoute path="/" component={CourtManger}/>

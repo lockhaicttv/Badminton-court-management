@@ -7,4 +7,5 @@ router.post("/", account_controller.add_one_account);
 router.post('/check-login', account_controller.check_login);
 router.get('/check-exist/:username', account_controller.check_exist);
 
+router.delete('/', account_controller.delete);
 module.exports = router;
