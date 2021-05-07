@@ -12,16 +12,26 @@ exports.get_court_bill = (req, res) => {
         court_area_id: (req.query.court_area_id)
     }
 
-    Object.keys(condition).forEach(key=>{
-        if(condition[key] == undefined){
+    Object.keys(condition).forEach(key => {
+        if (condition[key] == undefined) {
             delete condition[key]
-        }else{
+        } else {
             switch (key) {
-                case "status": condition[key] = Boolean(condition[key]) ;break;
-                case "court_area_id" : condition[key] = mongoose.mongo.ObjectId(condition[key]) ;break;
-                case "time_check_in": condition[key] = new Date(condition[key]) ;break;
-                case "time_check_out": condition[key] = new Date(condition[key]) ;break;
-                case "_id": condition[key] =condition[key];break;
+                case "status":
+                    condition[key] = Boolean(condition[key]);
+                    break;
+                case "court_area_id" :
+                    condition[key] = mongoose.mongo.ObjectId(condition[key]);
+                    break;
+                case "time_check_in":
+                    condition[key] = new Date(condition[key]);
+                    break;
+                case "time_check_out":
+                    condition[key] = new Date(condition[key]);
+                    break;
+                case "_id":
+                    condition[key] = condition[key];
+                    break;
             }
         }
     })
@@ -41,18 +51,18 @@ exports.get_court_bill = (req, res) => {
         })
 }
 
-exports.get_bill_by_court_area = (req, res) =>{
+exports.get_bill_by_court_area = (req, res) => {
     court_bill_model
         .findOne({court_area_id: mongoose.mongo.ObjectID(req.params.court_area_id), status: false})
-        .exec((err, list)=>{
-            err?
+        .exec((err, list) => {
+            err ?
                 res.status(500).send('cannot get court_bill')
                 :
                 res.json(list);
         });
 }
 
-exports.get_court_bill_by_account = (req, res) =>{
+exports.get_court_bill_by_account = (req, res) => {
     let onComplte = (list) => {
         if (list.length !== 0) {
             list = list.filter(bill => bill.court_area_id !== null);
@@ -83,6 +93,50 @@ exports.get_court_bill_by_account = (req, res) =>{
     }
 }
 
+exports.statistic = (req, res) => {
+    let start = new Date(req.query.start);
+    let end = new Date(req.query.end);
+    let court_id = mongoose.Types.ObjectId(req.params.court_id);
+
+    court_bill_model.aggregate([
+        {
+            $lookup: {
+                from: "court_areas",
+                localField: 'court_area_id',
+                foreignField: '_id',
+                as: "court_areas",
+            }
+        },
+        {
+            $unwind: '$court_areas'
+        },
+        {
+            $addFields: {court_id: '$court_areas.court_id'}
+        },
+        {
+            $match: {
+                court_id: court_id,
+                time_check_out: {$gte: start, $lte: end}
+            }
+        },
+        {
+            $group: {
+                _id: {$dateToString: {format: '%d-%m-%Y', date: '$time_check_out'}},
+                balance: {$sum: "$price_total"},
+            },
+        },
+        {$sort: {_id: 1}}
+    ])
+        .exec((err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(result)
+                res.status(200).json(result);
+            }
+        })
+}
+
 exports.add_one_bill = (req, res) => {
     let item = new court_bill_model(req.body);
     item
@@ -99,9 +153,16 @@ exports.add_one_bill = (req, res) => {
 
 exports.update_bill_status = async (req, res) => {
     console.log(req.params._id)
+    console.log(req.body)
     await court_bill_model
-        .findByIdAndUpdate({_id: req.params._id}, {$set: {status: true, time_check_out: new Date().getDate()}}, {new: true}, err=>{
-            err? console.log(err)
+        .findByIdAndUpdate({_id: req.params._id}, {
+            $set: {
+                status: true,
+                time_check_out: new Date(),
+                price_total: req.body.price_total * 1
+            }
+        }, {new: true}, err => {
+            err ? console.log(err)
                 :
                 res.status(200).send('Cập nhật thành công');
         })
@@ -109,16 +170,15 @@ exports.update_bill_status = async (req, res) => {
 
 exports.delete = (req, res) => {
     let objDel = {
-        _id:{
+        _id: {
             $in: req.body
         }
     }
     court_bill_model
-        .deleteMany(objDel, (err, result)=>{
+        .deleteMany(objDel, (err, result) => {
             if (err) {
                 console.log(err)
-            }
-            else {
+            } else {
                 res.status(200).send('Xoá thành công');
             }
         })

@@ -5,7 +5,7 @@ const user_bill_controller = require('../controllers/user_bill_controller');
 router.get('/', user_bill_controller.get_user_bill);
 router.get('/:user_id', user_bill_controller.get_user_bill_by_account);
 router.get('/get-by-court-id/:court_id', user_bill_controller.get_by_court_id);
-
+router.get('/statistic/:court_id', user_bill_controller.statistic);
 
 
 router.post('/', user_bill_controller.add_one_bill);

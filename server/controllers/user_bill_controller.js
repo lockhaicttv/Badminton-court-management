@@ -99,6 +99,35 @@ exports.add_one_bill = async (req, res) => {
 
 }
 
+exports.statistic = (req, res) => {
+    let start = new Date(req.query.start);
+    let end = new Date(req.query.end);
+    let court_id = mongoose.Types.ObjectId(req.params.court_id);
+    user_bill.aggregate([
+        {
+            $match: {
+                court_id: court_id,
+                pay_time: {$gte: start, $lte: end}
+            }
+        },
+        {
+            $group: {
+                _id: {$dateToString: {format: '%d-%m-%Y', date: '$pay_time'}},
+                balance: {$sum: "$price_total"},
+            },
+        },
+        {$sort: {_id: 1}}
+    ])
+        .exec((err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(result)
+                res.status(200).json(result);
+            }
+        })
+}
+
 exports.update_bill_status = async (req, res) => {
     console.log(req.params._id)
     await user_bill

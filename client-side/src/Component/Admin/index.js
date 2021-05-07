@@ -1,16 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {Link, Route} from 'react-router-dom'
-import Area from "./Admin/Area/Area";
-import Bill from "./Admin/Bills/Bills";
-import Category from "./Admin/Category/Category";
-import Order from "./Admin/Order/Order";
-import Product from "./Admin/Product/Product";
-import Promotion from "./Admin/Promotion/Promotion";
-import Bills from "../CourtManager/CourtAdmin/Bills/Bills";
-import Customer from "./Admin/Customer/Customer";
-import Owner from "./Admin/Owner/Owner";
-import CourtInfo from "./Admin/CourtInfo/CourtInfo";
-import OrderDetail from "./Admin/Orderdetail/OrderDetail";
+import Database from "./Database";
+import HeaderAdmin from "../HeadFoot/HeaderAdmin";
 
 const Panel = (
     <div>
@@ -54,22 +45,9 @@ const Panel = (
 const Admin = () => {
 
     return (
-        <div className="row mr-0">
-            <div className="col-lg-2" style={{minHeight: "90vh"}}>
-                {Panel}
-            </div>
-            <div className="col-lg-10">
-                <Route exact path='/admin/owner' component={Owner} />
-                <Route exact path='/admin/court-info' component={CourtInfo} />
-                <Route exact path="/admin/category" component={Category}/>
-                <Route exact path="/admin/product" component={Product}/>
-                <Route exact path="/admin/bill" component={Bills}/>
-                <Route exact path="/admin/area" component={Area}/>
-                <Route exact path="/admin/promotion" component={Promotion}/>
-                <Route exact path='/admin/customer' component={Customer} />
-                <Route exact path='/admin/order' component={Order} />
-                <Route exact path='/admin/order-detail' component={OrderDetail}/>
-            </div>
+        <div>
+            <HeaderAdmin/>
+            <Route path='/admin/database' component={Database}/>
         </div>
     );
 }

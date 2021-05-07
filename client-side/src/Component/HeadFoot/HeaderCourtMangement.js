@@ -75,6 +75,14 @@ const HeaderCourtManagement = withRouter(({history}) => {
                     </Nav.Item>
                     <Nav.Item>
                         <Link
+                            to='/home/statistic'
+                            className="header-customer-item text-decoration-none text-primary font-weight-bold px-3"
+                        >
+                            Thống kê
+                        </Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Link
                             to={shopPageRoute}
                             className="header-customer-item text-decoration-none text-primary font-weight-bold px-3"
                         >

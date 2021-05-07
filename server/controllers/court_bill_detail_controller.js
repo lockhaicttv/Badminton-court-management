@@ -2,14 +2,14 @@ var court_bill_detail = require('../models/court_bill_detail_model');
 
 exports.get_bill_detail = (req, res) => {
     court_bill_detail
-        .find((err, list) => {
+        .find()
+        .populate('court_bill_id')
+        .populate('product_id')
+        .exec((err, list) => {
             err ?
                 res.status(500).send('Cannot get list bill details')
                 :
                 res.json(list);
-        })
-        .catch(() => {
-            res.status(400).send('Something went wrong');
         })
 }
 

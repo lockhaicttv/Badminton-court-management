@@ -58,9 +58,9 @@ const OwnerStore = () => {
         <div className='container'>
             <div><Banner _id={shop_id}/></div>
             {listCategoryButton}
-            <CardColumns>
+            <div className='row'>
                 {listProduct}
-            </CardColumns>
+            </div>
         </div>
     )
 

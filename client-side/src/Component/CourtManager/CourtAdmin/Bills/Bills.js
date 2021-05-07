@@ -17,6 +17,10 @@ const columns = [
         text: 'Thời gian ra'
     },
     {
+        dataField: 'price_total',
+        text: 'Tổng tiền'
+    },
+    {
         dataField: 'status',
         text: 'Trạng thái',
         hidden: true
@@ -103,8 +107,11 @@ function Bill(props) {
 
     const onDelete = () => {
         if (window.confirm('Bạn muốn xoá những mục đã chọn?')){
-            alert(listDel);
-            // setRealTime(preventDefault=>preventDefault+1);
+            callApi('court_bill', 'delete', listDel)
+                .then(
+                    alert('Đã xoá thành công')
+                )
+                .catch('Xoá thất bại')
         } else {
             return false;
         }
