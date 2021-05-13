@@ -19,11 +19,13 @@ import Customer from './Component/Customer'
 import AddInfo from "./Component/LoginPage/Register/AddInfo";
 import OwnerRoute from "./Router/OwnerRoute";
 import LoginRoute from "./Router/LoginRoute";
-import HomePage from "./Component/Customer/HomePage";
+import HomePage from "./Component/Customer/HomePage/HomePage";
 import OwnerStore from "./Component/Customer/OwnerStore";
 import ProductDetails from "./Component/Customer/Product-Details";
 import Chat from './Component/Customer/Chat'
 import Admin from "./Component/Admin";
+import AdminRoute from "./Router/AdminRoute";
+import AdminLogin from "./Component/LoginPage/AdminLogin";
 
 function App() {
     return (
@@ -33,8 +35,9 @@ function App() {
                     <Switch>
                         <Route path='/chat' component={Chat}/>
                         <Route path='/add-info' component={AddInfo}/>
-                        <Route path='/admin' component={Admin} />
                         <Route path='/customer' component={Customer}/>
+                        <Route exact path='/login-page/admin' component={AdminLogin}/>
+                        <AdminRoute path='/admin' component={Admin} />
                         <LoginRoute path='/login-page' component={LoginPage}/>
                         <OwnerRoute path="/" component={CourtManger}/>
                     </Switch>

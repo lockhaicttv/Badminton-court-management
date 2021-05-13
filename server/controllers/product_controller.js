@@ -137,6 +137,39 @@ exports.get_product_by_account_id = (req, res) => {
     }
 }
 
+exports.get_product_sale = (req, res) => {
+    let time = new Date('2021-05-28T00:00:00.000Z')
+    product
+        .aggregate([
+            {
+                $lookup: {
+                    from: "promotions",
+                    localField: 'promotion_id',
+                    foreignField: '_id',
+                    as: "promotion",
+                }
+            },
+            {
+                $unwind: '$promotion'
+            },
+            {
+                $addFields: {promotion_end_time: '$promotion.end'}
+            },
+            {
+                $match: {promotion_end_time: {$lte: time}}
+            }
+        ]
+    )
+        .exec((err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(result)
+                res.status(200).json(result);
+            }
+        })
+}
+
 exports.get_court_by_product = (req, res) => {
     console.log(req.params)
     product

@@ -37,7 +37,8 @@ exports.check_login = (req, res) => {
             console.log(err)
         else {
             if (account !== null){
-                res.status(200).json({message: 'Đăng nhập thành công', info: account, type: 'owner'})
+                console.log(account.role)
+                res.status(200).json({message: 'Đăng nhập thành công', info: account, type: account.role})
             }
             else {
                 user_model.findOne({username: username, password: password}, (err, user)=>{

@@ -7,7 +7,7 @@ import NavLink from "react-bootstrap/NavLink";
 import Nav from "react-bootstrap/Nav";
 import ProductDetails from "./Product-Details";
 import HeaderCustomer from "../HeadFoot/HeaderCustomer";
-import HomePage from "./HomePage";
+import HomePage from "./HomePage/HomePage";
 import ShoppingCart from "./ShoppingCart/";
 import ls from "../../Utils/localStorage";
 import {accountIdState, authenticationState, cartState} from "../../Store/atom";

@@ -21,6 +21,11 @@ function Login() {
   const handleSubmit = () => {
     callApi("account/check-login", "post", account)
       .then((res) => {
+        if (res.data.type === 'admin'){
+          alert('Đăng nhập thất bại');
+          return
+        }
+
         if (res.data.type === "owner") {
           setAccountId(res.data.info._id);
           setAuthentication({
