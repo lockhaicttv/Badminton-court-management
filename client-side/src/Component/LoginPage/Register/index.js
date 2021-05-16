@@ -23,10 +23,10 @@ function Register(props) {
         id_card: null
     })
     const [user, setUser] = useState({
-        username: "",
-        password: "",
-        full_name: "",
-        address: "",
+        username: '',
+        password: '',
+        full_name: '',
+        address: '',
         phone_number: 0,
         id_card: null,
         gender: "male",
@@ -52,6 +52,7 @@ function Register(props) {
     }
 
     const handleCheckUserName = () => {
+        console.log(account.username)
         callApi(`account/check-exist/${account.username}`, 'get', null)
             .then((res) => {
                 console.log(res.data.message)
@@ -114,7 +115,7 @@ function Register(props) {
                           name='username'
                           value={account.username}
                           onChange={handleChange}
-                          onKeyUp={handleCheckUserName}
+                          onKeyPress={handleCheckUserName}
                           required
             />
             <Form.Text size='lg' className="text-muted">
@@ -190,7 +191,7 @@ function Register(props) {
                           name='username'
                           value={user.username}
                           onChange={handleChangeUser}
-                          onKeyUp={handleCheckUserName}
+                          onKeyPress={handleCheckUserName}
                           required
             />
             <Form.Text size='lg' className="text-muted">

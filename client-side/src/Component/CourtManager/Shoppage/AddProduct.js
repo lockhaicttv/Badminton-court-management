@@ -64,7 +64,7 @@ function AddProduct(props) {
         <div>
             <Modal show={props.isShow} onHide={props.handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Thêm loại sản phẩm</Modal.Title>
+                    <Modal.Title>Thêm sản phẩm</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <InputGroup className="mb-3">

@@ -5,6 +5,8 @@ import {Button, Card, Modal} from "react-bootstrap";
 import FileBase64 from "react-file-base64";
 import callApi from "../../../Utils/apiCaller";
 import ReactDom from 'react-dom'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit} from "@fortawesome/free-solid-svg-icons";
 
 const EditBanner = (props) =>{
     const {isShowModal, handleClose} = props;
@@ -24,7 +26,11 @@ const EditBanner = (props) =>{
         </Modal.Header>
         <Modal.Body>
             <Card.Img variant="top" src={banner.base64}/>
-            <FileBase64 onDone={getBase64}/>
+            <label className="btn btn btn-secondary">
+                <FileBase64 id='file' onDone={getBase64}/>
+                <FontAwesomeIcon icon={faEdit}/>
+                <i>Thay ảnh</i>
+            </label>
         </Modal.Body>
         <Modal.Footer>
             <Button variant="primary" onClick={handleEditBanner}>
