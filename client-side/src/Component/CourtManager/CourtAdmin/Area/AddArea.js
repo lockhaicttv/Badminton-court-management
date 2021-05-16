@@ -2,6 +2,7 @@ import {Button, FormControl, InputGroup, Modal} from "react-bootstrap";
 import React, {useState, useEffect} from "react";
 import {accountIdState, areasState, courtIdState} from "../../../../Store/atom";
 import {useRecoilValue} from "recoil";
+import callApi from "../../../../Utils/apiCaller";
 
 function AddArea(props) {
     const areaState = useRecoilValue(areasState)
@@ -11,11 +12,19 @@ function AddArea(props) {
         area: props.court_total,
         status: false,
         description: '',
+        price: '',
         court_id: court_id
     })
 
     const handleSave = () => {
-        console.log(item);
+        callApi('court_area', 'post', item)
+            .then(
+                alert('Thêm thành công')
+            )
+            .catch(
+                alert('Thêm thất bại')
+            )
+        props.reload();
     }
 
     const handleChange = (e) =>{
@@ -56,6 +65,19 @@ function AddArea(props) {
                             value={item.description}
                             onChange={handleChange}
                             placeholder="Mô tả"
+                        />
+                    </InputGroup>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="basic-addon1">Giá</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <FormControl
+                            name='price'
+                            value={item.price}
+                            onChange={handleChange}
+                            placeholder={item.price}
+                            aria-label="Username"
+                            aria-describedby="basic-addon1"
                         />
                     </InputGroup>
                 </Modal.Body>

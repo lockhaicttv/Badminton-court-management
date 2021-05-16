@@ -8,6 +8,8 @@ import { accountIdState, courtIdState } from "../../Store/atom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import callApi from "../../Utils/apiCaller";
 import Statistics from "./Statistics";
+import AddInfo from "../LoginPage/Register/AddInfo";
+import CourtHomePage from "./CourtHomePage";
 
 const Court = () => {
   const account_id = useRecoilValue(accountIdState);
@@ -31,6 +33,7 @@ const Court = () => {
   return (
     <div>
       <HeaderCourtMangement />
+      <Route exact path='/home' component={CourtHomePage}/>
       <Route exact path="/home/court" component={CourtManager} />
       <Route path="/home/admin" component={CourtAdmin} />
       <Route path='/home/statistic' component={Statistics} />
@@ -39,6 +42,7 @@ const Court = () => {
         path={`/home/shop-page/${account_id}`}
         component={Shoppage}
       />
+      <Route exact path='/add-info/:account_id' component={AddInfo}/>
     </div>
   );
 };

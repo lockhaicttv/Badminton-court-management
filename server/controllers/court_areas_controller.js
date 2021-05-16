@@ -74,9 +74,8 @@ exports.update_status = (req, res) =>{
 }
 
 exports.update_one_row = (req, res) => {
-    let objUpdate = new court_areas_model(req.body);
     let id = req.params._id;
-
+    console.log(req.body)
     court_areas_model
         .findByIdAndUpdate({_id: mongoose.mongo.ObjectID(id)}, req.body, {new: true}, (err, result)=>{
             if (err)

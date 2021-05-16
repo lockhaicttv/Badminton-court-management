@@ -34,7 +34,6 @@ function App() {
                 <Router>
                     <Switch>
                         <Route path='/chat' component={Chat}/>
-                        <Route path='/add-info' component={AddInfo}/>
                         <Route path='/customer' component={Customer}/>
                         <Route exact path='/login-page/admin' component={AdminLogin}/>
                         <AdminRoute path='/admin' component={Admin} />

@@ -40,7 +40,7 @@ function AddBill(props) {
     }
 
     const listArea = area.map((item, key) => {
-        return <option value={item._id}>{item.area}</option>
+        return <option value={item._id} key={item._id}>{item.area}</option>
     })
 
     return (

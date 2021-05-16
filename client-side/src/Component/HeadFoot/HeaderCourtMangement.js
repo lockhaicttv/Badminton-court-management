@@ -51,7 +51,7 @@ const HeaderCourtManagement = withRouter(({history}) => {
                 <Nav className="mr-auto">
                     <Nav.Item>
                         <Link
-                            to="/"
+                            to="/home"
                             className="text-decoration-none text-primary font-weight-bold px-3 header-customer-item"
                         >
                             Home

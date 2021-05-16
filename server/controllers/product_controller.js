@@ -105,7 +105,7 @@ exports.get_product_by_court_on_shoppage = (req, res) => {
     }
 }
 
-exports.get_product_by_account_id = (req, res) => {
+exports.get_product_by_court_id = (req, res) => {
     let onComplte = (list) => {
         if (list.length !== 0) {
             list = list.filter(area => area.product_category_id !== null);
@@ -124,11 +124,9 @@ exports.get_product_by_account_id = (req, res) => {
             .find()
             .populate({
                 path: 'product_category_id',
-                populate:
-                    {
-                        path: 'account_id',
-                        match: {account_id: req.params.account_id}
-                    }
+                match: {
+                    court_id: req.params.court_id
+                }
             })
             .exec((err, list) => {
                 taskToGo = 1;
@@ -146,14 +144,14 @@ exports.get_product_sale = (req, res) => {
                     from: "promotions",
                     localField: 'promotion_id',
                     foreignField: '_id',
-                    as: "promotion",
+                    as: "promotion_id",
                 }
             },
             {
-                $unwind: '$promotion'
+                $unwind: '$promotion_id'
             },
             {
-                $addFields: {promotion_end_time: '$promotion.end'}
+                $addFields: {promotion_end_time: '$promotion_id.end'}
             },
             {
                 $match: {promotion_end_time: {$lte: time}}

@@ -5,97 +5,88 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import cellEditFactory, {Type} from 'react-bootstrap-table2-editor';
 import Button from "react-bootstrap/Button";
 import AddProduct from "./AddProduct";
-import {accountIdState, realTimeState} from '../../../../Store/atom';
+import {accountIdState, courtIdState, realTimeState} from '../../../../Store/atom';
 import {useRecoilState, useRecoilValue} from "recoil";
 import FileBase64 from "react-file-base64";
 import ProductDetail from "./ProductDetail";
 import MyCustomImageEditing from "./MyCustomImageEditing";
 
-const options = callApi('product_category/get-by-court/6019f135b7409a239c8564e7', 'get', null)
-    .then((res) => {
-        let options = res.data.map((item, key) => {
-            return {
-                value: item.name,
-                label: item._id
-            }
-        })
-        return options;
-    })
-
-
-const columns = [
-    {
-        dataField: '_id',
-        text: 'ID sản phẩm'
-    },
-    {
-        dataField: 'name',
-        text: 'Tên'
-    },
-    {
-        dataField: 'price',
-        text: 'Giá sản phẩm'
-    },
-    {
-        dataField: 'description',
-        text: 'Mô tả'
-    },
-    {
-        dataField: 'quantity',
-        text: 'Số lượng'
-    },
-    {
-        dataField: 'image.base64',
-        text: 'Hình ảnh',
-        hidden: true
-    },
-    {
-        dataField: 'on_shop_page',
-        text: 'Đang bán online',
-        editor: {
-            type: Type.SELECT,
-            options: [{
-                value: false,
-                label: 'Không'
-            }, {
-                value: true,
-                label: 'Có'
-            }]
-        }
-    },
-    {
-        dataField: 'product_category_id.name',
-        text: 'Loại sản phẩm',
-        editor: {
-            type: Type.SELECT,
-            getOptions: (setOptions) => {
-                callApi('product_category/get-by-court/6019f135b7409a239c8564e7', 'get', null)
-                    .then((res) => {
-                        let options = res.data.map((item, key) => {
-                            return {
-                                value: item._id,
-                                label: item.name
-                            }
-                        })
-                        setOptions(options);
-                    })
-            }
-        }
-    }
-];
-
-const defaultSorted = [{
-    dataField: 'name',
-    order: 'desc'
-}];
 
 
 function Product() {
     const account_id = useRecoilValue(accountIdState);
+    const courtInfo = useRecoilValue(courtIdState);
     const [data, setData] = useState([]);
     const [isShowModalAdd, setIsShowModalAdd] = useState(false);
     const [listDel, setListDel] = useState([]);
     const [realTime, setRealTime] = useRecoilState(realTimeState);
+
+
+    const columns = [
+        {
+            dataField: '_id',
+            text: 'ID sản phẩm'
+        },
+        {
+            dataField: 'name',
+            text: 'Tên'
+        },
+        {
+            dataField: 'price',
+            text: 'Giá sản phẩm'
+        },
+        {
+            dataField: 'description',
+            text: 'Mô tả'
+        },
+        {
+            dataField: 'quantity',
+            text: 'Số lượng'
+        },
+        {
+            dataField: 'image.base64',
+            text: 'Hình ảnh',
+            hidden: true
+        },
+        {
+            dataField: 'on_shop_page',
+            text: 'Đang bán online',
+            editor: {
+                type: Type.SELECT,
+                options: [{
+                    value: false,
+                    label: 'Không'
+                }, {
+                    value: true,
+                    label: 'Có'
+                }]
+            }
+        },
+        {
+            dataField: 'product_category_id.name',
+            text: 'Loại sản phẩm',
+            editor: {
+                type: Type.SELECT,
+                getOptions: (setOptions) => {
+                    callApi(`product_category/get-by-court/${courtInfo._id}`, 'get', null)
+                        .then((res) => {
+                            let options = res.data.map((item, key) => {
+                                return {
+                                    value: item._id,
+                                    label: item.name
+                                }
+                            })
+                            setOptions(options);
+                        })
+                }
+            }
+        }
+    ];
+
+    const defaultSorted = [{
+        dataField: 'name',
+        order: 'desc'
+    }];
 
     const selectRow = {
         mode: 'checkbox',
@@ -162,7 +153,7 @@ function Product() {
     }, [])
 
     const loadData = () => {
-        callApi(`product/get-by-account-id/${account_id}`, 'get', null)
+        callApi(`product/get-by-court-id/${courtInfo._id}`, 'get', null)
             .then(res => {
                 setData(res.data);
             })

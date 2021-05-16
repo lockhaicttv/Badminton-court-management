@@ -17,14 +17,12 @@ function Bill(props) {
     const [bill, setBill] = useRecoilState(billState);
     const [billDetail, setBillDetail] = useRecoilState(billDetailState);
     const [area, setArea] = useRecoilState(areasState);
-
+    const area_index = area.findIndex((x) => x._id === bill.court_area_id);
     function handleBillPayment(billID, priceTotal) {
         let newArea = [...area];
 
         let index = newArea.findIndex((x) => x._id === bill.court_area_id);
-        // console.log(newArea[index]._id)
         let _id = newArea[index]._id;
-        let status = !newArea[index].status;
         let temp = {
             _id: newArea[index]._id,
             area: newArea[index].area,
@@ -65,6 +63,12 @@ function Bill(props) {
         </thead>
     );
 
+    const getHours = (start) => {
+        let time_check_in = new Date(start).getTime();
+        let end = new Date().getTime();
+        return (end-time_check_in) / (1000*60*60)
+    }
+
     let billPrice = 0;
     const listBillDetails = billDetail.map((item, key) => {
         billPrice += item.product_id.price * item.quantity;
@@ -79,6 +83,18 @@ function Bill(props) {
         );
     });
 
+    if (area[area_index]!==undefined) {
+        billPrice +=  getHours(bill.time_check_in) * (area[area_index].price);
+        listBillDetails.push(
+            <tr key='-9999999'>
+                <td>{listBillDetails.length + 1}</td>
+                <td>Giờ chơi</td>
+                <td>{getHours(bill.time_check_in)}</td>
+                <td>{area[area_index].price}đ</td>
+                <td>{getHours(bill.time_check_in) * (area[area_index].price)}</td>
+            </tr>
+        )
+    }
     return (
         <div className="col-lg-12 border bg-white">
             <h3 className="text-center">Hoá Đơn</h3>
@@ -107,6 +123,7 @@ function Bill(props) {
             <th>Tổng tiền</th>
             <th colSpan="4" className="text-center"></th>
           </tr> */}
+
                 </tbody>
             </Table>
             <div className="header-border-table"/>

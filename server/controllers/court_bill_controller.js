@@ -62,7 +62,7 @@ exports.get_bill_by_court_area = (req, res) => {
         });
 }
 
-exports.get_court_bill_by_account = (req, res) => {
+exports.get_court_bill_by_court = (req, res) => {
     let onComplte = (list) => {
         if (list.length !== 0) {
             list = list.filter(bill => bill.court_area_id !== null);
@@ -81,9 +81,8 @@ exports.get_court_bill_by_account = (req, res) => {
             .find()
             .populate({
                 path: 'court_area_id',
-                populate: {
-                    path: 'court_id',
-                    match: {account_id: req.params.account_id}
+                match: {
+                    court_id: req.params.court_id
                 }
             })
             .exec((err, list) => {

@@ -3,6 +3,9 @@ import callApi from "../../../../Utils/apiCaller";
 import BootStrapTable from "react-bootstrap-table-next";
 import Button from "react-bootstrap/Button";
 import AddBill from "./AddBill";
+import {accountIdState, courtIdState} from "../../../../Store/atom";
+import {useRecoilValue} from "recoil";
+
 const columns = [
     {
         dataField: '_id',
@@ -38,6 +41,8 @@ const selectRow = {
 
 
 function Bill(props) {
+    const account_id = useRecoilValue(accountIdState)
+    const courtInfo = useRecoilValue(courtIdState)
     const [data, setData] = useState([]);
     const [billDetails, setBillDetails] = useState([]);
     const [isShowModalAdd, setIsShowModalAdd] = useState(false);
@@ -76,7 +81,7 @@ function Bill(props) {
     };
 
     useEffect(() => {
-        callApi(`court_bill/6019f135b7409a239c8564e7`, 'get', null)
+        callApi(`court_bill/${courtInfo._id}`, 'get', null)
             .then(res => {
                 setData(res.data);
             })

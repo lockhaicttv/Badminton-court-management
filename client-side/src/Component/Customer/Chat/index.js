@@ -53,21 +53,21 @@ const Chat = () => {
     }
 
     let listChatLog = chatLog.map((item, key) => {
-        if (item.name === 'Upin') {
+        if (item.name !== 'Upin') {
             return <div key={key} className="d-flex align-items-center text-right justify-content-end shadow-sm pt-1 rounded-0">
-                <div className="pr-2"><span className="name">Upin</span>
+                <div className="pr-2"><span className="name">Me</span>
                     <p className="msg">{item.message}</p>
                 </div>
                 <div>
-                    <img src="/image/Upin1.png" width="30" className="img1"/>
+                    <img src="https://img.icons8.com/color/40/000000/guest-female.png" width="30" className="img1"/>
                 </div>
             </div>
         } else {
             return <div key={key} className="d-flex align-items-center shadow-sm pt-1 rounded-0">
                 <div className="text-left pr-1">
-                    <img src="https://img.icons8.com/color/40/000000/guest-female.png" width="30" className="img1"/>
+                    <img src="/image/Upin1.png" width="30" className="img1"/>
                 </div>
-                <div className="pr-2 pl-1"><span className="name">Me</span>
+                <div className="pr-2 pl-1"><span className="name">Upin</span>
                     <p className="msg">{item.message}</p>
                 </div>
             </div>

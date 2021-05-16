@@ -8,6 +8,7 @@ const court_areas_model = new Schema(
         area: {type: Number},
         status: {type: Boolean},
         description: {type: String},
+        price: {type: Number},
         court_id: {type: Schema.Types.ObjectId, ref: court_model}
     },
     {versionKey: false}

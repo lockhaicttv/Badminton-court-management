@@ -16,7 +16,7 @@ function CourtManger() {
   const [CourtId, setCourtId] = useRecoilState(courtIdState);
 
   const loadCourtInfo = () => {
-    let item = [];
+    //let item = [];
     callApi(`court/get-by-account-id/${account_id}`, "get", null).then(
       (res) => {
         console.log(res.data);
@@ -25,8 +25,6 @@ function CourtManger() {
             console.log("ok");
             callApi(`court_area/?court_id=${res.data._id}`, "get", null).then(
               (res) => {
-                item = res.data;
-                console.log(item);
                 let initAreasState = [];
                 let initBillState = [];
                 initAreasState = res.data;
@@ -36,7 +34,7 @@ function CourtManger() {
             );
           }
         } else {
-          history.push("/add-info");
+          history.push(`/add-info/${account_id}`);
         }
       }
     );

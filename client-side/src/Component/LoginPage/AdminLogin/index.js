@@ -27,7 +27,6 @@ function AdminLogin() {
                         isAuthenticated: true,
                         role: "admin",
                     });
-                    ls.setAuthenticate("admin", res.data.info._id);
                     history.push("/admin");
                 } else {
                    alert('Đăng nhập thất bại')
@@ -59,13 +58,12 @@ function AdminLogin() {
     };
 
     return (
-        <Row className="justify-content-md-center mx-0  my-5 py-5">
-            <Col xs lg={6}>
-                <img src="/image/logo-text.png" width="350px" className="mb-5" />
-                <h2>Giúp bạn quản lý hệ thống sân cầu lông,</h2>
-                <h2>và đăng bán các sản phẩm của mình</h2>
+        <Row className="justify-content-md-center mx-0  my-5 py-5 align-items-center">
+            <Col xs lg={6} className="text-center">
+                <img src="/image/bg-admin.jpg" width="100%" className="mb-5" />
             </Col>
-            <Col xs lg={3}>
+            <Col xs lg={3} className="align-items-center">
+                <h3 className="text-center font-weight-bold p-2">ĐĂNG NHẬP ADMIN</h3>
                 <Form className="px-5  p-5 shadow">
                     <Form.Group controlId="formBasicEmail">
                         <Form.Control
@@ -94,27 +92,19 @@ function AdminLogin() {
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Nhớ mật khẩu" />
                     </Form.Group>
-                    <Row>
-                        <Col>
-                            <Button
-                                size="lg"
-                                variant="success"
-                                bsPrefix="btn-web-success"
-                                className="rounded-pill"
-                                onClick={handleClose}
-                            >
-                                Đăng ký
-                            </Button>
-                        </Col>
+                    <Row className="">
                         <Col>
                             <Button
                                 size="lg"
                                 bsPrefix="btn-web-primary"
                                 className="rounded-pill"
                                 onClick={handleSubmit}
+
                             >
                                 Đăng nhập
                             </Button>
+
+
                         </Col>
                     </Row>
                 </Form>

@@ -124,7 +124,7 @@ const CartItem = (props) => {
                     </Media>
                 </Col>
                 <Col>
-                    <h4>{item.quantity * cartDetail.price} VND</h4>
+                    <h4>{Number(item.quantity * cartDetail.price).toLocaleString()}đ</h4>
                     <InputGroup>
                         <InputGroup.Prepend>
                             <Button variant="outline-secondary" onClick={decreaseQuantity}>

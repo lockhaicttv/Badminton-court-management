@@ -222,7 +222,7 @@ const ProductDetails = () => {
                         </div>
                     </div>
                 </Col>
-                <Col sm={8} className='pt-2'>
+                <Col sm={8} className='pt-2 pb-2'>
                     <h1>{productDetails.name} </h1> {/*Tên sản phẩm*/}
                     <Row>
                         <Col xs={7}>
@@ -231,16 +231,16 @@ const ProductDetails = () => {
                                 <div className='my-2 background-silver border-dark border-bottom'> {/*Giá*/}
                                     <div className='my-2 background-silver border-dark border-bottom'> {/*Giá*/}
                                         <h5 className='p-2 card-title'>
-                                            Giá gốc: {productDetails.price} đ
+                                            Giá gốc: {Number(productDetails.price).toLocaleString()}đ
                                         </h5>
                                     </div>
                                     <h5 className='p-2 card-title text-danger'>
-                                        Khuyến mãi: {productDetails.price * promotionValue} đ
+                                        Khuyến mãi: {Number(productDetails.price * promotionValue).toLocaleString()}đ
                                     </h5>
                                 </div>
                                 :
                                 <div className='my-2 background-silver border-dark border-bottom'> {/*Giá*/}
-                                    <h5 className='p-2 card-title'>{productDetails.price} đ</h5>
+                                    <h5 className='p-2 card-title'>{Number(productDetails.price).toLocaleString()} đ</h5>
                                 </div>
                             }
 
@@ -270,7 +270,6 @@ const ProductDetails = () => {
                     </Row>
                 </Col>
             </Row>
-            <Chat/>
         </div>
     )
 }

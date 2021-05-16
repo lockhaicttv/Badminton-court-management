@@ -122,13 +122,13 @@ const PriceTotal = () => {
                     <ListGroup.Item>
                         <div className="justify-content-around">
                             <div>Tạm tính</div>
-                            <div>{priceTotal.subTotal} VND</div>
+                            <div>{Number(priceTotal.subTotal).toLocaleString()} VND</div>
                         </div>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <div className="justify-content-around">
                             <div className="text-danger">Thành tiền</div>
-                            <div>{priceTotal.subTotal} VND</div>
+                            <div>{Number(priceTotal.subTotal).toLocaleString()} VND</div>
                         </div>
                     </ListGroup.Item>
                 </ListGroup>

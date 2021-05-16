@@ -6,8 +6,8 @@ import {accountIdState, authenticationState} from "../../../Store/atom";
 import {useHistory} from "react-router";
 
 function Register(props) {
-
     const history = useHistory();
+    const [validated, setValidated] = useState(false);
     const [registerType, setRegisterType] = useState(true);
     const [checkUsername, setCheckUsername] = useState('');
     const [account, setAccount] = useState({
@@ -44,7 +44,7 @@ function Register(props) {
         })
     }
 
-    const handleChangeUser = (e) =>{
+    const handleChangeUser = (e) => {
         setUser({
             ...user,
             [e.target.name]: e.target.value
@@ -59,39 +59,54 @@ function Register(props) {
             })
     }
 
-    const handleSubmitOwner = () => {
-        callApi('account', 'post', account)
-            .then((res) => {
-                console.log(res.data)
-                if (res.data.message.includes('thành công')) {
-                    props.setAuthentication('owner');
-                    history.push('/');
-                } else {
-                    alert(res.data);
-                }
-            })
+    const handleSubmitOwner = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            setValidated(true);
+            callApi('account', 'post', account)
+                .then((res) => {
+                    console.log(res.data)
+                    if (res.data.message.includes('thành công')) {
+                        props.setAuthentication('owner');
+                        history.push('/');
+                    } else {
+                        alert(res.data);
+                    }
+                })
+        }
     }
 
-    const handleSubmitUser = () => {
-        callApi('user', 'post', user)
-            .then((res) => {
-                console.log(res.data)
-                if (res.data.message.includes('thành công')) {
-                    props.setAuthentication('customer');
-                    history.push('/customer');
-                } else {
-                    alert(res.data);
-                }
-            })
+    const handleSubmitUser = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            setValidated(true);
+            callApi('user', 'post', user)
+                .then((res) => {
+                    console.log(res.data)
+                    if (res.data.message.includes('thành công')) {
+                        props.setAuthentication('customer');
+                        history.push('/customer');
+                    } else {
+                        alert(res.data);
+                    }
+                })
+        }
     }
 
 
-    const ownerForm = <Form className='px-5  p-5 shadow'>
+    const ownerForm = <Form className='px-5  p-5 shadow' noValidate validated={validated} onSubmit={handleSubmitOwner}>
         <Form.Group controlId="formBasicEmail">
             <Form.Control size='lg' type="text" placeholder="Họ tên"
                           name='full_name'
                           value={account.full_name}
                           onChange={handleChange}
+                          required
             />
         </Form.Group>
         <Form.Group controlId="formBasicEmail">
@@ -100,6 +115,7 @@ function Register(props) {
                           value={account.username}
                           onChange={handleChange}
                           onKeyUp={handleCheckUserName}
+                          required
             />
             <Form.Text size='lg' className="text-muted">
                 {checkUsername}
@@ -110,6 +126,7 @@ function Register(props) {
                           name='password_1'
                           value={account.password_1}
                           onChange={handleChange}
+                          required
             />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
@@ -117,6 +134,7 @@ function Register(props) {
                           name='phone_number'
                           value={account.phone_number}
                           onChange={handleChange}
+                          required
             />
         </Form.Group>
         <Form.Group controlId="formBasicCheckbox">
@@ -124,6 +142,7 @@ function Register(props) {
                           name='gender'
                           value={account.gender}
                           onChange={handleChange}
+                          required
             >
                 <option>Giới tính...</option>
                 <option value='male'>Nam</option>
@@ -135,6 +154,7 @@ function Register(props) {
                           name='address'
                           value={account.address}
                           onChange={handleChange}
+                          required
             />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
@@ -142,12 +162,13 @@ function Register(props) {
                           name='birthday'
                           value={account.birthday}
                           onChange={handleChange}
+                          required
             />
         </Form.Group>
         <Row>
             <Col>
                 <Button size='lg' variant="success"
-                        onClick={handleSubmitOwner}
+                        type='submit'
                 >
                     Đăng ký
                 </Button>
@@ -155,12 +176,13 @@ function Register(props) {
         </Row>
     </Form>
 
-    const userForm = <Form className='px-5  p-5 shadow'>
+    const userForm = <Form className='px-5  p-5 shadow' noValidate validated={validated} onSubmit={handleSubmitUser}>
         <Form.Group controlId="formBasicEmail">
             <Form.Control size='lg' type="text" placeholder="Họ tên"
                           name='full_name'
                           value={user.full_name}
                           onChange={handleChangeUser}
+                          required
             />
         </Form.Group>
         <Form.Group controlId="formBasicEmail">
@@ -169,6 +191,7 @@ function Register(props) {
                           value={user.username}
                           onChange={handleChangeUser}
                           onKeyUp={handleCheckUserName}
+                          required
             />
             <Form.Text size='lg' className="text-muted">
                 {checkUsername}
@@ -179,6 +202,7 @@ function Register(props) {
                           name='password'
                           value={user.password}
                           onChange={handleChangeUser}
+                          required
             />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
@@ -186,6 +210,7 @@ function Register(props) {
                           name='phone_number'
                           value={user.phone_number}
                           onChange={handleChangeUser}
+                          required
             />
         </Form.Group>
         <Form.Group controlId="formBasicCheckbox">
@@ -193,6 +218,7 @@ function Register(props) {
                           name='gender'
                           value={user.gender}
                           onChange={handleChangeUser}
+                          required
             >
                 <option>Giới tính...</option>
                 <option value='male'>Nam</option>
@@ -204,6 +230,7 @@ function Register(props) {
                           name='address'
                           value={user.address}
                           onChange={handleChangeUser}
+                          required
             />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
@@ -211,12 +238,13 @@ function Register(props) {
                           name='birthday'
                           value={user.birthday}
                           onChange={handleChangeUser}
+                          required
             />
         </Form.Group>
         <Row>
             <Col>
                 <Button size='lg' variant="success"
-                        onClick={handleSubmitUser}
+                        type='submit'
                 >
                     Đăng ký
                 </Button>

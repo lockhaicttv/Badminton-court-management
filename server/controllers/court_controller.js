@@ -1,4 +1,5 @@
 var court_model = require('../models/court_model');
+var court_area_model = require('../models/court_areas_models')
 
 exports.get_list_court = (req, res) => {
     court_model
@@ -42,9 +43,31 @@ exports.get_court_by_id = (req, res) => {
 exports.add_one_court = (req, res) => {
     let item = new court_model(req.body);
     console.log(item)
+    let court_area_arr = []
+    for (let i=0; i<req.body.court_total; i++){
+        let court_area_item = {
+            area: i+1,
+            status: false,
+            description: '',
+            court_id: item._id,
+            price: req.body.court_price
+        }
+        court_area_arr.push(court_area_item)
+    }
     item.save()
         .then((item) => {
-            res.status(200).json({message: "Đã thêm thông tn sân"});
+            court_area_model.create(court_area_arr)
+                .then((err, list)=>{
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        res.status(200).json({message: "Đã thêm thông tn sân", court_id: item._id});
+                    }
+                })
+                .catch((err)=>{
+                    res.status(400).send('Khởi tạo sân thất bại');
+                })
         })
         .catch((err) => {
             res.json({message: 'Thêm thất bại'});

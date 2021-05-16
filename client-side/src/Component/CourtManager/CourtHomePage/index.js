@@ -1,0 +1,19 @@
+import React from 'react'
+
+const CourtHomePage = () => {
+
+
+    return(
+        <div className="row m-0 align-items-center text-center" >
+            <div className="col-lg-3 ">
+                <img src="/image/welcome.png" width="100%"/>
+            </div>
+            <div className="col-lg-9">
+                <img src="/image/badminton.jpg" width="100%" className="my-3"/>
+            </div>
+
+        </div>
+    )
+}
+
+export default CourtHomePage;

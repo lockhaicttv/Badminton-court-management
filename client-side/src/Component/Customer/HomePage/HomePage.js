@@ -4,8 +4,8 @@ import React, {useState, useEffect} from "react";
 import Button from "react-bootstrap/Button";
 import Banner from "../Banner-Logo";
 import ProductCard from "../ProductCard";
-import {Card, CardColumns, CardDeck, CardGroup} from "react-bootstrap";
-import CarouselBanner from "./CarouselHomePage";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faGifts, faLightbulb} from "@fortawesome/free-solid-svg-icons";
 import CarouselHomePage from "./CarouselHomePage";
 
 const HomePage = () => {
@@ -37,6 +37,10 @@ const HomePage = () => {
             });
     }
 
+    const listProductSale = productSale.map((item, key) => {
+        return <ProductCard item={item} key={key}/>;
+    });
+
     const listProduct = product.map((item, key) => {
         return <ProductCard item={item} key={key}/>;
     });
@@ -45,15 +49,22 @@ const HomePage = () => {
         <div className="container mt-2">
             <CarouselHomePage/>
             <div className='bg-white'>
-                <div className='border border-bottom row bg-white'>
-                    Giá sốc
+                <div className='border border-bottom border-left-0 border-right-0 row bg-white row'>
+                    <FontAwesomeIcon icon={faGifts} size='lg' color='#3399FF' className='my-auto col-lg-1'/>
+                    <div className='p-2 sale-title'><i>Giảm giá</i></div>
+                </div>
+                <div className="row bg-white">
+                    {listProductSale}
+                </div>
+            </div>
+            <div className='bg-white'>
+                <div className='border border-bottom border-left-0 border-right-0 row bg-white row'>
+                    <FontAwesomeIcon icon={faLightbulb} size='lg' color='#3399FF' className='my-auto col-lg-1'/>
+                    <div className='p-2 sale-title'><i>Gợi ý</i></div>
                 </div>
                 <div className="row bg-white">
                     {listProduct}
                 </div>
-            </div>
-            <div className="row bg-white">
-                {listProduct}
             </div>
         </div>
     );

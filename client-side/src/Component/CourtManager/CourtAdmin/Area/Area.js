@@ -70,11 +70,15 @@ function Area() {
         }
     };
 
-    useEffect(() => {
+    const loadData = () => {
         callApi(`court_area/${account_id}`, 'get', null)
             .then(res => {
                 setData(res.data);
             })
+    }
+
+    useEffect(() => {
+        loadData();
     }, [])
 
     const onBeforeEdit = (oldValue, newValue, row, column) => {
@@ -83,7 +87,7 @@ function Area() {
         let objUpdate = {};
         objUpdate[key] = newValue;
 
-        callApi(`court_areas/${id}`, 'put', objUpdate)
+        callApi(`court_area/${id}`, 'put', objUpdate)
             .then(() => {
                 alert('Update thành công');
             });
@@ -109,7 +113,7 @@ function Area() {
     return (
         <div>
             <AddArea isShow={isShowModalAdd} handleClose={handleClose} handaleOpen={handleOpen}
-                     court_total={data.length + 1}/>
+                     court_total={data.length + 1} reload={loadData} />
             <div className="">
                 <Button className="ml-auto" onClick={handleOpen}>
                     Thêm

@@ -50,14 +50,14 @@ const ProductCard = (props) => {
 
     let price = props.item.price
     let priceElement =
-        <h5 className='card-title mt-3 mb-3'>
-            Giá: {price} đ
+        <h5 className='card-title my-0'>
+            Giá: {Number(price).toLocaleString('eu')}đ
         </h5>
 
     if (props.item.promotion_id !== null && (new Date(props.item.promotion_id.end).getTime() > new Date().getTime())) {
         price = price * (100-props.item.promotion_id.value)/100;
-        priceElement =  <h5 className='card-title mt-3 mb-3 text-danger'>
-            Khuyến mãi: {price} đ
+        priceElement =  <h5 className='card-title mt-0 mb-3 text-danger'>
+            Khuyến mãi: {Number(price).toLocaleString('eu')}đ
         </h5>
     }
 
@@ -74,12 +74,12 @@ const ProductCard = (props) => {
         //         <small className="text-muted">Giá: {props.item.price} đ</small>
         //     </Card.Footer>
         <div className="col-md-3 col-sm-6 mt-1" onClick={handleDirectToDetail}>
-            <div className="card card-block p-3">
-                <img src={props.item.image.base64} alt="Photo of sunset" style={{height: '150px', width: '100%'}}/>
-                <h5 className="card-title mt-3 mb-3">{props.item.name}</h5>
-                <p className="card-text">
-                    {props.item.description}
-                </p>
+            <div className="card card-block p-3 border-0">
+                <img src={props.item.image.base64} alt="Photo of sunset" style={{height: '200px', width: '100%'}}/>
+                <h5 className="card-title mt-2 mb-2">{props.item.name}</h5>
+                {/*<p className="card-text">*/}
+                {/*    {props.item.description}*/}
+                {/*</p>*/}
                 {priceElement}
             </div>
         </div>
