@@ -6,6 +6,11 @@ import Button from "react-bootstrap/Button";
 import AddArea from "../Area/AddArea";
 import {accountIdState} from "../../../../Store/atom";
 import {useRecoilValue} from "recoil";
+import ToolkitProvider, {Search} from "react-bootstrap-table2-toolkit";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+
+const {SearchBar} = Search;
 
 const columns = [
     {
@@ -98,28 +103,68 @@ function Category() {
     }
 
     return (
-        <div>
-            <AddArea isShow={isShowModalAdd} handleClose={handleClose}/>
-            <div className="">
-                <Button className="ml-auto" onClick={handleOpen}>
-                    Thêm
-                </Button>
-                <Button className="btn-danger" onClick={onDelete}>
-                    Xoá
-                </Button>
-            </div>
-            <BootStrapTable headerWrapperClasses="foo"
-                            keyField='_id'
-                            columns={columns}
-                            data={data}
-                            noDataIndication="Table is Empty"
+        // <div>
+        //     <AddArea isShow={isShowModalAdd} handleClose={handleClose}/>
+        //     <div className="">
+        //         <Button className="ml-auto" onClick={handleOpen}>
+        //             Thêm
+        //         </Button>
+        //         <Button className="btn-danger" onClick={onDelete}>
+        //             Xoá
+        //         </Button>
+        //     </div>
+        //     <BootStrapTable headerWrapperClasses="foo"
+        //                     keyField='_id'
+        //                     columns={columns}
+        //                     data={data}
+        //                     noDataIndication="Table is Empty"
+        //                     cellEdit={cellEditFactory({
+        //                         mode:'click',
+        //                         beforeSaveCell: (oldValue, newValue, row, column)=>{onBeforeEdit(oldValue, newValue, row, column)}
+        //                     })}
+        //                     selectRow={selectRow}
+        //     />
+        // </div>
+    <div>
+        <ToolkitProvider
+            headerWrapperClasses="foo"
+            keyField='_id'
+            columns={columns}
+            data={data}
+            noDataIndication="Table is Empty"
+            search
+        >
+            {
+                props => (
+                    <div>
+                        <div className="d-flex justify-content-between mt-2 mb-0">
+                            <h3>Tài khoản chủ sân</h3>
+                            <SearchBar {...props.searchProps} style={{width: '600px'}}/>
+                            <div>
+                                <AddArea isShow={isShowModalAdd} handleClose={handleClose}/>
+                                <Button className="ml-auto" onClick={handleOpen}>
+                                    Thêm
+                                </Button>
+                                <Button className="btn-danger" onClick={onDelete}>
+                                    Xoá
+                                </Button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <BootstrapTable
+                            {...props.baseProps}
                             cellEdit={cellEditFactory({
                                 mode:'click',
                                 beforeSaveCell: (oldValue, newValue, row, column)=>{onBeforeEdit(oldValue, newValue, row, column)}
                             })}
                             selectRow={selectRow}
-            />
-        </div>
+                            pagination={paginationFactory()}
+                        />
+                    </div>
+                )
+            }
+        </ToolkitProvider>
+    </div>
     )
 }
 

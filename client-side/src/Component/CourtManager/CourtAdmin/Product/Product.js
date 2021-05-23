@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import callApi from "../../../../Utils/apiCaller";
-import BootStrapTable from "react-bootstrap-table-next";
+import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import cellEditFactory, {Type} from 'react-bootstrap-table2-editor';
 import Button from "react-bootstrap/Button";
@@ -9,9 +9,9 @@ import {accountIdState, courtIdState, realTimeState} from '../../../../Store/ato
 import {useRecoilState, useRecoilValue} from "recoil";
 import FileBase64 from "react-file-base64";
 import ProductDetail from "./ProductDetail";
-import MyCustomImageEditing from "./MyCustomImageEditing";
+import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
 
-
+const {SearchBar} = Search;
 
 function Product() {
     const account_id = useRecoilValue(accountIdState);
@@ -21,11 +21,16 @@ function Product() {
     const [listDel, setListDel] = useState([]);
     const [realTime, setRealTime] = useRecoilState(realTimeState);
 
+    const idFormat = (cell, row) => {
+        console.log(cell)
+        return <div className='text-break'>{cell}</div>
+    }
 
     const columns = [
         {
             dataField: '_id',
-            text: 'ID sản phẩm'
+            text: 'ID sản phẩm',
+            formatter: idFormat
         },
         {
             dataField: 'name',
@@ -82,6 +87,7 @@ function Product() {
             }
         }
     ];
+
 
     const defaultSorted = [{
         dataField: 'name',
@@ -149,7 +155,7 @@ function Product() {
     };
 
     useEffect(() => {
-       loadData()
+        loadData()
     }, [])
 
     const loadData = () => {
@@ -176,8 +182,16 @@ function Product() {
 
     const onDelete = () => {
         if (window.confirm('Bạn muốn xoá những mục đã chọn?')) {
-            alert(listDel);
-            setRealTime(preventDefault => preventDefault + 1);
+            callApi('product', 'delete', listDel)
+                .then(res => {
+                        alert('Xoá thành công');
+                        loadData();
+                        setListDel([])
+                    }
+                )
+                .catch(() => {
+                    alert('Xoá thất bại, vui lòng thử lại sau');
+                })
         } else {
             return false;
         }
@@ -191,32 +205,76 @@ function Product() {
     }
 
     return (
+        // <div>
+        //     <AddProduct isShow={isShowModalAdd} handleClose={handleClose}/>
+        //     <div className="">
+        //         <Button className="ml-auto" onClick={handleOpen}>
+        //             Thêm
+        //         </Button>
+        //         <Button className="btn-danger" onClick={onDelete}>
+        //             Xoá
+        //         </Button>
+        //     </div>
+        //     <BootstrapTable
+        //         bootstrap4
+        //         headerWrapperClasses="foo"
+        //         keyField='_id'
+        //         columns={columns}
+        //         data={data}
+        //         noDataIndication="Table is Empty"
+        //         cellEdit={cellEditFactory({
+        //             mode: 'dbclick',
+        //             beforeSaveCell: (oldValue, newValue, row, column) => onBeforeEdit(oldValue, newValue, row, column)
+        //         })}
+        //         selectRow={selectRow}
+        //         expandRow={expandRow}
+        //         defaultSorted={ defaultSorted }
+        //         pagination={ paginationFactory()}
+        //     />
+        // </div>
         <div>
-            <AddProduct isShow={isShowModalAdd} handleClose={handleClose}/>
-            <div className="">
-                <Button className="ml-auto" onClick={handleOpen}>
-                    Thêm
-                </Button>
-                <Button className="btn-danger" onClick={onDelete}>
-                    Xoá
-                </Button>
-            </div>
-            <BootStrapTable
+            <ToolkitProvider
                 bootstrap4
                 headerWrapperClasses="foo"
                 keyField='_id'
                 columns={columns}
                 data={data}
                 noDataIndication="Table is Empty"
-                cellEdit={cellEditFactory({
-                    mode: 'dbclick',
-                    beforeSaveCell: (oldValue, newValue, row, column) => onBeforeEdit(oldValue, newValue, row, column)
-                })}
-                selectRow={selectRow}
-                expandRow={expandRow}
-                defaultSorted={ defaultSorted }
-                pagination={ paginationFactory()}
-            />
+                search
+            >
+                {
+                    props => (
+                        <div>
+                            <div className="d-flex justify-content-between mt-2 mb-0">
+                                <h3>Sản phẩm</h3>
+                                <SearchBar {...props.searchProps} style={{width: '600px'}}/>
+                                <div>
+                                    <AddProduct isShow={isShowModalAdd} handleClose={handleClose}/>
+                                    <Button className="ml-auto" onClick={handleOpen}>
+                                        Thêm
+                                    </Button>
+                                    <Button className="btn-danger" onClick={onDelete}>
+                                        Xoá
+                                    </Button>
+                                </div>
+                            </div>
+                            <hr/>
+                            <BootstrapTable
+                                {...props.baseProps}
+                                cellEdit={
+                                    cellEditFactory({
+                                        mode: 'dbclick',
+                                        beforeSaveCell: (oldValue, newValue, row, column) => onBeforeEdit(oldValue, newValue, row, column)
+                                    })}
+                                selectRow={selectRow}
+                                expandRow={expandRow}
+                                defaultSorted={defaultSorted}
+                                pagination={paginationFactory()}
+                            />
+                        </div>
+                    )
+                }
+            </ToolkitProvider>
         </div>
     )
 }

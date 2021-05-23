@@ -4,10 +4,12 @@ import {accountIdState, courtIdState} from "../../../../Store/atom";
 import callApi from "../../../../Utils/apiCaller";
 import BootstrapTable from 'react-bootstrap-table-next';
 import cellEditFactory, {Type} from "react-bootstrap-table2-editor";
-import BootStrapTable from "react-bootstrap-table-next";
-import {Media} from "react-bootstrap";
 import OrderDetailCart from "./OrderDetailCart";
+import ToolkitProvider, {Search} from "react-bootstrap-table2-toolkit";
+import Button from "react-bootstrap/Button";
+import paginationFactory from "react-bootstrap-table2-paginator";
 
+const {SearchBar} = Search;
 
 const columns = [
     {
@@ -150,13 +152,62 @@ const Order = () => {
             });
     }
 
+    const handleOpen = () => {
+
+    }
+
+    const onDelete = () => {
+
+    }
+
     return (
-        <div>
-            <BootStrapTable headerWrapperClasses="foo"
-                            keyField='_id'
-                            columns={columns}
-                            data={data}
-                            noDataIndication="Table is Empty"
+        // <div>
+        //     <BootStrapTable headerWrapperClasses="foo"
+        //                     keyField='_id'
+        //                     columns={columns}
+        //                     data={data}
+        //                     noDataIndication="Table is Empty"
+        //                     cellEdit={cellEditFactory({
+        //                         mode: 'click',
+        //                         beforeSaveCell: (oldValue, newValue, row, column) => {
+        //                             onBeforeEdit(oldValue, newValue, row, column)
+        //                         }
+        //                     })}
+        //                     selectRow={selectRow}
+        //                     expandRow={expandRow}
+        //     />
+        // </div>
+    <div>
+        <ToolkitProvider
+            headerWrapperClasses="foo"
+            keyField='_id'
+            columns={columns}
+            data={data}
+            noDataIndication="Table is Empty"
+            search
+        >
+            {
+                props => (
+                    <div>
+                        <div className="d-flex justify-content-between mt-2 mb-0">
+                            <h3>Tài khoản chủ sân</h3>
+                            <SearchBar {...props.searchProps} style={{width: '600px'}}/>
+                            <div>
+                                <Button className="ml-auto" onClick={handleOpen}>
+                                    Thêm
+                                </Button>
+                                <Button className="btn-danger" onClick={onDelete}>
+                                    Xoá
+                                </Button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <BootstrapTable
+                            {...props.baseProps}
+                            cellEdit={cellEditFactory({
+                                mode:'click',
+                                beforeSaveCell: (oldValue, newValue, row, column)=>{onBeforeEdit(oldValue, newValue, row, column)}
+                            })}
                             cellEdit={cellEditFactory({
                                 mode: 'click',
                                 beforeSaveCell: (oldValue, newValue, row, column) => {
@@ -165,8 +216,13 @@ const Order = () => {
                             })}
                             selectRow={selectRow}
                             expandRow={expandRow}
-            />
-        </div>
+                            pagination={paginationFactory()}
+                        />
+                    </div>
+                )
+            }
+        </ToolkitProvider>
+    </div>
     )
 
 }

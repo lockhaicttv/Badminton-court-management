@@ -106,6 +106,7 @@ class EntityRecognizer(object):
         entity_list = []
         data_product = []
         data_categories = []
+        data_courts = []
 
         # Add data product
         list_product = list(Products().find_all())
@@ -138,6 +139,23 @@ class EntityRecognizer(object):
             {
                 'key': 'categories',
                 'values': data_categories
+            }
+        )
+
+        # Add data courts
+        list_court = list(Courts().find_all())
+        data_courts.extend(
+            {
+                'org_val': court['name'],
+                'description': None
+            }
+            for court in list_court
+        )
+
+        entity_list.append(
+            {
+                'key': 'courts',
+                'values': data_courts
             }
         )
 

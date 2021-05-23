@@ -37,6 +37,8 @@ let court_bill_detail_route = require('./route/court_bill_detail_route');
 let user_bill_route = require('./route/user_bill_route');
 let user_bill_detail_route = require('./route/user_bill_detail_route')
 let promotion_route = require('./route/promotion_route')
+let message_route = require('./route/message_route')
+let ai_service_route = require('./route/ai_service_route')
 
 //use route
 app.use("/account", account_route);
@@ -50,6 +52,11 @@ app.use('/court_bill', court_bill_route);
 app.use('/court_bill_detail', court_bill_detail_route);
 app.use('/user_bill', user_bill_route);
 app.use('/user_bill_detail', user_bill_detail_route);
+app.use('/message', message_route);
+app.use('/chat-bot', ai_service_route)
+
+//controller
+let message_controller = require('./controllers/message_controller');
 
 
 //connect db
@@ -71,8 +78,11 @@ io.on('connection', socket => {
     console.log(`====New client connected at: ${socket.handshake.address} ====`);
 
     socket.on("message", (data) => {
+        let message_item = {
+            message: data.message,
+            response: ''
+        }
         try {
-            console.log(data)
             axios
                 .post(`${global_var.SERVER_PYTHON}/chat-bot/predict`, {
                     input: data,
@@ -82,6 +92,8 @@ io.on('connection', socket => {
                     // timestamp: data.timestamp,
                 })
                 .then((res) => {
+                    message_item['response'] = res.data.response;
+                    message_controller.add_message(message_item);
                     socket.emit("message", {
                         name: 'Upin',
                         message: res.data.response

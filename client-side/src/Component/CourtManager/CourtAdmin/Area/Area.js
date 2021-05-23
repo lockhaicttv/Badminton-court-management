@@ -1,11 +1,16 @@
 import React, {useState, useEffect} from "react";
 import callApi from "../../../../Utils/apiCaller";
-import BootStrapTable from "react-bootstrap-table-next";
+import BootstrapTable from "react-bootstrap-table-next";
 import cellEditFactory from 'react-bootstrap-table2-editor';
 import {Button, Modal} from "react-bootstrap";
 import AddArea from "./AddArea";
 import {accountIdState} from "../../../../Store/atom";
 import {useRecoilValue} from "recoil";
+import AddProduct from "../Product/AddProduct";
+import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
+import paginationFactory from "react-bootstrap-table2-paginator";
+
+const {SearchBar} = Search;
 
 const columns = [
     {
@@ -43,16 +48,16 @@ function Area() {
         clickToEdit: true,
         selectColumnPosition: 'right',
         onSelect: (row, isSelect, rowIndex, e) => {
-            if (isSelect){
+            if (isSelect) {
                 setListDel(prevState => {
-                        let newState =[...prevState];
+                        let newState = [...prevState];
                         newState.push(row._id);
                         return newState;
                     }
                 )
             } else {
                 setListDel(prevState => {
-                    let newState=[...prevState];
+                    let newState = [...prevState];
                     newState.splice(newState.indexOf(row._id), 1);
                     return newState;
                 })
@@ -94,7 +99,7 @@ function Area() {
     }
 
     const onDelete = () => {
-        if (window.confirm('Bạn muốn xoá những mục đã chọn?')){
+        if (window.confirm('Bạn muốn xoá những mục đã chọn?')) {
             alert(listDel);
             // setRealTime(preventDefault=>preventDefault+1);
         } else {
@@ -112,27 +117,48 @@ function Area() {
 
     return (
         <div>
-            <AddArea isShow={isShowModalAdd} handleClose={handleClose} handaleOpen={handleOpen}
-                     court_total={data.length + 1} reload={loadData} />
-            <div className="">
-                <Button className="ml-auto" onClick={handleOpen}>
-                    Thêm
-                </Button>
-                <Button className="btn-danger" onClick={onDelete}>
-                    Xoá
-                </Button>
-            </div>
-            <BootStrapTable headerWrapperClasses="foo"
-                            keyField='_id'
-                            columns={columns}
-                            data={data}
-                            noDataIndication="Table is Empty"
-                            cellEdit={cellEditFactory({
-                                mode: 'click',
-                                beforeSaveCell: (oldValue, newValue, row, column) => onBeforeEdit(oldValue, newValue, row, column)
-                            })}
-                            selectRow={selectRow}
-            />
+            <ToolkitProvider
+                keyField='_id'
+                columns={columns}
+                data={data}
+                noDataIndication="Table is Empty"
+                search
+            >
+                {
+                    props => (
+                        <div>
+                            <div className="d-flex justify-content-between mt-2 mb-0">
+                                <h3>Khu vực sân</h3>
+                                <SearchBar {...props.searchProps} style={{width: '600px'}}/>
+                                <div>
+                                    <AddArea isShow={isShowModalAdd}
+                                             handleClose={handleClose}
+                                             handaleOpen={handleOpen}
+                                             court_total={data.length + 1}
+                                             reload={loadData}
+                                    />
+                                    <Button className="ml-auto" onClick={handleOpen}>
+                                        Thêm
+                                    </Button>
+                                    <Button className="btn-danger" onClick={onDelete}>
+                                        Xoá
+                                    </Button>
+                                </div>
+                            </div>
+                            <hr/>
+                            <BootstrapTable
+                                {...props.baseProps}
+                                cellEdit={cellEditFactory({
+                                    mode: 'click',
+                                    beforeSaveCell: (oldValue, newValue, row, column) => onBeforeEdit(oldValue, newValue, row, column)
+                                })}
+                                selectRow={selectRow}
+                                pagination={paginationFactory()}
+                            />
+                        </div>
+                    )
+                }
+            </ToolkitProvider>
         </div>
     )
 }

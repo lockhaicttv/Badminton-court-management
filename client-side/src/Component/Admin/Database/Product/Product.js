@@ -9,7 +9,10 @@ import {accountIdState, realTimeState} from '../../../../Store/atom';
 import {useRecoilState, useRecoilValue} from "recoil";
 import FileBase64 from "react-file-base64";
 import ProductDetail from "./ProductDetail";
-import MyCustomImageEditing from "./MyCustomImageEditing";
+import ToolkitProvider, {Search} from "react-bootstrap-table2-toolkit";
+import BootstrapTable from "react-bootstrap-table-next";
+
+const {SearchBar} = Search;
 
 const options = callApi('product_category/get-by-court/6019f135b7409a239c8564e7', 'get', null)
     .then((res) => {
@@ -200,33 +203,75 @@ function Product() {
     }
 
     return (
-        <div>
-            <AddProduct isShow={isShowModalAdd} handleClose={handleClose}/>
-            <div className="">
-                <Button className="ml-auto" onClick={handleOpen}>
-                    Thêm
-                </Button>
-                <Button className="btn-danger" onClick={onDelete}>
-                    Xoá
-                </Button>
-            </div>
-            <BootStrapTable
-                bootstrap4
-                headerWrapperClasses="foo"
-                keyField='_id'
-                columns={columns}
-                data={data}
-                noDataIndication="Table is Empty"
-                cellEdit={cellEditFactory({
-                    mode: 'dbclick',
-                    beforeSaveCell: (oldValue, newValue, row, column) => onBeforeEdit(oldValue, newValue, row, column)
-                })}
-                selectRow={selectRow}
-                expandRow={expandRow}
-                defaultSorted={ defaultSorted }
-                pagination={ paginationFactory()}
-            />
-        </div>
+        // <div>
+        //     <AddProduct isShow={isShowModalAdd} handleClose={handleClose}/>
+        //     <div className="">
+        //         <Button className="ml-auto" onClick={handleOpen}>
+        //             Thêm
+        //         </Button>
+        //         <Button className="btn-danger" onClick={onDelete}>
+        //             Xoá
+        //         </Button>
+        //     </div>
+        //     <BootStrapTable
+        //         bootstrap4
+        //         headerWrapperClasses="foo"
+        //         keyField='_id'
+        //         columns={columns}
+        //         data={data}
+        //         noDataIndication="Table is Empty"
+        //         cellEdit={cellEditFactory({
+        //             mode: 'dbclick',
+        //             beforeSaveCell: (oldValue, newValue, row, column) => onBeforeEdit(oldValue, newValue, row, column)
+        //         })}
+        //         selectRow={selectRow}
+        //         expandRow={expandRow}
+        //         defaultSorted={ defaultSorted }
+        //         pagination={ paginationFactory()}
+        //     />
+        // </div>
+    <div>
+        <ToolkitProvider
+            bootstrap4
+            headerWrapperClasses="foo"
+            keyField='_id'
+            columns={columns}
+            data={data}
+            noDataIndication="Table is Empty"
+            search
+        >
+            {
+                props => (
+                    <div>
+                        <div className="d-flex justify-content-between mt-2 mb-0">
+                            <h3>Tài khoản chủ sân</h3>
+                            <SearchBar {...props.searchProps} style={{width: '600px'}}/>
+                            <div>
+                                <AddProduct isShow={isShowModalAdd} handleClose={handleClose}/>
+                                <Button className="ml-auto" onClick={handleOpen}>
+                                    Thêm
+                                </Button>
+                                <Button className="btn-danger" onClick={onDelete}>
+                                    Xoá
+                                </Button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <BootstrapTable
+                            {...props.baseProps}
+                            cellEdit={cellEditFactory({
+                                mode: 'dbclick',
+                                beforeSaveCell: (oldValue, newValue, row, column) => onBeforeEdit(oldValue, newValue, row, column)
+                            })}
+                            selectRow={selectRow}
+                            expandRow={expandRow}
+                            defaultSorted={ defaultSorted }
+                        />
+                    </div>
+                )
+            }
+        </ToolkitProvider>
+    </div>
     )
 }
 

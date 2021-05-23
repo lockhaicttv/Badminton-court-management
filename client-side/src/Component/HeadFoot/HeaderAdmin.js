@@ -37,7 +37,7 @@ const HeaderAdmin = () => {
 
         <div>
             <Navbar bg="white" variant="white" className="shadow">
-                <Navbar.Brand href="/login-page/login">
+                <Navbar.Brand>
                     <img
                         src="/image/logo.png"
                         width="35"

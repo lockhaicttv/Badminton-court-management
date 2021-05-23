@@ -28,7 +28,7 @@ UNKNOWN_RESPONSE = 'Xin lỗi, bạn có thể cung cấp thêm thông tin khôn
 MISSING_RESPONSE = 'Xin lỗi, hiện mình chưa có thông tin về "{}". Mình sẽ cập nhật sớm nhất có thể!'
 POS_RESPONSE = "Hihi, cảm ơn bạn nha ^^"
 NEG_RESPONSE = "Xin lỗi bạn, vì mình còn nhỏ, nên chưa đủ thông tin hữu ích cho bạn :("
-ENTITIES = ["products", "categories"]
+ENTITIES = ["products", "categories", "courts"]
 MEANINGLESS_WORDS = ["ừm", "ừ", "ok", "okay", "okie", "yeah", "oki", "ờ", "ùm"]
 
 
@@ -72,6 +72,7 @@ class IntentRecognize:
             else:
                 if len(entities) == 0:
                     response = f'{random.choice(intent["responses"])}'
+
                 else:
                     if intent['query'] != "":
                         for e in ENTITIES:
@@ -81,14 +82,17 @@ class IntentRecognize:
                         opt = [s["value"] for s in signs if s["entity"] == entity]
                         ent_vals = [{'name': {"$regex": e["org_val"], "$options": "i"}} for e in entities if
                                     e["key"] == entity]
-                        print(ent_vals)
+                        print("ENTITIES:", ent_vals)
+
                         if len(opt) > 0:
                             condition = {f'${opt[0]}': ent_vals}
                         else:
                             condition = ent_vals[0]
                         response = intent["query"].format(condition)
-
+                        print(response)
                         if "query#" in response:
+
+                            print("QUERY")
                             response = self.query_answer(response)
 
         result['condition'] = condition
@@ -98,18 +102,18 @@ class IntentRecognize:
 
     def query_answer(self, query):
         query = query.split('#')
-        res = 'Xin lỗi, hiện tại không tìm thấy sản phẩm mong muốn!'
+        res = 'Xin lỗi, hiện tại không tìm thấy thông tin bạn mong muốn!'
 
         if len(query) > 0:
             model = query[1]
             condition = eval(query[3])
-            obj = Products()
-            if model == 'products':
-                print("results")
+            print("MODEL: ", model)
 
+            # Products info
+            if model == 'products':
+                print("RESULT PRODUCTS")
+                obj = Products()
                 results = obj.find_one(condition)
-                # results = None
-                # print("results", results)
                 if not results is None:
                     product_description = ', '.join(results['description']) if (results[
                         "description"]) is not None else ""
@@ -117,12 +121,35 @@ class IntentRecognize:
                     res = f'Thông tin sản phẩm bạn cần tìm là: \n' \
                           f'+ Tên sản phẩm: {results["name"]}\n' \
                           f'Giá sản phẩm: {str(results["price"])}\n'
-                    print(res)
+
                 elif model == 'product_categories':
                     results = list(obj.find_all(condition, limit=5))
                     if len(results) > 0:
                         products = ', '.join([product["name"] for product in results])
-                        res = 'Các sản  phẩm thuộc loại bạn đagn tìm kiếm là: {}'.format(products)
+                        res = 'Các sản  phẩm thuộc loại bạn đang tìm kiếm là: {}'.format(products)
+            # Courts info
+            elif model == "courts":
+                print("RESULT COURTS")
+                obj = Courts()
+                results = obj.find_one(condition)
+                if not results is None:
+                    description = ', '.join(results['description']) if (results[
+                        "description"]) is not None else ""
+
+                    res = f'Thông tin sân cần tìm là: \n' \
+                          f'+Tên sân: {results["name"]}\n' \
+                          f'+Địa chỉ: {results["address"]}\n'\
+                          f'+Số điện thoại: {results["phone_number"]}\n'\
+                          f'+Mô tả: {results["description"]}\n'\
+
+            elif model == 'product_categories':
+                print("RESULT PRODUCTS CATEGORIES")
+                obj = Products()
+                results = list(obj.find_all(condition, limit=5))
+                if len(results) > 0:
+                    products = ', '.join([product["name"] for product in results])
+                    res = 'Các sản  phẩm thuộc loại bạn đang tìm kiếm là: {}'.format(products)
+
         return res
 
     # def run(self, sentence, user_id):

@@ -2,12 +2,16 @@ import React, {useState, useEffect} from 'react';
 import {useRecoilValue} from "recoil";
 import {accountIdState, courtIdState} from "../../../../Store/atom";
 import callApi from "../../../../Utils/apiCaller";
-import BootstrapTable from 'react-bootstrap-table-next';
 import cellEditFactory, {Type} from "react-bootstrap-table2-editor";
-import BootStrapTable from "react-bootstrap-table-next";
+import BootstrapTable from "react-bootstrap-table-next";
 import {Media} from "react-bootstrap";
 import OrderDetailCart from "./OrderDetailCart";
+import ToolkitProvider, {Search} from "react-bootstrap-table2-toolkit";
+import AddProduct from "../Product/AddProduct";
+import Button from "react-bootstrap/Button";
+import paginationFactory from "react-bootstrap-table2-paginator";
 
+const {SearchBar} = Search;
 
 const columns = [
     {
@@ -116,6 +120,23 @@ const Order = () => {
     };
 
     const expandRow = {
+        expandHeaderColumnRenderer: ({isAnyExpands}) => {
+            if (isAnyExpands) {
+                return <b>-</b>;
+            }
+            return <b>+</b>;
+        },
+
+        expandColumnRenderer: ({expanded}) => {
+            if (expanded) {
+                return (
+                    <b>-</b>
+                );
+            }
+            return (
+                <b>+</b>
+            );
+        },
         renderer: row => (
             <div>
                 <p>{`Mã đơn hàng: ${row._id}`}</p>
@@ -150,22 +171,81 @@ const Order = () => {
             });
     }
 
+    const onDelete = () => {
+        if (window.confirm('Bạn muốn xoá những mục đã chọn?')) {
+            callApi('user_bill', 'delete', listDel)
+                .then(res => {
+                        alert('Xoá thành công');
+                        loadOrder();
+                        setListDel([])
+                    }
+                )
+                .catch(() => {
+                    alert('Xoá thất bại, vui lòng thử lại sau');
+                })
+        } else {
+            return false;
+        }
+    }
+
     return (
+        //     <div>
+        //         <BootstrapTable headerWrapperClasses="foo"
+        //                         keyField='_id'
+        //                         columns={columns}
+        //                         data={data}
+        //                         noDataIndication="Table is Empty"
+        //                         cellEdit={cellEditFactory({
+        //                             mode: 'click',
+        //                             beforeSaveCell: (oldValue, newValue, row, column) => {
+        //                                 onBeforeEdit(oldValue, newValue, row, column)
+        //                             }
+        //                         })}
+        //                         selectRow={selectRow}
+        //                         expandRow={expandRow}
+        //         />
+        //     </div>
         <div>
-            <BootStrapTable headerWrapperClasses="foo"
-                            keyField='_id'
-                            columns={columns}
-                            data={data}
-                            noDataIndication="Table is Empty"
-                            cellEdit={cellEditFactory({
-                                mode: 'click',
-                                beforeSaveCell: (oldValue, newValue, row, column) => {
-                                    onBeforeEdit(oldValue, newValue, row, column)
-                                }
-                            })}
-                            selectRow={selectRow}
-                            expandRow={expandRow}
-            />
+            <ToolkitProvider
+                headerWrapperClasses="foo"
+                keyField='_id'
+                columns={columns}
+                data={data}
+                noDataIndication="Table is Empty"
+                search
+            >
+                {
+                    props => (
+                        <div>
+                            <div className="d-flex justify-content-between mt-2 mb-0">
+                                <h3>Sản phẩm</h3>
+                                <SearchBar {...props.searchProps} style={{width: '600px'}}/>
+                                <div>
+                                    <Button className="ml-auto">
+                                        Thêm
+                                    </Button>
+                                    <Button className="btn-danger" onClick={onDelete}>
+                                        Xoá
+                                    </Button>
+                                </div>
+                            </div>
+                            <hr/>
+                            <BootstrapTable
+                                {...props.baseProps}
+                                cellEdit={cellEditFactory({
+                                    mode: 'click',
+                                    beforeSaveCell: (oldValue, newValue, row, column) => {
+                                        onBeforeEdit(oldValue, newValue, row, column)
+                                    }
+                                })}
+                                selectRow={selectRow}
+                                expandRow={expandRow}
+                                pagination={paginationFactory()}
+                            />
+                        </div>
+                    )
+                }
+            </ToolkitProvider>
         </div>
     )
 

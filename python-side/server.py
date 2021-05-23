@@ -7,8 +7,8 @@ root = (Path(os.path.abspath(__file__))).parents[0]
 
 from flask import Flask, jsonify, request
 from app.intent_recognize import IntentRecognize
-from app.train import Train
 from app.db_connector import Products
+from app.train import Train
 
 from utils import utils
 
@@ -48,6 +48,31 @@ def update_entities():
     except:
         return jsonify({'message': 'Cập nhật entities thất bại', 'message_status': 'fail'})
 
+@app.route('/chat-bot/intents', methods=['POST'])
+def training():
+    try:
+        data = request.get_json()
+        data_train = data.get('data')
+        if data_train is not None:
+            utils.save_json(
+                data=data_train,
+                prefix=True,
+                json_path=os.path.join(root, 'data', 'intent_training.json')
+            )
+
+        train = Train()
+        train.run(os.path.join(root, "data", "intent_training.json"))
+        ir.__init__()
+
+        return jsonify({
+            'message': 'Huấn luyện thành công',
+            'message_status': 'success'
+        })
+    except:
+        return jsonify({
+            'message': 'Huấn luyện thất bại',
+            'message_status': 'fail'
+        })
 
 if __name__ == '__main__':
     app.run(debug=True)

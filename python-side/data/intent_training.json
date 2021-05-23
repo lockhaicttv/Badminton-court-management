@@ -166,6 +166,21 @@
       ],
       "query": "",
       "description": "casual"
+    },
+    {
+      "intent_name": "tra cuu thong tin courts",
+      "training_phrases": [
+        "muốn tra cứu thông tin courts",
+        "muốn xem thông tin courts",
+        "muốn coi thông tin courts",
+        "thông tin sân courts",
+        "muốn coi thông tin sân"
+      ],
+      "responses": [
+        "Bạn muốn tìm thông tin sân tên gì vậy?"
+      ],
+      "query": "query#courts#name#{}",
+      "description": "query"
     }
   ]
 }

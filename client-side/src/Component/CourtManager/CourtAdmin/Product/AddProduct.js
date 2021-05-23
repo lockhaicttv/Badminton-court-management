@@ -4,9 +4,11 @@ import {accountIdState, areasState, courtIdState, realTimeState} from "../../../
 import {useRecoilValue, useRecoilState} from "recoil";
 import callApi from "../../../../Utils/apiCaller";
 import FileBase64 from "react-file-base64";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit} from "@fortawesome/free-solid-svg-icons";
 
 function AddProduct(props) {
-    const account_id = useRecoilValue(accountIdState);
+    const courtInfo = useRecoilValue(courtIdState);
     const [category, setCategory] = useState([]);
     const [item, setItem] = useState({
         name: '',
@@ -29,7 +31,7 @@ function AddProduct(props) {
     }
 
     const loadCategory = () => {
-        callApi(`product_category/get-by-court/${account_id}`, 'get',null)
+        callApi(`product_category/get-by-court/${courtInfo._id}`, 'get',null)
             .then((res)=>{
                 setCategory(res.data);
             })
@@ -109,7 +111,11 @@ function AddProduct(props) {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-addon1">Hình ảnh</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <FileBase64 onDone={getBase64image}/>
+                        <label className="btn btn btn-secondary">
+                            <FileBase64 id='file' onDone={getBase64image}/>
+                            <FontAwesomeIcon icon={faEdit}/>
+                            <i>Chọn ảnh</i>
+                        </label>
                     </InputGroup>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>

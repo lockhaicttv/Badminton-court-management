@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {Link, Route} from 'react-router-dom'
 import Database from "./Database";
 import HeaderAdmin from "../HeadFoot/HeaderAdmin";
+import Chatbot from "./Chatbot";
 
 const Panel = (
     <div>
@@ -48,6 +49,7 @@ const Admin = () => {
         <div>
             <HeaderAdmin/>
             <Route path='/admin/database' component={Database}/>
+            <Route path='/admin/chatbot' component={Chatbot} />
         </div>
     );
 }

@@ -3,6 +3,14 @@ import callApi from "../../../../Utils/apiCaller";
 import BootStrapTable from "react-bootstrap-table-next";
 import Button from "react-bootstrap/Button";
 import AddBill from "./AddBill";
+import ToolkitProvider, {Search} from "react-bootstrap-table2-toolkit";
+import AddArea from "../Area/AddArea";
+import BootstrapTable from "react-bootstrap-table-next";
+import cellEditFactory from "react-bootstrap-table2-editor";
+import paginationFactory from "react-bootstrap-table2-paginator";
+
+const {SearchBar} = Search;
+
 const columns = [
     {
         dataField: '_id',
@@ -118,27 +126,69 @@ function Bill(props) {
     }
 
     return (
-        <div>
-            <AddBill isShow={isShowModalAdd} handleClose={handleClose}/>
-            <div className="">
-                <Button className="ml-auto" onClick={handleOpen}>
-                    Thêm
-                </Button>
-                <Button className="btn-danger" onClick={onDelete}>
-                    Xoá
-                </Button>
-            </div>
-            <BootStrapTable
-                bootstrap4={true}
-                headerWrapperClasses="foo"
-                keyField='_id'
-                columns={columns}
-                data={data}
-                noDataIndication="Table is Empty"
-                expandRow={expandRow}
-                selectRow={selectRow}
-            />
-        </div>
+        // <div>
+        //     <AddBill isShow={isShowModalAdd} handleClose={handleClose}/>
+        //     <div className="">
+        //         <Button className="ml-auto" onClick={handleOpen}>
+        //             Thêm
+        //         </Button>
+        //         <Button className="btn-danger" onClick={onDelete}>
+        //             Xoá
+        //         </Button>
+        //     </div>
+        //     <BootStrapTable
+        //         bootstrap4={true}
+        //         headerWrapperClasses="foo"
+        //         keyField='_id'
+        //         columns={columns}
+        //         data={data}
+        //         noDataIndication="Table is Empty"
+        //         expandRow={expandRow}
+        //         selectRow={selectRow}
+        //     />
+        // </div>
+    <div>
+        <ToolkitProvider
+            bootstrap4={true}
+            headerWrapperClasses="foo"
+            keyField='_id'
+            columns={columns}
+            data={data}
+            noDataIndication="Table is Empty"
+            search
+        >
+            {
+                props => (
+                    <div>
+                        <div className="d-flex justify-content-between mt-2 mb-0">
+                            <h3>Tài khoản chủ sân</h3>
+                            <SearchBar {...props.searchProps} style={{width: '600px'}}/>
+                            <div>
+                                <AddBill isShow={isShowModalAdd} handleClose={handleClose}/>
+                                <Button className="ml-auto" onClick={handleOpen}>
+                                    Thêm
+                                </Button>
+                                <Button className="btn-danger" onClick={onDelete}>
+                                    Xoá
+                                </Button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <BootstrapTable
+                            {...props.baseProps}
+                            // cellEdit={cellEditFactory({
+                            //     mode: 'click',
+                            //     beforeSaveCell: (oldValue, newValue, row, column) => onBeforeEdit(oldValue, newValue, row, column)
+                            // })}
+                            expandRow={expandRow}
+                            selectRow={selectRow}
+                            pagination={paginationFactory()}
+                        />
+                    </div>
+                )
+            }
+        </ToolkitProvider>
+    </div>
     )
 }
 

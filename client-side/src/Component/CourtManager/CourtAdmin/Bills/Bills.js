@@ -1,10 +1,16 @@
 import React, {useState, useEffect} from "react";
 import callApi from "../../../../Utils/apiCaller";
-import BootStrapTable from "react-bootstrap-table-next";
+import BootstrapTable from "react-bootstrap-table-next";
 import Button from "react-bootstrap/Button";
 import AddBill from "./AddBill";
 import {accountIdState, courtIdState} from "../../../../Store/atom";
 import {useRecoilValue} from "recoil";
+import ToolkitProvider, {Search} from "react-bootstrap-table2-toolkit";
+import AddArea from "../Area/AddArea";
+import cellEditFactory from "react-bootstrap-table2-editor";
+import paginationFactory from "react-bootstrap-table2-paginator";
+
+const {SearchBar} = Search;
 
 const columns = [
     {
@@ -88,6 +94,24 @@ function Bill(props) {
     }, [])
 
     const expandRow = {
+        expandHeaderColumnRenderer: ({isAnyExpands}) => {
+            if (isAnyExpands) {
+                return <b>-</b>;
+            }
+            return <b>+</b>;
+        },
+
+        expandColumnRenderer: ({expanded}) => {
+            if (expanded) {
+                return (
+                    <b>-</b>
+                );
+            }
+            return (
+                <b>+</b>
+            );
+        },
+
         renderer: row => (
             <div>
                 <p>{`Chi tiết hoá đơn mã ${row._id}`}</p>
@@ -130,27 +154,65 @@ function Bill(props) {
     }
 
     return (
-        <div>
-            <AddBill isShow={isShowModalAdd} handleClose={handleClose}/>
-            <div className="">
-                <Button className="ml-auto" onClick={handleOpen}>
-                    Thêm
-                </Button>
-                <Button className="btn-danger" onClick={onDelete}>
-                    Xoá
-                </Button>
-            </div>
-            <BootStrapTable
-                bootstrap4={true}
-                headerWrapperClasses="foo"
-                keyField='_id'
-                columns={columns}
-                data={data}
-                noDataIndication="Table is Empty"
-                expandRow={expandRow}
-                selectRow={selectRow}
-            />
-        </div>
+        // <div>
+        //     <AddBill isShow={isShowModalAdd} handleClose={handleClose}/>
+        //     <div className="">
+        //         <Button className="ml-auto" onClick={handleOpen}>
+        //             Thêm
+        //         </Button>
+        //         <Button className="btn-danger" onClick={onDelete}>
+        //             Xoá
+        //         </Button>
+        //     </div>
+        //     <BootstrapTable
+        //         bootstrap4={true}
+        //         headerWrapperClasses="foo"
+        //         keyField='_id'
+        //         columns={columns}
+        //         data={data}
+        //         noDataIndication="Table is Empty"
+        //         expandRow={expandRow}
+        //         selectRow={selectRow}
+        //     />
+        // </div>
+    <div>
+        <ToolkitProvider
+            bootstrap4={true}
+            headerWrapperClasses="foo"
+            keyField='_id'
+            columns={columns}
+            data={data}
+            noDataIndication="Table is Empty"
+            search
+        >
+            {
+                props => (
+                    <div>
+                        <div className="d-flex justify-content-between mt-2 mb-0">
+                            <h3>Hoá đơn thuê sân</h3>
+                            <SearchBar {...props.searchProps} style={{width: '600px'}}/>
+                            <div>
+                                <AddBill isShow={isShowModalAdd} handleClose={handleClose}/>
+                                <Button className="ml-auto" onClick={handleOpen}>
+                                    Thêm
+                                </Button>
+                                <Button className="btn-danger" onClick={onDelete}>
+                                    Xoá
+                                </Button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <BootstrapTable
+                            {...props.baseProps}
+                            expandRow={expandRow}
+                            selectRow={selectRow}
+                            pagination={paginationFactory()}
+                        />
+                    </div>
+                )
+            }
+        </ToolkitProvider>
+    </div>
     )
 }
 
