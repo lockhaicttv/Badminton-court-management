@@ -54,3 +54,9 @@ export const cartState = atom({
     key: 'cartState',
     default: []
 })
+
+export const searchProductState = atom({
+    key: 'searchProductState',
+    default: []
+})
+

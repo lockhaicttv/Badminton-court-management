@@ -129,6 +129,38 @@
       "target": "tra cuu thong tin products"
     },
     {
+      "feature": "gợi ý sản phẩm loại categories",
+      "target": "tra cuu loai san pham categories"
+    },
+    {
+      "feature": "gợi ý sản phẩm loại categories",
+      "target": "tra cuu loai san pham categories"
+    },
+    {
+      "feature": "goi y san pham loai categories",
+      "target": "tra cuu loai san pham categories"
+    },
+    {
+      "feature": "goi y san pham loai categories",
+      "target": "tra cuu loai san pham categories"
+    },
+    {
+      "feature": "tìm kiếm sản phẩm loại categories",
+      "target": "tra cuu loai san pham categories"
+    },
+    {
+      "feature": "tìm kiếm sản phẩm loại categories",
+      "target": "tra cuu loai san pham categories"
+    },
+    {
+      "feature": "tim kiem san pham loai categories",
+      "target": "tra cuu loai san pham categories"
+    },
+    {
+      "feature": "tim kiem san pham loai categories",
+      "target": "tra cuu loai san pham categories"
+    },
+    {
       "feature": "muốn tra cứu loại sản phẩm categories",
       "target": "tra cuu loai san pham categories"
     },
@@ -1055,6 +1087,86 @@
     {
       "feature": "muon coi thong tin san",
       "target": "tra cuu thong tin courts"
+    },
+    {
+      "feature": "cách thanh toán",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "cách thanh toán",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "cach thanh toan",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "cach thanh toan",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "phương thức thanh toán",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "phương thức thanh toán",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "phuong thuc thanh toan",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "phuong thuc thanh toan",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "phải mua sản phẩm",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "phải mua sản phẩm",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "phai mua san pham",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "phai mua san pham",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thế nào có thể thanh toán",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thế nào có thể thanh toán",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "the nao co the thanh toan",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "the nao co the thanh toan",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "dùng thanh toán",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "dùng thanh toán",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "dung thanh toan",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "dung thanh toan",
+      "target": "tra cuu phuong thuc thanh toan"
     }
   ]
 }

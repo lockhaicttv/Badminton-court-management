@@ -12,6 +12,7 @@ router.get('/:court_id', product_controller.get_product_by_court);
 router.get('/get-by-court-id/:court_id', product_controller.get_product_by_court_id);
 router.get('/get-court-by-product/:_id', product_controller.get_court_by_product);
 router.get('/check-quantity-remain/:product_id', product_controller.check_quantity_remain)
+router.get('/search/:search_content', product_controller.search)
 
 router.post('/', product_controller.add_one_product);
 

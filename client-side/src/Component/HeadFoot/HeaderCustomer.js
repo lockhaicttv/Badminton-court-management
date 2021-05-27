@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Form, FormControl, Nav} from "react-bootstrap";
-import {useRecoilState, useRecoilValue} from "recoil";
+import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {NavLink, Link, useHistory, Redirect} from "react-router-dom";
 import {withRouter} from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import {
     accountIdState,
     authenticationState,
-    courtIdState,
+    courtIdState, searchProductState,
 } from "../../Store/atom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import {totalCartState} from "../../Store/selector";
@@ -27,6 +27,8 @@ const HeaderCustomer = () => {
         authenticationState
     );
     const [userInfo, setUserInfo] = useState({});
+    const setSearchProduct = useSetRecoilState(searchProductState);
+
     const history = useHistory();
 
     const loadUserInfo = () => {
@@ -75,6 +77,25 @@ const HeaderCustomer = () => {
         Redirect('/login-page/login');
     };
 
+    const getSearchProduct = (searchContent) => {
+        callApi(`product/search/${searchContent}`,'get', null)
+            .then(res=>{
+                setSearchProduct(res.data)
+            })
+            .catch(()=>{
+                setSearchProduct([]);
+            })
+    }
+
+    const handleChange = (e) => {
+        if (e.target.value !== '') {
+            getSearchProduct(e.target.value);
+        }
+        else {
+            setSearchProduct([])
+        }
+    }
+
     return (
         <div className="header-customer shadow">
             <Login
@@ -104,6 +125,7 @@ const HeaderCustomer = () => {
                                 type="text"
                                 placeholder="Tìm sản phẩm, loại sản phẩm mong muốn"
                                 className="mr-sm-2"
+                                onChange={handleChange}
                             />
                             <Button variant="outline-info">Tìm kiếm</Button>
                         </Form>

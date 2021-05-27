@@ -17,6 +17,7 @@ import Button from "react-bootstrap/Button";
 import {accountIdState, authenticationState, courtIdState} from "../../Store/atom";
 import {useRecoilValue, useSetRecoilState} from "recoil";
 import ls from '../../Utils/localStorage';
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 const HeaderCourtManagement = withRouter(({history}) => {
     const username = useRecoilValue(accountIdState);
@@ -57,14 +58,29 @@ const HeaderCourtManagement = withRouter(({history}) => {
                             Home
                         </Link>
                     </Nav.Item>
-                    <Nav.Item>
-                        <Link
-                            to="/home/court"
-                            className="header-customer-item text-decoration-none text-primary font-weight-bold px-3"
-                        >
-                            Quản lý Sân
-                        </Link>
-                    </Nav.Item>
+                    <NavDropdown
+                        title="Sân"
+                        id="basic-nav-dropdown"
+                        className="header-customer-item text-decoration-none text-primary font-weight-bold p-0-important mx-2"
+                    >
+                        <NavDropdown.Item>
+                            <Link
+                                to="/home/court"
+                                className="header-customer-item text-decoration-none text-primary font-weight-bold px-3"
+                            >
+                                Quản lý Sân
+                            </Link>
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                        <NavDropdown.Item>
+                            <Link
+                                to="/home/court-booking"
+                                className="header-customer-item text-decoration-none text-primary font-weight-bold px-3"
+                            >
+                                Đặt lịch
+                            </Link>
+                        </NavDropdown.Item>
+                    </NavDropdown>
                     <Nav.Item href="">
                         <Link
                             to="/home/admin"

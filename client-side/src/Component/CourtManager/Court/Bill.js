@@ -12,12 +12,14 @@ import {
     faMoneyBill,
     faMoneyBillWave,
 } from "@fortawesome/free-solid-svg-icons";
+import Watch from "./Watch";
 
-function Bill(props) {
+function Bill() {
     const [bill, setBill] = useRecoilState(billState);
     const [billDetail, setBillDetail] = useRecoilState(billDetailState);
     const [area, setArea] = useRecoilState(areasState);
     const area_index = area.findIndex((x) => x._id === bill.court_area_id);
+
     function handleBillPayment(billID, priceTotal) {
         let newArea = [...area];
 
@@ -63,10 +65,21 @@ function Bill(props) {
         </thead>
     );
 
-    const getHours = (start) => {
+    const getMinutes = (start) => {
         let time_check_in = new Date(start).getTime();
         let end = new Date().getTime();
-        return (end-time_check_in) / (1000*60*60)
+        return (end-time_check_in) / (1000*60)
+    }
+
+    const formatTime = (unixTime) => {
+        let d = unixTime
+
+        let hours = Math.floor(d / 60)
+        let minutes = Math.floor(d - hours * 60);
+        let seconds = Math.floor((d - hours * 60 - minutes) * 60);
+        let timeFormatted = hours + ' : ' + minutes + ' : ' + seconds
+
+        return timeFormatted
     }
 
     let billPrice = 0;
@@ -84,17 +97,19 @@ function Bill(props) {
     });
 
     if (area[area_index]!==undefined) {
-        billPrice +=  getHours(bill.time_check_in) * (area[area_index].price);
+        billPrice +=  getMinutes(bill.time_check_in) * ((area[area_index].price)/60);
+        billPrice = Math.round(billPrice)
         listBillDetails.push(
             <tr key='-9999999'>
                 <td>{listBillDetails.length + 1}</td>
                 <td>Giờ chơi</td>
-                <td>{getHours(bill.time_check_in)}</td>
-                <td>{area[area_index].price}đ</td>
-                <td>{getHours(bill.time_check_in) * (area[area_index].price)}</td>
+                <td>{formatTime(getMinutes(bill.time_check_in))}</td>
+                <td>{Math.round(area[area_index].price)}</td>
+                <td>{Math.round(getMinutes(bill.time_check_in) * ((area[area_index].price)/60))}</td>
             </tr>
         )
     }
+
     return (
         <div className="col-lg-12 border bg-white">
             <h3 className="text-center">Hoá Đơn</h3>

@@ -33,7 +33,7 @@ function Login() {
             role: "owner",
           });
           ls.setAuthenticate("owner", res.data.info._id);
-          history.push("/");
+          history.push("/home");
         } else {
           setAccountId(res.data.info._id);
           setAuthentication({

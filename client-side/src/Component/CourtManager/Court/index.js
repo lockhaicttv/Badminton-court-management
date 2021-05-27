@@ -48,6 +48,7 @@ function CourtManger() {
   const allCourt = areas.map((item, key) => {
     return <CourtArea isUse={item.status} idCourtArea={item.area} key={key} />;
   });
+
   return (
     <div className="row justify-content-between p-3 m-0 bg-light">
       <div

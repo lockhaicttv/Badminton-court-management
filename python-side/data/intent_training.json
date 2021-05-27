@@ -31,6 +31,8 @@
     {
       "intent_name": "tra cuu loai san pham categories",
       "training_phrases": [
+	"gợi ý sản phẩm thuộc loại categories",
+	"Tìm kiếm sản phẩm thuộc loại categories",
         "muốn tra cứu loại sản phẩm categories",
         "muốn xem loại sản phẩm categories",
         "muốn coi loại sản phẩm categories",

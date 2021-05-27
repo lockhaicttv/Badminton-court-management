@@ -139,25 +139,25 @@ exports.get_product_sale = (req, res) => {
     let time = new Date('2021-05-28T00:00:00.000Z')
     product
         .aggregate([
-            {
-                $lookup: {
-                    from: "promotions",
-                    localField: 'promotion_id',
-                    foreignField: '_id',
-                    as: "promotion_id",
+                {
+                    $lookup: {
+                        from: "promotions",
+                        localField: 'promotion_id',
+                        foreignField: '_id',
+                        as: "promotion_id",
+                    }
+                },
+                {
+                    $unwind: '$promotion_id'
+                },
+                {
+                    $addFields: {promotion_end_time: '$promotion_id.end'}
+                },
+                {
+                    $match: {promotion_end_time: {$lte: time}}
                 }
-            },
-            {
-                $unwind: '$promotion_id'
-            },
-            {
-                $addFields: {promotion_end_time: '$promotion_id.end'}
-            },
-            {
-                $match: {promotion_end_time: {$lte: time}}
-            }
-        ]
-    )
+            ]
+        )
         .exec((err, result) => {
             if (err) {
                 console.log(err)
@@ -238,6 +238,23 @@ exports.delete = (req, res) => {
                 console.log(err)
             } else {
                 res.status(200).send('Xoá thành công');
+            }
+        })
+}
+
+exports.search = (req, res) => {
+    let search_content = req.params.search_content;
+    product
+        .find({name: {'$regex': search_content, '$options': 'i'}})
+        .populate({
+            path: 'promotion_id'
+        })
+        .exec((err, list)=>{
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.json(list)
             }
         })
 }

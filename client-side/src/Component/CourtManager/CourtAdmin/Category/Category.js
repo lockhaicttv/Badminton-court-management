@@ -4,7 +4,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import cellEditFactory from 'react-bootstrap-table2-editor'
 import Button from "react-bootstrap/Button";
 import AddArea from "../Area/AddArea";
-import {accountIdState} from "../../../../Store/atom";
+import {accountIdState, courtIdState} from "../../../../Store/atom";
 import {useRecoilValue} from "recoil";
 import {string} from "prop-types";
 import ToolkitProvider, {Search} from "react-bootstrap-table2-toolkit";
@@ -34,7 +34,7 @@ const idFormat = (string) => {
 }
 
 function Category() {
-    const account_id = useRecoilValue(accountIdState);
+    const courtInfo = useRecoilValue(courtIdState);
     const [data, setData] = useState([]);
     const [isShowModalAdd, setIsShowModalAdd] = useState(false);
     const [listDel, setListDel] = useState([]);
@@ -85,7 +85,7 @@ function Category() {
     }
 
     useEffect(() => {
-        callApi(`product_category/get-by-account-id/${account_id}`, 'get', null)
+        callApi(`product_category/get-by-court-id/${courtInfo._id}`, 'get', null)
             .then(res => {
                 setData(res.data);
             })

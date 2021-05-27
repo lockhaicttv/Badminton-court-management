@@ -1,21 +1,17 @@
 import {Button} from "react-bootstrap";
 import React, {useCallback, useState} from "react";
-import Clock from "react-digital-clock";
 import {useEffect} from "react";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import AddService from "./AddService";
 import {areasState, billDetailState, billState} from "../../../Store/atom";
 import {
-    faClock,
-    faHome,
     faLightbulb,
-    faPlus,
     faPlusSquare,
     faUserCog,
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import callApi from "../../../Utils/apiCaller";
-import ReactStopwatch from "react-stopwatch";
+import Watch from "./Watch";
 
 function CourtArea(props) {
     const [area, setArea] = useRecoilState(areasState);
@@ -23,6 +19,33 @@ function CourtArea(props) {
     const [bill, setBill] = useRecoilState(billState);
     const setBillDetail = useSetRecoilState(billDetailState);
     const [idBill, setIdBill] = useState("");
+    const [timeCheckIn, setTimeCheckIn] = useState('')
+
+
+    useEffect(() => {
+        getTimeCheckIn();
+
+        return () => {
+            setTimeCheckIn('')
+        }
+    }, [])
+
+    const getTimeCheckIn = () => {
+        let index = area.findIndex((x) => x.area === props.idCourtArea);
+        let idCourtArea = area[index]._id;
+
+        if (props.isUse) {
+            callApi(
+                `court_bill/get-by-court_area/${idCourtArea}`,
+                "get",
+                null
+            )
+                .then((res) => {
+                    console.log(res.data.time_check_in)
+                    setTimeCheckIn(res.data.time_check_in)
+                });
+        }
+    }
 
     function handleOpen() {
         let newArea = [...area];
@@ -61,6 +84,8 @@ function CourtArea(props) {
         callApi(`court_bill`, "post", newBill).then((res) => {
             console.log(res.data);
         });
+
+        setTimeCheckIn(newBill.time_check_in)
     }
 
     function handleShowModal() {
@@ -76,11 +101,11 @@ function CourtArea(props) {
         setIsShowModal(!isShowModal);
     }
 
-    async function handleShowBill() {
+    function handleShowBill() {
         let index = area.findIndex((x) => x.area === props.idCourtArea);
         let idCourtArea = area[index]._id;
 
-        await callApi(
+        callApi(
             `court_bill/get-by-court_area/${idCourtArea}`,
             "get",
             null
@@ -98,13 +123,8 @@ function CourtArea(props) {
             });
         });
         console.log(bill);
-        // callApi(`court_bill_detail/get-by-bill-id/${bill._id}`, 'get', null)
-        //     .then((res) => {
-        //         setBillDetail(res.data);
-        //     });
     }
 
-    //console.log(court)
     if (props.isUse === false) {
         return (
             <div className="m-2">
@@ -136,25 +156,9 @@ function CourtArea(props) {
                             <FontAwesomeIcon icon={faPlusSquare} className="mr-2"/>
                             Thêm
                         </Button>
-
-                        <ReactStopwatch
-                            seconds={0}
-                            minutes={0}
-                            hours={0}
-                            limit="99:99:99"
-                            onChange={({hours, minutes, seconds}) => {
-                                // setUseTime(`${hours}: ${minutes}: ${seconds}`)
-                                // console.log(useTime)
-                            }}
-                            onCallback={() => console.log("Finish")}
-                            render={({formatted, hours, minutes, seconds}) => {
-                                return (
-                                    <div className="btn btn-danger">
-                                        <span>{formatted}</span>
-                                    </div>
-                                );
-                            }}
-                        />
+                        <div className="btn btn-danger">
+                            <Watch startTime={timeCheckIn}/>
+                        </div>
                         <AddService
                             handleClose={handleShowModal}
                             isShow={isShowModal}

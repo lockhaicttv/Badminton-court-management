@@ -1,0 +1,83 @@
+"muốn tra cứu sản phẩm products",
+        "muốn xem sản phẩm products",
+        "muốn coi sản phẩm products",
+        "thông tin sản phẩm products",
+        "muốn coi sản phẩm",
+        "muốn xem sản phẩm"
+"muốn tra cứu loại sản phẩm categories",
+        "muốn xem loại sản phẩm categories",
+        "muốn coi loại sản phẩm categories",
+        "thông tin loại sản phẩm categories",
+        "muốn coi loại sản phẩm"
+  "gợi ý sản phẩm",
+        "muốn được gợi ý sản phẩm",
+        "có thể gợi ý phim cho tôi sản phẩm",
+        "gợi ý sản phẩm cho tôi",
+        "có gợi ý sản phẩm nào cho tôi không",
+        "bạn đề xuất sản phẩm cho tôi",
+        "đề xuất sản phẩm",
+        "muốn đề xuất sản phẩm"
+ "xin chào",
+        "hi",
+        "chào bạn",
+        "hello",
+        "alo",
+        "bonjour",
+        "chào",
+        "chào bạn nhe"
+ "Xin chào bạn!",
+        "Xin chào. Rất vui được gặp bạn!",
+        "Chào bạn, bạn cần mình trợ giúp gì?",
+        "Upin nghe đây! Mình có thể giúp gì cho bạn?"
+"tạm biệt",
+        "tạm biệt bạn nhé",
+        "bye nhé",
+        "bye",
+        "hẹn gặp bạn nhé",
+        "hẹn gặp lại"
+"Bạn khỏe không",
+        "Bạn thế nào rồi",
+        "Bạn khỏe chứ",
+        "Dạo này bạn thế nào",
+        "Bạn có khỏe không",
+        "Sức khỏe bạn thế nào"
+ "bạn tên gì",
+        "tên bạn là gì",
+        "what is your name",
+        "what your name",
+        "chatbot tên gì",
+        "chatbot tên",
+        "có thể gọi bạn là gì",
+        "gọi bạn là gì"
+ "Upin là gì",
+        "không hiểu Upin là gì",
+        "Upin là ai",
+        "Upin có ý nghĩa gì",
+        "Upin là tên ai"
+ "nhiệm vụ của bạn là gì",
+        "có thể làm gì",
+        "bạn có thể làm gì cho tôi",
+        "khả năng của bạn",
+        "nhiệm vụ của bạn như thế nào",
+        "bạn có thể giúp tôi như thế nào",
+        "bạn có thể giúp tôi ra sao"
+  "muốn tra cứu thông tin courts",
+        "muốn xem thông tin courts",
+        "muốn coi thông tin courts",
+        "thông tin sân courts",
+        "muốn coi thông tin sân"
+    {
+      "intent_name": "tra cuu phuong thuc thanh toan",
+      "training_phrases": [
+        "cách thanh toán",
+        "phương thức thanh toán là gì",
+        "tôi phải làm sao để mua sản phẩm",
+        "làm thế nào để tôi có thể thanh toán",
+        "dùng gì để thanh toán"
+      ],
+      "responses": [
+        "Chọn sản phẩm bạn muốn và vào giỏ hàng để thanh toán, hệ thống của chúng tôi có hỗ trợ thanh toán trực tuyến với paypal đó!"
+      ],
+      "query": "",
+      "description": "casual"
+    }

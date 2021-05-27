@@ -12,8 +12,11 @@ import utils.nlp_utils as nlp
 
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
-
+from sklearn.metrics import accuracy_score
 from app.model import SVMModel
+from app.model import KNNModel
+from app.model import DecisionTreeModel
+from app.model import NaiveBayesModel
 from joblib import dump
 
 
@@ -47,7 +50,7 @@ class Train:
                         json_path=os.path.join(root, 'data', 'data_train.json'))
 
         # Model
-        model = SVMModel()
+        model = KNNModel()
 
         X_train, X_test, y_train, y_test = train_test_split(df_train['feature'], df_train.target, test_size=0.2,
                                                             random_state=109)
@@ -57,6 +60,8 @@ class Train:
 
         # predict
         y_pred = clf.predict(X_test)
+        print('Độ chính xác: ', accuracy_score(y_test, y_pred))
+        print('Report: ', metrics.classification_report(y_test, y_pred))
         dump(clf, os.path.join(root, "app", "trained","model_predicted.pkl"))
 
         print('=>> Train model successfully')

@@ -23,7 +23,7 @@ const LoginRoute = ({component: Component, ...rest}) => {
             render={(props) => {
                 return (authentication.isAuthenticated === true) ?
                     (authentication.role==='customer')?
-                        <Redirect to='/customer' />: <Redirect to='/'/>
+                        <Redirect to='/customer' />: <Redirect to='/home'/>
                     :
                     (
                         <Component {...props}/>

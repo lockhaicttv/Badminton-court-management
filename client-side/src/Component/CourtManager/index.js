@@ -10,6 +10,7 @@ import callApi from "../../Utils/apiCaller";
 import Statistics from "./Statistics";
 import AddInfo from "../LoginPage/Register/AddInfo";
 import CourtHomePage from "./CourtHomePage";
+import CourtBooking from "./CourtBooking";
 
 const Court = () => {
   const account_id = useRecoilValue(accountIdState);
@@ -35,6 +36,7 @@ const Court = () => {
       <HeaderCourtMangement />
       <Route exact path='/home' component={CourtHomePage}/>
       <Route exact path="/home/court" component={CourtManager} />
+      <Route exact path='/home/court-booking' component={CourtBooking} />
       <Route path="/home/admin" component={CourtAdmin} />
       <Route path='/home/statistic' component={Statistics} />
       <Route
