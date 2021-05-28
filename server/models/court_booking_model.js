@@ -16,5 +16,5 @@ const court_booking_model = new Schema({
     {versionKey: false}
 )
 
-mongoose.plugin(timeZone);
+court_booking_model.plugin(timeZone);
 module.exports = mongoose.model('court_booking', court_booking_model);

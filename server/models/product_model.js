@@ -22,5 +22,5 @@ const product_model = new Schema(
     {versionKey: false}
 );
 
-mongoose.plugin(timeZone);
+product_model.plugin(timeZone);
 module.exports = mongoose.model('product', product_model);

@@ -13,6 +13,6 @@ const court_bill_details_model = new Schema(
         {versionKey: false}
 )
 
-mongoose.plugin(timeZone);
+court_bill_details_model.plugin(timeZone);
 module.exports = mongoose.model('court_bill_detail', court_bill_details_model);
 // module.exports = mongoose.model('court_bill_detail', court_bill_details_model);

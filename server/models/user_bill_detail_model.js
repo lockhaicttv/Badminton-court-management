@@ -13,5 +13,5 @@ const user_bill_detail_model = new Schema(
     {versionKey: false}
 )
 
-mongoose.plugin(timeZone);
+user_bill_detail_model.plugin(timeZone);
 module.exports = mongoose.model('user_bill_detail', user_bill_detail_model);

@@ -15,5 +15,5 @@ const promotion_model = new Schema({
     {versionKey: false}
 )
 
-mongoose.plugin(timeZone);
+promotion_model.plugin(timeZone);
 module.exports = mongoose.model('promotion', promotion_model);

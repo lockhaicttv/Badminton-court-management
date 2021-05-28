@@ -10,5 +10,5 @@ const product_category_model = new Schema({
     {versionKey: false}
 );
 
-mongoose.plugin(timeZone);
+product_category_model.plugin(timeZone);
 module.exports = mongoose.model('product_category', product_category_model);

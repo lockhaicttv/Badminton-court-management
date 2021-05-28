@@ -1,4 +1,5 @@
 const court_booking = require('../models/court_booking_model');
+const mongoose = require('mongoose');
 
 exports.get_all_court_booking = (req, res) => {
     court_booking.find({}, (err, list) => {
@@ -30,14 +31,36 @@ exports.get_all_court_booking_by_court_id = (req, res) => {
 
 
 exports.add_one_row = (req, res) => {
+    console.log(req.body.start)
+    console.log(req.body.end)
     let item = new court_booking(req.body);
-    item
-        .save()
-        .then(item => {
-            res.status(200).json({message: 'Đã thêm thành công'});
+    console.log(item)
+    let start_time = item.start;
+    let end_time = item.end;
+
+    court_booking
+        .findOne({ end: { $lte: end_time}})
+        // .or([
+        //     // {end: {$gte: new Date(start_time), $lte: new Date(end_time)}},
+        //     // {start: {$gte: start_time, $lte: end_time}},
+        // ])
+        .then(booking => {
+            console.log(booking)
+            if (booking !== null) {
+                res.status(200).send('Thời gian bạn chọn trùng với lịch của một khách khác');
+            } else {
+                item
+                    .save()
+                    .then(item => {
+                        res.status(200).send('Đã thêm thành công');
+                    })
+                    .catch(() => {
+                        res.status(400).send('Something wrong')
+                    })
+            }
         })
         .catch(() => {
-            res.status(500).send('Something wrong')
+            res.status(400).send('Something wrong')
         })
 }
 

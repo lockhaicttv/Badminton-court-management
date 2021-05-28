@@ -9,5 +9,5 @@ const promotion_of_product_model = new Schema({
     promotion_id: {type: Schema.Types.ObjectId, ref: promotion},
 })
 
-mongoose.plugin(timeZone);
+promotion_of_product_model.plugin(timeZone);
 module.exports = mongoose.model('promotion_of_product', promotion_of_product_model);

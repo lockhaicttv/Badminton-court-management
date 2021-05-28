@@ -8,6 +8,7 @@ import ToolkitProvider, {Search} from "react-bootstrap-table2-toolkit";
 import callApi from "../../../Utils/apiCaller";
 import AddArea from "../CourtAdmin/Area/AddArea";
 import Button from "react-bootstrap/Button";
+import AddCourtBooking from "./AddCourtBooking";
 
 
 const {SearchBar} = Search;
@@ -85,7 +86,7 @@ const  CourtBooking = () => {
         let objUpdate =  {};
         objUpdate[key] = newValue;
 
-        callApi(`product_category/${id}`, 'put', objUpdate)
+        callApi(`court_booking/${id}`, 'put', objUpdate)
             .then(()=>{
                 alert('Update thành công');
             });
@@ -107,8 +108,13 @@ const  CourtBooking = () => {
 
     const onDelete = () => {
         if (window.confirm('Bạn muốn xoá những mục đã chọn?')){
-            alert(listDel);
-            // setRealTime(preventDefault=>preventDefault+1);
+            callApi('court_booking', 'delete', listDel)
+                .then(res=>{
+                    alert('Đã xoá thành công')
+                })
+                .catch(()=>{
+                    alert('Xoá thất bại, vui lòng thử lại sau')
+                })
         } else {
             return false;
         }
@@ -138,7 +144,7 @@ const  CourtBooking = () => {
                                 <SearchBar {...props.searchProps} style={{width: '400px'}}/>
                                 <h3>Lịch đặt sân</h3>
                                 <div>
-                                    {/*<AddArea isShow={isShowModalAdd} handleClose={handleClose}/>*/}
+                                    <AddCourtBooking isShow={isShowModalAdd} handleClose={handleClose}/>
                                     <Button className="ml-auto" onClick={handleOpen}>
                                         Thêm
                                     </Button>
