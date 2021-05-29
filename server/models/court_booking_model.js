@@ -6,8 +6,8 @@ const court_area = require('../models/court_areas_models')
 
 const court_booking_model = new Schema({
         booker_name: {type: String},
-        start: {type: Date},
-        end: {type: Date},
+        start: {type: Number},
+        end: {type: Number},
         phone_number: {type: String},
         description: {type: String},
         status: {type: Boolean},

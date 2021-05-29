@@ -3,7 +3,7 @@ import React, {useCallback, useState} from "react";
 import {useEffect} from "react";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import AddService from "./AddService";
-import {areasState, billDetailState, billState} from "../../../Store/atom";
+import {areasState, billDetailState, billState, timeCheckInState} from "../../../Store/atom";
 import {
     faLightbulb,
     faPlusSquare,
@@ -20,32 +20,11 @@ function CourtArea(props) {
     const setBillDetail = useSetRecoilState(billDetailState);
     const [idBill, setIdBill] = useState("");
     const [timeCheckIn, setTimeCheckIn] = useState('')
-
+    const [idCourtArea, setIdCourtArea] = useState('')
 
     useEffect(() => {
-        getTimeCheckIn();
 
-        return () => {
-            setTimeCheckIn('')
-        }
     }, [])
-
-    const getTimeCheckIn = () => {
-        let index = area.findIndex((x) => x.area === props.idCourtArea);
-        let idCourtArea = area[index]._id;
-
-        if (props.isUse) {
-            callApi(
-                `court_bill/get-by-court_area/${idCourtArea}`,
-                "get",
-                null
-            )
-                .then((res) => {
-                    console.log(res.data.time_check_in)
-                    setTimeCheckIn(res.data.time_check_in)
-                });
-        }
-    }
 
     function handleOpen() {
         let newArea = [...area];
@@ -128,7 +107,7 @@ function CourtArea(props) {
     if (props.isUse === false) {
         return (
             <div className="m-2">
-                <div className="court court-background"></div>
+                <div className="court court-background"/>
                 <Button
                     variant="outline-dark"
                     onClick={handleOpen}
@@ -157,7 +136,7 @@ function CourtArea(props) {
                             Thêm
                         </Button>
                         <div className="btn btn-danger">
-                            <Watch startTime={timeCheckIn}/>
+                            <Watch court_area_id={props._id}/>
                         </div>
                         <AddService
                             handleClose={handleShowModal}

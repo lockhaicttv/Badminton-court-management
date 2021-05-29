@@ -6,35 +6,52 @@ import {Modal, InputGroup, FormControl, Button} from "react-bootstrap";
 
 const AddCourtBooking = (props) => {
     const courtInfo = useRecoilValue(courtIdState);
+    const [area, setArea] = useState([]);
     const [item, setItem] = useState({
         booker_name: '',
-        start: '',
-        end: '',
+        start: new Date().getTime(),
+        end: new Date().getTime(),
         phone_number: '',
         description: '',
         status: true,
         court_area_id: ''
     })
 
-    const handleSave = () => {
-        callApi('court_booking', 'post', item)
-            .then(res => {
+    useEffect(()=>{
+        getCourtArea();
+    },[])
 
-                    alert(res.data)
-                }
-            )
-            .catch(
-                alert('Thêm thất bại')
-            )
+    const handleSave = () => {
+       callApi('court_booking', 'post', item)
+           .then((res)=>{
+               console.log(res)
+           })
     }
 
     const handleChange = (e) => {
-        const value = e.target.value;
+        let value = e.target.value;
+        if (e.target.name === 'start' || e.target.name === 'end') {
+            value = new Date(value).getTime();
+        }
         setItem({
             ...item,
             [e.target.name]: value,
         });
     }
+
+    const getCourtArea = () => {
+        callApi(`court_area/get-by-court/${courtInfo._id}`, 'get', null)
+            .then(res=>{
+                setArea(res.data);
+            })
+            .catch(()=>{
+                setArea([]);
+            })
+    }
+
+    const listArea = area.map((areaItem, key)=>{
+        return <option key={areaItem._id} value={areaItem._id}>{areaItem.area}</option>
+    })
 
     return (
         <div>
@@ -63,7 +80,7 @@ const AddCourtBooking = (props) => {
                         <input
                             type='datetime-local'
                             name='start'
-                            value={item.start}
+                            // value={item.start}
                             onChange={handleChange}
                             className='form-control'
                             aria-describedby="basic-addon1"
@@ -76,7 +93,7 @@ const AddCourtBooking = (props) => {
                         <input
                             type='datetime-local'
                             name='end'
-                            value={item.end}
+                            // value={item.end}
                             onChange={handleChange}
                             className='form-control'
                             aria-label="Username"
@@ -118,6 +135,7 @@ const AddCourtBooking = (props) => {
                             aria-describedby="basic-addon1"
                         >
                             <option>Chọn sân</option>
+                            {listArea}
                         </FormControl>
                     </InputGroup>
                 </Modal.Body>
@@ -127,7 +145,7 @@ const AddCourtBooking = (props) => {
                     </Button>
                     <Button variant="primary" onClick={() => {
                         handleSave();
-                        props.handleClose();
+                        // props.handleClose();
                     }}>
                         Lưu thay đổi
                     </Button>

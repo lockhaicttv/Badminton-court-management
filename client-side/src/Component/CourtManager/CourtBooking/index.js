@@ -24,11 +24,17 @@ const columns = [
     },
     {
         dataField: 'start',
-        text: 'Giờ bắt đầu'
+        text: 'Giờ bắt đầu',
+        formatter: (cell, row) => {
+            return <div>{new Date(cell).toLocaleString()}</div>
+        }
     },
     {
         dataField: 'end',
-        text: 'Giờ kết thúc'
+        text: 'Giờ kết thúc',
+        formatter: (cell, row) => {
+            return <div>{new Date(cell).toLocaleString()}</div>
+        }
     },
     {
         dataField: 'status',

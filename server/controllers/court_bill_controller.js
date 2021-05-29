@@ -4,42 +4,42 @@ const url = require('url');
 
 exports.get_court_bill = (req, res) => {
     console.log(req.query)
-    let condition = {
-        _id: req.query._id,
-        time_check_in: (req.query.time_check_in),
-        time_check_out: (req.query.time_check_out),
-        status: (req.query.status),
-        court_area_id: (req.query.court_area_id)
-    }
-
-    Object.keys(condition).forEach(key => {
-        if (condition[key] == undefined) {
-            delete condition[key]
-        } else {
-            switch (key) {
-                case "status":
-                    condition[key] = Boolean(condition[key]);
-                    break;
-                case "court_area_id" :
-                    condition[key] = mongoose.mongo.ObjectId(condition[key]);
-                    break;
-                case "time_check_in":
-                    condition[key] = new Date(condition[key]);
-                    break;
-                case "time_check_out":
-                    condition[key] = new Date(condition[key]);
-                    break;
-                case "_id":
-                    condition[key] = condition[key];
-                    break;
-            }
-        }
-    })
-
-    console.log(condition)
+    // let condition = {
+    //     _id: req.query._id,
+    //     time_check_in: (req.query.time_check_in),
+    //     time_check_out: (req.query.time_check_out),
+    //     status: (req.query.status),
+    //     court_area_id: (req.query.court_area_id)
+    // }
+    //
+    // // Object.keys(condition).forEach(key => {
+    // //     if (condition[key] == undefined) {
+    // //         delete condition[key]
+    // //     } else {
+    // //         switch (key) {
+    // //             case "status":
+    // //                 condition[key] = Boolean(condition[key]);
+    // //                 break;
+    // //             case "court_area_id" :
+    // //                 condition[key] = mongoose.mongo.ObjectId(condition[key]);
+    // //                 break;
+    // //             case "time_check_in":
+    // //                 condition[key] = new Date(condition[key]);
+    // //                 break;
+    // //             case "time_check_out":
+    // //                 condition[key] = new Date(condition[key]);
+    // //                 break;
+    // //             case "_id":
+    // //                 condition[key] = condition[key];
+    // //                 break;
+    // //         }
+    // //     }
+    // // })
+    // //
+    // // console.log(condition)
 
     court_bill_model
-        .find(condition, (err, list) => {
+        .find({}, (err, list) => {
             console.log(list);
             err ?
                 res.status(500).send(`cannot get list`)

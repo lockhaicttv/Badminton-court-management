@@ -16,6 +16,21 @@ exports.get_list_court_areas = (req, res) =>{
         })
 }
 
+exports.get_list_court_areas_by_courtId = (req, res) => {
+    court_areas_model
+        .find({court_id: req.params.court_id}, (err, list)=>{
+            if (err) {
+                res.status(500).send('Cannot get list')
+            }
+            else {
+                res.json(list)
+            }
+        })
+        .catch(()=>{
+            res.status(400).send('Something wrong')
+        })
+}
+
 exports.get_list_area_by_account = async (req, res) => {
     let onComplte = (list) =>{
         if (list.length!==0){

@@ -60,3 +60,8 @@ export const searchProductState = atom({
     default: []
 })
 
+export const timeCheckInState = atom({
+    key: 'timeCheckInState',
+    default: ''
+})
+

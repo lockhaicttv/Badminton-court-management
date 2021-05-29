@@ -110,6 +110,9 @@ function Bill() {
         )
     }
 
+    let timeCheckIn = (bill.time_check_in!==null)?new Date(bill.time_check_in).toLocaleString():new Date().toLocaleString();
+    let timeCheckOut = (bill.time_check_out!==null)?new Date(bill.time_check_out).toLocaleString():new Date().toLocaleString();
+
     return (
         <div className="col-lg-12 border bg-white">
             <h3 className="text-center">Hoá Đơn</h3>
@@ -121,11 +124,11 @@ function Bill() {
                 </tr>
                 <tr>
                     <th>Thời gian vào:</th>
-                    <th colSpan="4">{bill.time_check_in}</th>
+                    <th colSpan="4">{timeCheckIn}</th>
                 </tr>
                 <tr>
                     <th>Thời gian ra:</th>
-                    <th colSpan="4">{bill.time_check_out}</th>
+                    <th colSpan="4">{timeCheckOut}</th>
                 </tr>
                 </tbody>
             </Table>

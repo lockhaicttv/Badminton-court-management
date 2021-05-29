@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react'
+import {areasState, billState, timeCheckInState} from "../../../Store/atom";
+import {useRecoilValue} from "recoil";
+import callApi from "../../../Utils/apiCaller";
 
 const Watch = (props) => {
-    const [startTime, setStartTime] = useState()
-
-    useEffect(() => {
-        setStartTime(props.startTime)
-    })
+    let startTime = '';
 
     const [timeFormat, setTimeFormat] = useState({
         hours: 0,
@@ -13,12 +12,19 @@ const Watch = (props) => {
         seconds: 0
     })
 
-    useEffect(() => {
+    useEffect( () => {
+        callApi(`court_bill/get-by-court_area/${props.court_area_id}`, 'get')
+            .then((res) => {
+                startTime = res.data.time_check_in;
+                console.log('call')
+            })
         setInterval(getTimeFormat, 1000);
-    })
+    }, [])
 
 
-    const getTimeFormat = () => {
+    const getTimeFormat = async () => {
+
+
         let d = (new Date()) - (new Date(startTime));
         let hours = Math.floor(d / 1000 / 60 / 60)
         let minutes = Math.floor(d / 1000 / 60 - hours * 60);
@@ -31,10 +37,11 @@ const Watch = (props) => {
         })
     }
 
-
     return (
         <span>{timeFormat.hours} : {timeFormat.minutes} : {timeFormat.seconds}</span>
     )
+
+
 }
 
 export default Watch;

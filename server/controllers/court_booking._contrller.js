@@ -3,11 +3,12 @@ const mongoose = require('mongoose');
 
 exports.get_all_court_booking = (req, res) => {
     court_booking.find({}, (err, list) => {
-        err ?
+        if (err) {
             res.status(500).send('Can not get list')
-            :
-            res.status(200).json(list)
-
+        } else {
+            res.status(200).json(list);
+            console.log(list);
+        }
     })
         .catch((err) => {
             res.status(400).send('Something wrong')
@@ -31,19 +32,18 @@ exports.get_all_court_booking_by_court_id = (req, res) => {
 
 
 exports.add_one_row = (req, res) => {
-    console.log(req.body.start)
-    console.log(req.body.end)
+    console.log(req.body)
     let item = new court_booking(req.body);
     console.log(item)
     let start_time = item.start;
     let end_time = item.end;
 
     court_booking
-        .findOne({ end: { $lte: end_time}})
-        // .or([
-        //     // {end: {$gte: new Date(start_time), $lte: new Date(end_time)}},
-        //     // {start: {$gte: start_time, $lte: end_time}},
-        // ])
+        .findOne({court_area_id: item.court_area_id})
+        .or([
+            {end: {$gte: start_time, $lte: end_time}},
+            {start: {$gte: start_time, $lte: end_time}},
+        ])
         .then(booking => {
             console.log(booking)
             if (booking !== null) {
@@ -55,7 +55,7 @@ exports.add_one_row = (req, res) => {
                         res.status(200).send('Đã thêm thành công');
                     })
                     .catch(() => {
-                        res.status(400).send('Something wrong')
+                        res.status(500).send('Something wrong')
                     })
             }
         })
