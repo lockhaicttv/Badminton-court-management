@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 4000;
 const cors = require('cors');
 const http = require("http").createServer(app);
+const { v4: uuidv4 } = require("uuid");
 const io = require('socket.io')(http, {
     cors: {
         origin: "http://localhost:3000",
@@ -86,6 +87,7 @@ io.on('connection', socket => {
     })
 
     socket.on("message", (data) => {
+        /*console.log(data)*/
         let message_item = {
             message: data.message,
             response: ''

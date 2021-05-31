@@ -25,7 +25,8 @@ def predict():
     try:
         data = request.get_json()
         message = data.get('input')['message']
-        output = ir.run(message)
+        court_id = data.get('input')['court_id']
+        output = ir.run(message, court_id)
 
         print(output)
         return jsonify(output)

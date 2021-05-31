@@ -90,20 +90,20 @@ class IntentRecognize:
                             condition = {f'${opt[0]}': ent_vals}
                         else:
                             condition = ent_vals[0]
-                            condition["court_id"] = ObjectId(court_id)
+                            # condition["court_id"] = ObjectId(court_id)
                         response = intent["query"].format(condition)
                         print(response)
                         if "query#" in response:
 
                             print("QUERY")
-                            response = self.query_answer(response)
+                            response = self.query_answer(response, court_id)
 
         result['condition'] = condition
         result['response'] = response
         result['description'] = description
         return result
 
-    def query_answer(self, query):
+    def query_answer(self, query, court_id):
         query = query.split('#')
         res = 'Xin lỗi, hiện tại không tìm thấy thông tin bạn mong muốn!'
 
@@ -149,6 +149,7 @@ class IntentRecognize:
                 print("RESULT PRODUCTS CATEGORIES")
                 obj = Products()
                 pro_cat = ProductCategories()
+                condition["court_id"] = ObjectId(court_id)
                 print("condition", condition)
 
                 product_categories = pro_cat.find_one(condition)

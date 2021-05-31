@@ -83,7 +83,7 @@ const OwnerStore = () => {
                     {listProduct}
                 </div>
             </div>
-            <Chat/>
+            <Chat court_id={shop_id}/>
         </div>
     )
 

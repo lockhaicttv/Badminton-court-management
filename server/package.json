@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "mongoose-timezone": "^1.3.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "uuid": "^8.3.2"
   }
 }

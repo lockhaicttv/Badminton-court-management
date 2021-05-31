@@ -1,6 +1,6 @@
 import react from 'react';
 import {Form} from 'react-bootstrap';
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import io from 'socket.io-client';
 import {Button} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
@@ -9,10 +9,11 @@ import {faPaperPlane, faWindowMinimize} from "@fortawesome/free-solid-svg-icons"
 
 const socket = io.connect("http://localhost:4000");
 
-const Chat = () => {
+const Chat = (props) => {
     const [chatLog, setChatLog] = useState([]);
-    const [chat, setChat] = useState({name: 'Chiến', message: ''});
+    const [chat, setChat] = useState({name: 'Chiến', message: '', court_id: props.shop_id});
     const [isOpen, setIsOpen] = useState(false)
+    const messageEndRef = useRef(null);
 
     useEffect(() => {
         socket.on('message', ({name, message}) => {
@@ -25,6 +26,13 @@ const Chat = () => {
         })
     })
 
+    useEffect(() => {
+        setChat({
+            ...chat,
+            court_id: props.court_id
+        })
+    }, [])
+
     const handleSubmitMessage = (e) => {
         e.preventDefault();
         setChatLog([
@@ -34,7 +42,8 @@ const Chat = () => {
         socket.emit('message', chat);
         setChat({
             message: '',
-            name: 'Chiến'
+            name: 'Chiến',
+            court_id: props.court_id
         })
     }
 
@@ -52,9 +61,20 @@ const Chat = () => {
         setIsOpen(!isOpen)
     }
 
+    const scrollToBottom = () => {
+        if (messageEndRef.current) {
+            messageEndRef.current.scrollIntoView({behavior: "smooth"});
+        }
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [chat])
+
     let listChatLog = chatLog.map((item, key) => {
         if (item.name !== 'Upin') {
-            return <div key={key} className="d-flex align-items-center text-right justify-content-end shadow-sm pt-1 rounded-0">
+            return <div key={key}
+                        className="d-flex align-items-center text-right justify-content-end shadow-sm pt-1 rounded-0">
                 <div className="pr-2"><span className="name">Me</span>
                     <p className="msg">{item.message}</p>
                 </div>
@@ -90,7 +110,7 @@ const Chat = () => {
             <div className="main justify-content-lg-end fixed-bottom p-0 col-lg-2 offset-10">
                 <Button
                     onClick={handleClose} className='d-flex justify-content-between rounded-0 m-0'
-                block
+                    block
                 >
                     <div>
                         Chatbot
@@ -101,6 +121,7 @@ const Chat = () => {
                 </Button>
                 <div className="px-2 scroll">
                     {listChatLog}
+                    <div ref={messageEndRef}></div>
                 </div>
                 <nav className="navbar bg-white navbar-expand-sm d-flex justify-content-between">
                     <input
@@ -112,7 +133,7 @@ const Chat = () => {
                         placeholder="Type a message..."
                     />
                     <div className="d-flex justify-content-end align-content-center text-center ml-2">
-                        <Button  onClick={handleSubmitMessage} >
+                        <Button onClick={handleSubmitMessage}>
                             <FontAwesomeIcon icon={faPaperPlane}/>
                         </Button>
 
