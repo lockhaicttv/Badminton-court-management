@@ -15,6 +15,7 @@ import utils.nlp_utils as nlp
 import pandas as pd
 import random
 from joblib import load
+from bson.objectid import ObjectId
 
 # from app.model.item_recognizer import EntityRecognizer, AgreeRecognizer
 from app.sentiment_recognizer import SentimentRecognizer
@@ -57,7 +58,8 @@ class IntentRecognize:
         intents.extend(intent_training)
         self.intents = intents
 
-    def get_response(self, intent_name, entities, signs):
+    def get_response(self, intent_name, entities, signs, court_id):
+        print("court_id", court_id)
         print('get response', intent_name)
         entity = ''
         result = {}
@@ -88,6 +90,7 @@ class IntentRecognize:
                             condition = {f'${opt[0]}': ent_vals}
                         else:
                             condition = ent_vals[0]
+                            condition["court_id"] = ObjectId(court_id)
                         response = intent["query"].format(condition)
                         print(response)
                         if "query#" in response:
@@ -145,7 +148,14 @@ class IntentRecognize:
             elif model == 'product_categories':
                 print("RESULT PRODUCTS CATEGORIES")
                 obj = Products()
-                results = list(obj.find_all(condition, limit=5))
+                pro_cat = ProductCategories()
+                print("condition", condition)
+
+                product_categories = pro_cat.find_one(condition)
+
+                child_condition = {"product_category_id": (product_categories["_id"])}
+
+                results = list(obj.find_all(child_condition, limit=5))
                 if len(results) > 0:
                     products = ', '.join([product["name"] for product in results])
                     res = 'Các sản  phẩm thuộc loại bạn đang tìm kiếm là: {}'.format(products)
@@ -153,7 +163,7 @@ class IntentRecognize:
         return res
 
     # def run(self, sentence, user_id):
-    def run(self, sentence):
+    def run(self, sentence, court_id):
 
         print('----Run-----')
         sentence = nlp.preprocess_step_1(sentence)
@@ -187,7 +197,7 @@ class IntentRecognize:
 
         score = max(self.clf.predict_proba(df_predict['feature'])[0])
 
-        output = {'input': sentence, 'intent': '', 'response': '', 'score': score, 'entities': entities,
+        output = {'input': sentence, 'response': '', 'score': score, 'entities': entities,
                   'condition': '', 'description': '', 'status': 'unhandled', 'sentiment_score': 0
                   }
 
@@ -210,7 +220,7 @@ class IntentRecognize:
             name_predicted = intent_predicted[0]
             output['intent_name'] = name_predicted
 
-            result = self.get_response(intent_predicted[0], entities, sign)
+            result = self.get_response(intent_predicted[0], entities, sign, court_id)
             # print(result)
 
             # if user_id is not None:
@@ -222,4 +232,4 @@ class IntentRecognize:
 
 if __name__ == '__main__':
     ir = IntentRecognize()
-    ir.run('Muốn coi sản phẩm quần yonex')
+    print(ir.run('tôi muốn tra cứu thông tin loại sản phẩm nước', "60207b5a3dd41d22d8861cd0"))
