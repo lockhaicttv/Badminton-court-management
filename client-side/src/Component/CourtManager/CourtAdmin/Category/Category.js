@@ -85,7 +85,7 @@ function Category() {
     }
 
     useEffect(() => {
-        callApi(`product_category/get-by-court-id/${courtInfo._id}`, 'get', null)
+        callApi(`product_category/get-by-court/${courtInfo._id}`, 'get', null)
             .then(res => {
                 setData(res.data);
             })

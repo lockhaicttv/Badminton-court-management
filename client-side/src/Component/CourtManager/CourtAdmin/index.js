@@ -2,7 +2,9 @@ import HeaderCourtMangement from "../../HeadFoot/HeaderCourtMangement";
 import React, {Component} from "react";
 import {Route, Link} from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
-import {NavLink} from "react-bootstrap";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faHockeyPuck, faLayerGroup, faCube, faMoneyBill, faShippingFast, faSquare} from "@fortawesome/free-solid-svg-icons";
+
 import Category from "./Category/Category";
 import Bills from "./Bills/Bills";
 import Area from "./Area/Area";
@@ -14,22 +16,52 @@ import Order from './Order/Order';
 const Panel = (
     <div>
         <div className="p-2 border">
-            <Link to="/home/admin/category">Loại sản phẩm</Link>
+            <Link to="/home/admin/category">
+                <span className='mr-2'>
+                    <FontAwesomeIcon icon={faLayerGroup} />
+                </span>
+                Loại sản phẩm
+            </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/home/admin/product">Sản phẩm</Link>
+            <Link to="/home/admin/product">
+                 <span className='mr-2'>
+                    <FontAwesomeIcon icon={faCube} />
+                </span>
+                Sản phẩm
+            </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/home/admin/bill">Hoá đơn</Link>
+            <Link to="/home/admin/bill">
+                 <span className='mr-2'>
+                    <FontAwesomeIcon icon={faMoneyBill} />
+                </span>
+                Hoá đơn
+            </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/home/admin/order">Đơn hàng</Link>
+            <Link to="/home/admin/order">
+                 <span className='mr-2'>
+                    <FontAwesomeIcon icon={faShippingFast} />
+                </span>
+                Đơn hàng
+            </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/home/admin/area">Sân</Link>
+            <Link to="/home/admin/area">
+                 <span className='mr-2'>
+                    <FontAwesomeIcon icon={faSquare} />
+                </span>
+                Sân
+            </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/home/admin/promotion">Khuyến mãi</Link>
+            <Link to="/home/admin/promotion">
+                <span className='mr-2'>
+                    <FontAwesomeIcon icon={faHockeyPuck} />
+                </span>
+                Khuyến mãi
+            </Link>
         </div>
     </div>
 );

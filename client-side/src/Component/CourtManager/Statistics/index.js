@@ -3,14 +3,26 @@ import React, {Component} from "react";
 import {Route, Link} from "react-router-dom";
 import BillStatistic from "./BillStatistic";
 import OrderStatistic from "./OrderStatistic";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faChartLine} from "@fortawesome/free-solid-svg-icons";
 
 const Panel = (
     <div>
         <div className="p-2 border">
-            <Link to="/home/statistic/order">Doanh thu bán hàng</Link>
+            <Link to="/home/statistic/order">
+                <span className='mr-2'>
+                    <FontAwesomeIcon icon={faChartLine}/>
+                </span>
+                Doanh thu bán hàng
+            </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/home/statistic/bill">Doanh thu sân</Link>
+            <Link to="/home/statistic/bill">
+                 <span className='mr-2'>
+                    <FontAwesomeIcon icon={faChartLine}/>
+                </span>
+                Doanh thu sân
+            </Link>
         </div>
     </div>
 );

@@ -27,6 +27,10 @@ const Customer = () => {
     const [userInfo, setUserInfo] = useState({});
     const history = useHistory();
 
+    if (ls.getItem('cart') === null) {
+        ls.setItem('cart', '[]');
+    }
+
     const loadUserInfo = () => {
         callApi(`user/?_id=${account_id}`, "get", null)
             .then((res) => {
