@@ -45,7 +45,7 @@ function Login() {
         }
       })
       .catch((err) => {
-        alert("Đăng nhập thất bại");
+        alert("Đăng nhập thất bại, sai tài khoản hoặc mật khẩu!");
         // history.push('/home/court');
       });
   };

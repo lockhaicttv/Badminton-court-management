@@ -19,7 +19,7 @@ function Register(props) {
         address: '',
         birthday: null,
         gender: 'male',
-        role: 'user',
+        role: 'owner',
         id_card: null
     })
     const [user, setUser] = useState({
@@ -78,6 +78,7 @@ function Register(props) {
                     }
                 })
         }
+        setValidated(true);
     }
 
     const handleSubmitUser = (event) => {
@@ -98,6 +99,7 @@ function Register(props) {
                     }
                 })
         }
+        setValidated(true);
     }
 
 
@@ -109,6 +111,7 @@ function Register(props) {
                           onChange={handleChange}
                           required
             />
+            <Form.Control.Feedback type='invalid'>Vui lòng nhập họ tên</Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formBasicEmail">
             <Form.Control size='lg' type="text" placeholder="Tên đăng nhập"
@@ -118,6 +121,7 @@ function Register(props) {
                           onKeyPress={handleCheckUserName}
                           required
             />
+            <Form.Control.Feedback type='invalid'>Tên đăng nhập trùng hoặc trống</Form.Control.Feedback>
             <Form.Text size='lg' className="text-muted">
                 {checkUsername}
             </Form.Text>
@@ -129,6 +133,7 @@ function Register(props) {
                           onChange={handleChange}
                           required
             />
+            <Form.Control.Feedback type='invalid'>Mật khẩu không thể trống</Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
             <Form.Control size='lg' type="text" placeholder="Số điện thoại"
@@ -137,6 +142,7 @@ function Register(props) {
                           onChange={handleChange}
                           required
             />
+            <Form.Control.Feedback type='invalid'>Vui lòng cung cấp só điện thoại</Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formBasicCheckbox">
             <Form.Control as="select" size='lg'
@@ -157,6 +163,7 @@ function Register(props) {
                           onChange={handleChange}
                           required
             />
+            <Form.Control.Feedback type='invalid'>Vui lòng nhập địa chỉ</Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
             <Form.Control size='lg' type="date" placeholder="Ngày sinh"
@@ -165,6 +172,7 @@ function Register(props) {
                           onChange={handleChange}
                           required
             />
+            <Form.Control.Feedback type='invalid'>Vui lòng chọn ngày sinh nhật</Form.Control.Feedback>
         </Form.Group>
         <Row>
             <Col>
@@ -185,6 +193,7 @@ function Register(props) {
                           onChange={handleChangeUser}
                           required
             />
+            <Form.Control.Feedback type='invalid'>Vui lòng nhập họ tên</Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formBasicEmail">
             <Form.Control size='lg' type="text" placeholder="Tên đăng nhập"
@@ -194,6 +203,7 @@ function Register(props) {
                           onKeyPress={handleCheckUserName}
                           required
             />
+            <Form.Control.Feedback type='invalid'>Vui lòng nhập tên đăng nhập</Form.Control.Feedback>
             <Form.Text size='lg' className="text-muted">
                 {checkUsername}
             </Form.Text>
@@ -205,6 +215,7 @@ function Register(props) {
                           onChange={handleChangeUser}
                           required
             />
+            <Form.Control.Feedback type='invalid'>Vui lòng nhập mật khẩu</Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
             <Form.Control size='lg' type="text" placeholder="Số điện thoại"
@@ -213,6 +224,7 @@ function Register(props) {
                           onChange={handleChangeUser}
                           required
             />
+            <Form.Control.Feedback type='invalid'>Vui lòng chọn nhập số điện thoại</Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formBasicCheckbox">
             <Form.Control as="select" size='lg'
@@ -225,6 +237,7 @@ function Register(props) {
                 <option value='male'>Nam</option>
                 <option value='fe-male'>Nữ</option>
             </Form.Control>
+            <Form.Control.Feedback type='invalid'>Vui lòng chọn giới tính</Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
             <Form.Control size='lg' type="text" placeholder="Địa chỉ"
@@ -233,6 +246,7 @@ function Register(props) {
                           onChange={handleChangeUser}
                           required
             />
+            <Form.Control.Feedback type='invalid'>Vui lòng nhập địa chỉ</Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
             <Form.Control size='lg' type="date" placeholder="Ngày sinh"
@@ -241,6 +255,7 @@ function Register(props) {
                           onChange={handleChangeUser}
                           required
             />
+            <Form.Control.Feedback type='invalid'>Vui lòng chọn ngày sinh nhật</Form.Control.Feedback>
         </Form.Group>
         <Row>
             <Col>
@@ -273,9 +288,7 @@ function Register(props) {
                         </div>
                     </Modal.Title>
                 </Modal.Header>
-                {/*<Modal.Body>*/}
                 {modalBody}
-                {/*</Modal.Body>*/}
             </Modal>
         </div>
     )

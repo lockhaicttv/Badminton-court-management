@@ -10,6 +10,9 @@ import {useSetRecoilState, useRecoilState} from "recoil";
 import ls from '../../Utils/localStorage';
 import ReactImageMagnify from 'react-image-magnify';
 import Chat from "./Chat";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faGifts} from "@fortawesome/free-solid-svg-icons";
+import ProductCard from "./ProductCard";
 
 const ProductDetails = () => {
     const product_id = useParams().product_id;
@@ -28,6 +31,7 @@ const ProductDetails = () => {
         imageAlt: "Example",
         largeImageSrc: "./large-image.jpg",
     });
+    const [productRelated, setProductRelated] = useState([]);
 
     useEffect(() => {
         loadProductDetails();
@@ -43,11 +47,12 @@ const ProductDetails = () => {
             .then(res => {
                 setProductDetails(res.data[0])
                 setCartItem(prevState => {
-                    return {
-                        ...prevState,
-                        price: res.data[0].price
+                        return {
+                            ...prevState,
+                            price: res.data[0].price
+                        }
                     }
-                })
+                )
                 setProps(prevState => {
                     return {
                         ...prevState,
@@ -55,6 +60,15 @@ const ProductDetails = () => {
                         largeImageSrc: res.data[0].image.base64
                     }
                 })
+                let relateStr = res.data[0].name.substring(0, res.data[0].name.indexOf(' '));
+                console.log(relateStr)
+                callApi(`product/search/${relateStr}`, 'get', null)
+                    .then(res1=>{
+                        setProductRelated(res1.data)
+                    })
+                    .catch(()=>{
+                        setProductRelated([])
+                    })
             })
     }
 
@@ -113,7 +127,7 @@ const ProductDetails = () => {
                 console.log(owner._id, shop)
                 let oldQuantity = newCart[index].quantity;
                 let newCartItem = {...cartItem};
-                newCartItem['quantity'] = newCartItem.quantity*1 + oldQuantity * 1;
+                newCartItem['quantity'] = newCartItem.quantity * 1 + oldQuantity * 1;
                 newCartItem['price'] = newCartItem.price * promotionValue
                 newCart[index] = newCartItem;
                 setCart(newCart);
@@ -128,8 +142,12 @@ const ProductDetails = () => {
         return endTime > new Date().getTime();
     }
 
+    const listProductRelate = productRelated.map((item, key) => {
+        return <ProductCard item={item} key={key}/>;
+    });
 
-    let eleRender = <div/>;
+        let
+    eleRender = <div/>;
     if (productDetails !== undefined) {
         eleRender = <Row>
             <Col sm={4}>
@@ -185,7 +203,7 @@ const ProductDetails = () => {
     let promotionEndday = ''
     let promotionValue = 0
 
-    if (productDetails.promotion_id !== null && productDetails.promotion_id!==undefined) {
+    if (productDetails.promotion_id !== null && productDetails.promotion_id !== undefined) {
         promotionEndday = productDetails.promotion_id.end
         if (checkPromotionTime(promotionEndday)) {
             promotionValue = (100 - productDetails.promotion_id.value) / 100
@@ -270,6 +288,15 @@ const ProductDetails = () => {
                     </Row>
                 </Col>
             </Row>
+            <div className='bg-white'>
+                <div className='border border-bottom border-left-0 border-right-0 row bg-white row'>
+                    <FontAwesomeIcon icon={faGifts} size='lg' color='#3399FF' className='my-auto col-lg-1'/>
+                    <div className='p-2 sale-title'><i>Sản phẩm liên quan</i></div>
+                </div>
+                <div className="row bg-white">
+                    {listProductRelate}
+                </div>
+            </div>
         </div>
     )
 }

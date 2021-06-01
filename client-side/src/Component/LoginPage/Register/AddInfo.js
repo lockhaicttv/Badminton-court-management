@@ -34,17 +34,20 @@ const AddInfo = () => {
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-        } else {
-            setValidated(true);
-            callApi('court', 'post', info)
-                .then(res => {
-                    alert('Thêm thành công');
-                    history.push('/home/court')
-                })
-                .catch(() => {
-                    alert('Hệ thống đang có vấn đề, vui lòng thử lại sau');
-                })
         }
+        else {
+                setValidated(true);
+                callApi('court', 'post', info)
+                    .then(res => {
+                        alert('Thêm thành công');
+                        history.push('/home/court')
+                    })
+                    .catch(() => {
+                        alert('Hệ thống đang có vấn đề, vui lòng thử lại sau');
+                    })
+            }
+
+        setValidated(true);
     };
 
     const handleChange = (e) => {
@@ -86,6 +89,7 @@ const AddInfo = () => {
                         // className="rounded-pill"
                         required
                     />
+                    <Form.Control.Feedback type='invalid'>Nhập tên sân của bạn (tên shop cá nhân)</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
@@ -98,6 +102,7 @@ const AddInfo = () => {
                         onChange={handleChange}
                         required
                     />
+                    <Form.Control.Feedback type='invalid'>Vui lòng nhập địa chỉ sân để khách hàng dễ liên lạc</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicEmail">
@@ -110,6 +115,7 @@ const AddInfo = () => {
                         onChange={handleChange}
                         required
                     />
+                    <Form.Control.Feedback type='invalid'>Vui lòng nhập số điện thoại để khách hàng liên hệ</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Control
@@ -121,6 +127,7 @@ const AddInfo = () => {
                         onChange={handleChange}
                         required
                     />
+                    <Form.Control.Feedback type='invalid'>Vui lòng nhập mô tả về sân</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Control
@@ -132,6 +139,7 @@ const AddInfo = () => {
                         onChange={handleChange}
                         required
                     />
+                    <Form.Control.Feedback type='invalid'>Vui lòng nhập số lượng khu vực hiện có tại sân</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Control
@@ -143,6 +151,7 @@ const AddInfo = () => {
                         onChange={handleChange}
                         required
                     />
+                    <Form.Control.Feedback>Nhập giá sân/giờ</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Control
@@ -154,6 +163,7 @@ const AddInfo = () => {
                         onChange={handleChange}
                         required
                     />
+                    <Form.Control.Feedback type='invalid'>Vui lòng nhập giá sân</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
                     <label className="btn btn btn-secondary">

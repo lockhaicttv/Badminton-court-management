@@ -73,7 +73,7 @@ const Shoppage = () => {
         );
     });
     const listProduct = product.map((item, key) => {
-        return <ProductCard key={item._id} item={item}/>;
+        return <ProductCard key={item._id} item={item} reload={handleLoadProduct}/>;
     });
 
     return (

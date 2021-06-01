@@ -4,6 +4,8 @@ import Button from "react-bootstrap/Button";
 import FileBase64 from "react-file-base64";
 import {Modal, Form} from "react-bootstrap";
 import callApi from "../../../Utils/apiCaller";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit} from "@fortawesome/free-solid-svg-icons";
 
 
 const ProductCard = (props) => {
@@ -53,6 +55,7 @@ const ProductCard = (props) => {
     const updateProductInfo = () => {
         callApi(`product/${props.item._id}`, 'put', itemEdit)
             .then(alert('Cập nhật thông tin sản phẩm thành công!'));
+        props.reload(props.item.product_category_id);
     }
 
     const listPromotion = promotion.map((promotion, key) => {
@@ -93,7 +96,10 @@ const ProductCard = (props) => {
                 src={itemEdit.image.base64}
                 className='p-3'
             />
-            <FileBase64 className='btn' onDone={getFileBase64}/>
+            <label className="edit-banner btn btn btn-secondary">
+                <FileBase64 id='file' onDone={getFileBase64}/>
+                <FontAwesomeIcon icon={faEdit}/>
+            </label>
             <Card.Body>
                 <Card.Title>
                     <FormControl
@@ -117,7 +123,7 @@ const ProductCard = (props) => {
                     value={itemEdit.promotion_id}
                     onChange={handleChange}
                 >
-                    {/*<option className='text-muted'>Khuyến mãi</option>*/}
+                    <option className='text-muted' value={null}>Khuyến mãi</option>
                     {listPromotion}
                 </FormControl>
             </Card.Body>

@@ -16,9 +16,11 @@ const BillStatistic = () => {
 
     const [dataChart, setDataChart] = useState([])
     const courtInfo = useRecoilValue(courtIdState);
-    console.log(courtInfo._id, 'court _id')
+    const [statisticToday, setStatisticToday] = useState([])
+
     useEffect(() => {
         loadDataChart();
+        getStatisticToday();
     }, [])
 
     const loadDataChart = () => {
@@ -35,6 +37,24 @@ const BillStatistic = () => {
             })
     }
 
+    const getStatisticToday = () => {
+        let today = new Date()
+        let tomorrow = new Date(today)
+        tomorrow.setDate(tomorrow.getDate() + 1)
+
+        callApi(`court_bill/statistic/${courtInfo._id}?start=${today}&&end=${tomorrow}`,
+            'get',
+            null
+        )
+            .then(res => {
+                console.log(res.data)
+                setStatisticToday(res.data)
+            })
+            .catch((err) => {
+                setStatisticToday([])
+            })
+    }
+
     const handleChange = (e) => {
         setStatisticTime({
                 ...statisticTime,
@@ -48,7 +68,7 @@ const BillStatistic = () => {
         loadDataChart();
     }
 
-    console.log(dataChart)
+    console.log(statisticToday)
     return (
         <div>
             <Row>
@@ -77,6 +97,13 @@ const BillStatistic = () => {
                 </Col>
             </Row>
             <BillChart data={dataChart}/>
+            <div>
+                {statisticToday.length===0?
+                    <div>Doanh thu trong ngày: 'Hiện chưa có hoá đơn'</div>
+                    :
+                    <div>Doanh thu trong ngày: {statisticToday[0].balance}</div>
+                }
+            </div>
         </div>
     )
 }
