@@ -154,7 +154,7 @@ exports.get_product_sale = (req, res) => {
                     $addFields: {promotion_end_time: '$promotion_id.end'}
                 },
                 {
-                    $match: {promotion_end_time: {$lte: time}}
+                    $match: {promotion_end_time: {$gte: time}}
                 }
             ]
         )
