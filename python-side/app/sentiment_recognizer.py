@@ -55,4 +55,6 @@ class SentimentRecognizer:
 
 if __name__ == "__main__":
     sr = SentimentRecognizer()
-    print(sr.run("sao bạn ngốc quá vậy"))
+    print(sr.run("vui"))
+
+    # print(sr.run("sao bạn ngốc quá vậy"))

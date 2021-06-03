@@ -29,7 +29,7 @@ UNKNOWN_RESPONSE = 'Xin lỗi, bạn có thể cung cấp thêm thông tin khôn
 MISSING_RESPONSE = 'Xin lỗi, hiện mình chưa có thông tin về "{}". Mình sẽ cập nhật sớm nhất có thể!'
 POS_RESPONSE = "Hihi, cảm ơn bạn nha ^^"
 NEG_RESPONSE = "Xin lỗi bạn, vì mình còn nhỏ, nên chưa đủ thông tin hữu ích cho bạn :("
-ENTITIES = ["products", "categories", "courts"]
+ENTITIES = ["products", "categories", "courts", "price"]
 MEANINGLESS_WORDS = ["ừm", "ừ", "ok", "okay", "okie", "yeah", "oki", "ờ", "ùm"]
 
 
@@ -81,29 +81,98 @@ class IntentRecognize:
                             if e in intent_name:
                                 entity = e
 
-                        opt = [s["value"] for s in signs if s["entity"] == entity]
+
                         ent_vals = [{'name': {"$regex": e["org_val"], "$options": "i"}} for e in entities if
                                     e["key"] == entity]
                         print("ENTITIES:", ent_vals)
 
-                        if len(opt) > 0:
-                            condition = {f'${opt[0]}': ent_vals}
-                        else:
-                            condition = ent_vals[0]
-                            # condition["court_id"] = ObjectId(court_id)
+                        condition = ent_vals[0]
                         response = intent["query"].format(condition)
-                        print(response)
-                        if "query#" in response:
 
+                        if "query#" in response:
                             print("QUERY")
-                            response = self.query_answer(response, court_id)
+                            if len(signs) > 0:
+                                response = self.query_price(court_id, signs, entities)
+                            else:
+                                response = self.query_answer(response, court_id)
 
         result['condition'] = condition
         result['response'] = response
         result['description'] = description
         return result
 
+    def query_price(self, court_id, signs, entities):
+        print("====> QUERY PRICE")
+        print(court_id)
+        categories = []
+        prices = []
+        res =""
+
+        for ent in entities:
+            if ent["key"] == "categories":
+                categories.append(ent["org_val"])
+            if ent["key"] == "price":
+                prices.append(ent["org_val"])
+
+        print(categories, prices, signs)
+
+        if len(categories) == 0:
+            print("===> tất cả categories")
+            categories = [x["name"] for x in ProductCategories().find_all({"court_id": ObjectId(court_id)})]
+
+
+        def get_products(category, court_id):
+            results = ProductCategories().find_one({'name': {"$regex": category, "$options": "i"}, "court_id": ObjectId(court_id)})
+            return results
+
+        if "gte" in signs and "lte" in signs:
+            print("===> ở giữa")
+            min_price = min(prices)
+            max_price = max(prices)
+
+            for category in categories:
+                result = get_products(category, court_id)
+                category_id = result["_id"] if result is not None else ""
+                if category is not "":
+                    products = Products().find_all({"product_category_id": category_id, "price": {"$gte": min_price, "$lte": max_price}})
+                    for product in products:
+                        res += f" + {product['name']} : {product['price']}"
+
+        elif "gte" in signs or "lte" in signs:
+            if "gte" in signs:
+                print("===> lớn hơn")
+                price = min(prices)
+                opt = "gte"
+            else:
+                print("===> bé hơn")
+                price = max(prices)
+                opt = "lte"
+            for category in categories:
+                result = get_products(category, court_id)
+                category_id = result["_id"] if result is not None else ""
+                if category is not "":
+                    products = Products().find_all({"product_category_id": category_id, "price": {f"${opt}": price}})
+                    for product in products:
+                        res += f" + {product['name']} : {product['price']}"
+
+        else:
+            print("====> bằng")
+            for category in categories:
+                result = get_products(category, court_id)
+                category_id = result["_id"] if result is not None else ""
+                if category is not "":
+                    products = Products().find_all({"product_category_id": category_id, "price": {"$in": prices}})
+                    for product in products:
+                        res += f" + {product['name']} : {product['price']}"
+
+
+
+        res = "Đây là những sản phẩm có giá theo yêu cầu của bạn:" + res if res != "" else "Hiện tại mình chưa tìm được sản phẩm theo giá bạn mong muốn!"
+        return res
+
+
     def query_answer(self, query, court_id):
+        print("====> QUERY ANSWER")
         query = query.split('#')
         res = 'Xin lỗi, hiện tại không tìm thấy thông tin bạn mong muốn!'
 
@@ -116,14 +185,19 @@ class IntentRecognize:
             if model == 'products':
                 print("RESULT PRODUCTS")
                 obj = Products()
-                results = obj.find_one(condition)
-                if not results is None:
-                    product_description = ', '.join(results['description']) if (results[
-                        "description"]) is not None else ""
+                results = obj.find_all(condition)
+                return_product = None
+                if len(results) > 0:
+                    pro_cat = ProductCategories()
+                    for re in results:
+                        pro_cat_find = pro_cat.find_one({"court_id": ObjectId(court_id), "_id": re["product_category_id"]})
 
-                    res = f'Thông tin sản phẩm bạn cần tìm là: \n' \
-                          f'+ Tên sản phẩm: {results["name"]}\n' \
-                          f'Giá sản phẩm: {str(results["price"])}\n'
+                        if pro_cat_find is not None:
+                            return_product = re
+                    if return_product is not None:
+                        res = f'Thông tin sản phẩm bạn cần tìm là: \n' \
+                              f'+ Tên sản phẩm: {return_product["name"]}\n' \
+                              f'Giá sản phẩm: {str(return_product["price"])}\n'
 
                 elif model == 'product_categories':
                     results = list(obj.find_all(condition, limit=5))
@@ -205,16 +279,18 @@ class IntentRecognize:
         if score < INTENT_THRESHOLD:
             sentiment_score = self.sentiment_recognizer.run(sen_recognize)
             if sentiment_score > 0:
-                response: POS_RESPONSE
-                intent_name: 'positive_sentences'
+                response= POS_RESPONSE
+                intent_name= 'positive_sentences'
                 output['sentiment_score'] = sentiment_score
                 output['status'] = 'handled'
             elif sentiment_score < 0:
-                response = UNKNOWN_RESPONSE
-                intent_name = intent_predicted[0]
+                response = NEG_RESPONSE
+                intent_name = "negative_sentence"
+                output["sentiment_score"] = sentiment_score
+                output["status"] = "handled"
             else:
                 response = UNKNOWN_RESPONSE
-                intent_name = 'negative_sentences'
+                intent_name = intent_predicted[0]
             output['response'] = response
             output['intent_name'] = intent_name
         else:
@@ -233,4 +309,9 @@ class IntentRecognize:
 
 if __name__ == '__main__':
     ir = IntentRecognize()
-    print(ir.run('tôi muốn tra cứu thông tin loại sản phẩm nước', "60207b5a3dd41d22d8861cd0"))
+
+    # print(ir.run('tôi muốn tra cứu sản phẩm bánh bò', "606978e4499c17061cbfd685"))
+    # print(ir.run('tôi muốn tra cứu sản phẩm bánh bò', "60207b5a3dd41d22d8861cd0"))
+
+    # print(ir.run('gợi ý sản phẩm giá dưới 50000', "60207b5a3dd41d22d8861cd0"))
+    print(ir.run('buồn', "60207b5a3dd41d22d8861cd0"))
