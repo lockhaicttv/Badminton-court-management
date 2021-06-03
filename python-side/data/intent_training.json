@@ -31,8 +31,8 @@
     {
       "intent_name": "tra cuu loai san pham categories",
       "training_phrases": [
-	"gợi ý sản phẩm thuộc loại categories",
-	"Tìm kiếm sản phẩm thuộc loại categories",
+        "gợi ý sản phẩm thuộc loại categories",
+        "Tìm kiếm sản phẩm thuộc loại categories",
         "muốn tra cứu loại sản phẩm categories",
         "muốn xem loại sản phẩm categories",
         "muốn coi loại sản phẩm categories",
@@ -182,6 +182,21 @@
         "Bạn muốn tìm thông tin sân tên gì vậy?"
       ],
       "query": "query#courts#name#{}",
+      "description": "query"
+    },
+    {
+      "intent_name": "goi y san pham gia duoi price",
+      "training_phrases": [
+        "gợi ý cho tôi sản phẩm dưới price",
+        "sản phẩm giá dưới price",
+        "có sản phẩm nào giá dưới price không?",
+        "giúp tôi tìm sản phẩm giá dưới price",
+        "bên bạn có sản phẩm nào giá dưới price không"
+      ],
+      "responses": [
+        "Bạn muốn tìm loại sản phẩm nào vậy"
+      ],
+      "query": "query#products#price#{}",
       "description": "query"
     }
   ]

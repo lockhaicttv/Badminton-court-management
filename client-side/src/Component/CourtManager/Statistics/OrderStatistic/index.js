@@ -14,9 +14,11 @@ const OrderStatistic = () => {
 
     const [dataChart, setDataChart] = useState([])
     const courtInfo = useRecoilValue(courtIdState);
+    const [statisticToday, setStatisticToday] = useState([])
 
     useEffect(() => {
         loadDataChart();
+        getStatisticToday();
     }, [])
 
     const loadDataChart = () => {
@@ -30,6 +32,25 @@ const OrderStatistic = () => {
             })
             .catch((err) => {
                 setDataChart([])
+            })
+    }
+
+    const getStatisticToday = () => {
+        let today = new Date()
+        let tomorrow = new Date(today)
+        today.setDate(today.getDate() - 1)
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        console.log(today.toLocaleString(), tomorrow.toLocaleString())
+        callApi(`user_bill/statistic/${courtInfo._id}?start=${today}&&end=${tomorrow}`,
+            'get',
+            null
+        )
+            .then(res => {
+                console.log(res.data)
+                setStatisticToday(res.data)
+            })
+            .catch((err) => {
+                setStatisticToday([])
             })
     }
 
@@ -74,7 +95,13 @@ const OrderStatistic = () => {
                 </Col>
             </Row>
             <OrderChart data={dataChart}/>
-
+            <div>
+                {statisticToday.length===0?
+                    <div>Doanh thu trong ngày: 'Hiện chưa có đơn hàng'</div>
+                    :
+                    <div>Doanh thu trong ngày: {statisticToday[0].balance}</div>
+                }
+            </div>
         </div>
     )
 }

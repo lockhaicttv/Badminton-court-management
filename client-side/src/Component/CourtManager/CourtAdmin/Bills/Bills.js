@@ -19,11 +19,17 @@ const columns = [
     },
     {
         dataField: 'time_check_in',
-        text: 'Thời gian vào'
+        text: 'Thời gian vào',
+        formatter: (row, cell) => {
+            return <div>{new Date(row).toLocaleString()}</div>
+        }
     },
     {
         dataField: 'time_check_out',
-        text: 'Thời gian ra'
+        text: 'Thời gian ra',
+        formatter: (row, cell) => {
+            return <div>{new Date(row).toLocaleString()}</div>
+        }
     },
     {
         dataField: 'price_total',
@@ -59,16 +65,16 @@ function Bill(props) {
         clickToEdit: true,
         selectColumnPosition: 'right',
         onSelect: (row, isSelect, rowIndex, e) => {
-            if (isSelect){
+            if (isSelect) {
                 setListDel(prevState => {
-                        let newState =[...prevState];
+                        let newState = [...prevState];
                         newState.push(row._id);
                         return newState;
                     }
                 )
             } else {
                 setListDel(prevState => {
-                    let newState=[...prevState];
+                    let newState = [...prevState];
                     newState.splice(newState.indexOf(row._id), 1);
                     return newState;
                 })
@@ -87,11 +93,15 @@ function Bill(props) {
     };
 
     useEffect(() => {
+        loadData();
+    }, [])
+
+    const loadData = () => {
         callApi(`court_bill/${courtInfo._id}`, 'get', null)
             .then(res => {
                 setData(res.data);
             })
-    }, [])
+    }
 
     const expandRow = {
         expandHeaderColumnRenderer: ({isAnyExpands}) => {
@@ -135,18 +145,19 @@ function Bill(props) {
     };
 
     const onDelete = () => {
-        if (window.confirm('Bạn muốn xoá những mục đã chọn?')){
+        if (window.confirm('Bạn muốn xoá những mục đã chọn?')) {
             callApi('court_bill', 'delete', listDel)
-                .then(
+                .then(res => {
+                    loadData();
                     alert('Đã xoá thành công')
-                )
+                })
                 .catch('Xoá thất bại')
         } else {
             return false;
         }
     }
 
-    const handleClose = () =>{
+    const handleClose = () => {
         setIsShowModalAdd(false);
     }
     const handleOpen = () => {
@@ -175,44 +186,44 @@ function Bill(props) {
         //         selectRow={selectRow}
         //     />
         // </div>
-    <div>
-        <ToolkitProvider
-            bootstrap4={true}
-            headerWrapperClasses="foo"
-            keyField='_id'
-            columns={columns}
-            data={data}
-            noDataIndication="Table is Empty"
-            search
-        >
-            {
-                props => (
-                    <div>
-                        <div className="d-flex justify-content-between mt-2 mb-0">
-                            <h3>Hoá đơn thuê sân</h3>
-                            <SearchBar {...props.searchProps} style={{width: '600px'}}/>
-                            <div>
-                                <AddBill isShow={isShowModalAdd} handleClose={handleClose}/>
-                                <Button className="ml-auto" onClick={handleOpen}>
-                                    Thêm
-                                </Button>
-                                <Button className="btn-danger" onClick={onDelete}>
-                                    Xoá
-                                </Button>
+        <div>
+            <ToolkitProvider
+                bootstrap4={true}
+                headerWrapperClasses="foo"
+                keyField='_id'
+                columns={columns}
+                data={data}
+                noDataIndication="Table is Empty"
+                search
+            >
+                {
+                    props => (
+                        <div>
+                            <div className="d-flex justify-content-between mt-2 mb-0">
+                                <h3>Hoá đơn thuê sân</h3>
+                                <SearchBar {...props.searchProps} style={{width: '600px'}}/>
+                                <div>
+                                    <AddBill isShow={isShowModalAdd} handleClose={handleClose}/>
+                                    <Button className="ml-auto" onClick={handleOpen}>
+                                        Thêm
+                                    </Button>
+                                    <Button className="btn-danger" onClick={onDelete}>
+                                        Xoá
+                                    </Button>
+                                </div>
                             </div>
+                            <hr/>
+                            <BootstrapTable
+                                {...props.baseProps}
+                                expandRow={expandRow}
+                                selectRow={selectRow}
+                                pagination={paginationFactory()}
+                            />
                         </div>
-                        <hr/>
-                        <BootstrapTable
-                            {...props.baseProps}
-                            expandRow={expandRow}
-                            selectRow={selectRow}
-                            pagination={paginationFactory()}
-                        />
-                    </div>
-                )
-            }
-        </ToolkitProvider>
-    </div>
+                    )
+                }
+            </ToolkitProvider>
+        </div>
     )
 }
 

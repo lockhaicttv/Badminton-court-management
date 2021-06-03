@@ -8,10 +8,6 @@
           "description": null
         },
         {
-          "org_val": "Bánh Canh",
-          "description": null
-        },
-        {
           "org_val": "Snack",
           "description": null
         },
@@ -28,7 +24,7 @@
           "description": null
         },
         {
-          "org_val": "Yonex",
+          "org_val": "Áo cầu lông 1796",
           "description": null
         },
         {
@@ -68,15 +64,67 @@
           "description": null
         },
         {
-          "org_val": "Chiến Lê Minh",
-          "description": null
-        },
-        {
           "org_val": "Áo lining trắng",
           "description": null
         },
         {
-          "org_val": "Áo thun trắng adidas",
+          "org_val": "Áo lining cam 1157",
+          "description": null
+        },
+        {
+          "org_val": "Áo cầu lông xanh trắng 539",
+          "description": null
+        },
+        {
+          "org_val": "Áo cầu lông yonex 031",
+          "description": null
+        },
+        {
+          "org_val": "Áo cầu lông yonex 0312",
+          "description": null
+        },
+        {
+          "org_val": "Áo cầu lông victor 1548",
+          "description": null
+        },
+        {
+          "org_val": "Quần cầu lông yonex 1520",
+          "description": null
+        },
+        {
+          "org_val": "Quần cầu lông yonex 1523",
+          "description": null
+        },
+        {
+          "org_val": "Quần cầu lông yonex 1523",
+          "description": null
+        },
+        {
+          "org_val": "Quần cầu lông yonex 1154",
+          "description": null
+        },
+        {
+          "org_val": "Quần yonex trắng sọc 1124",
+          "description": null
+        },
+        {
+          "org_val": "Quần yonex trắng sọc 1124",
+          "description": null
+        },
+        {
+          "org_val": "Giày cầu lông adidas",
+          "description": null
+        },
+        {
+          "org_val": "Giày cầu lông yonex 65z",
+          "description": null
+        },
+        {
+          "org_val": "Giày cầu lông Aerus",
+          "description": null
+        },
+        {
+          "org_val": "Giày Yonex SHB",
           "description": null
         }
       ]
@@ -93,7 +141,7 @@
           "description": null
         },
         {
-          "org_val": "Quần áo",
+          "org_val": "Áo cầu lông",
           "description": null
         },
         {
@@ -105,15 +153,15 @@
           "description": null
         },
         {
-          "org_val": "Quần, áo adidas",
+          "org_val": "Quần cầu lông",
           "description": null
         },
         {
-          "org_val": "Quần, áo Lining",
+          "org_val": "Giày cầu lông",
           "description": null
         },
         {
-          "org_val": "Quần, áo victor",
+          "org_val": "Vợt cầu lông",
           "description": null
         }
       ]

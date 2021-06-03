@@ -74,15 +74,6 @@ class EntityRecognizer(object):
         res = [sub['key'] for sub in entities]
         entities_unique = list(set().union(res))
         sign = []
-
-        # em fix
-        num = self.detect_number(sentences)
-        if len(num) > 0:
-            entities.append({"key": "price", "org_val": num[0], "values": num})
-            for n in num:
-                sentences = sentences.replace(n, "price")
-        # end em fix
-
         for ent in entities_unique:
             if res.count(ent) > 1:
                 sign.append({
@@ -176,13 +167,8 @@ class EntityRecognizer(object):
             True
         )
 
-    def detect_number(self, sentence):
-        #em viết
-        num = re.findall(r'\d+', sentence)
-        return num
 
 if __name__ == '__main__':
     er = EntityRecognizer()
-    print(er.detect_entitíes('Tôi muốn mua bánh giá từ 20000, 40000'))
-    # er.append_db_data()
-    # print(    er.detect_number("12 là ôi 14"))
+    print(er.detect_entitíes('Tôi muốn mua bánh'))
+    er.append_db_data()

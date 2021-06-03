@@ -100,8 +100,15 @@ function Area() {
 
     const onDelete = () => {
         if (window.confirm('Bạn muốn xoá những mục đã chọn?')) {
-            alert(listDel);
-            // setRealTime(preventDefault=>preventDefault+1);
+            callApi('court_area', 'delete', listDel)
+                .then(res=>{
+                    alert('Xoá thành công');
+                    setListDel([]);
+                    loadData();
+                })
+                .catch(()=>{
+                    alert('Xoá thất bại, vui lòng thử lại sau!')
+                })
         } else {
             return false;
         }
