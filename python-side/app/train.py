@@ -50,7 +50,7 @@ class Train:
                         json_path=os.path.join(root, 'data', 'data_train.json'))
 
         # Model
-        model = KNNModel()
+        model = SVMModel()
 
         X_train, X_test, y_train, y_test = train_test_split(df_train['feature'], df_train.target, test_size=0.2,
                                                             random_state=109)

@@ -15,7 +15,7 @@ from utils import utils
 from utils import nlp_utils
 from app.db_connector import *
 
-SYNONYM_WORD = [["and", "và", "vs", "với"], ["or", "hoặc"]]
+SYNONYM_WORD = [["gte", "trên", "lớn hơn", "cao hơn", "từ"], ["lte", "dưới", "nhỏ hơn", "thấp hơn", "bé hơn"]]
 YES_AGREE = ["có", "có chứ"]
 NO_AGREE = ["không", "không có"]
 ENTITY_THRESHOLD = float(config["ENTITY"]["ENTITY_THRESHOLD"])
@@ -73,43 +73,34 @@ class EntityRecognizer(object):
                 entities.append(self.entity_list[i])
         res = [sub['key'] for sub in entities]
         entities_unique = list(set().union(res))
+
+        num = self.detect_number(sentences)
         sign = []
 
-        # em fix
-        num = self.detect_number(sentences)
         if len(num) > 0:
-            entities.append({"key": "price", "org_val": num[0], "values": num})
             for n in num:
                 sentences = sentences.replace(n, "price")
-        # end em fix
+                entities.append({"key": "price", "org_val": int(n), "values": int(n)})
+                sign = self.detect_sign(sentences)
 
-        for ent in entities_unique:
-            if res.count(ent) > 1:
-                sign.append({
-                    'entity': ent,
-                    'value': self.detect_sign(sentences, ent),
-                    'sign': sign
-                })
         sen_result = {
             'sen_result': sentences,
             'entities': entities,
             'sign': sign
         }
+        print(sen_result)
         return sen_result
 
     # detect sign
-    def detect_sign(self, sentences, entity):
-        start = (sentences.find(entity))
-        end = (sentences.rfind(entity))
-
-        and_words = 0
-        for i in SYNONYM_WORD[0]:
-            and_words += sentences.count(i, start, end + 1)
-
-        if and_words > 0:
-            return 'and'
-        else:
-            return 'or'
+    def detect_sign(self, sentences):
+        sign = []
+        for synonym in SYNONYM_WORD:
+            for word in synonym:
+                if word in sentences:
+                    sign.append(synonym[0])
+        if len(sign) == 0:
+            sign.append("egal")
+        return sign
 
     def append_db_data(self):
         entity_list = []
@@ -120,11 +111,11 @@ class EntityRecognizer(object):
         # Add data product
         list_product = list(Products().find_all())
         data_product.extend(
-                {
-                    'org_val': product['name'],
-                    'description': None
-                }
-                for product in list_product
+            {
+                'org_val': product['name'],
+                'description': None
+            }
+            for product in list_product
         )
 
         entity_list.append(
@@ -177,12 +168,13 @@ class EntityRecognizer(object):
         )
 
     def detect_number(self, sentence):
-        #em viết
         num = re.findall(r'\d+', sentence)
         return num
 
+
 if __name__ == '__main__':
     er = EntityRecognizer()
-    print(er.detect_entitíes('Tôi muốn mua bánh giá từ 20000, 40000'))
+    # er.detect_sign("Tôi muốn mua bánh giá dưới 20000")
+    print(er.detect_entitíes('Tôi muốn mua bánh giá từ 20000'))
     # er.append_db_data()
     # print(    er.detect_number("12 là ôi 14"))
