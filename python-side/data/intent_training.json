@@ -198,6 +198,67 @@
       ],
       "query": "query#products#price#{}",
       "description": "query"
+    },
+    {
+      "intent_name": "goi y san pham gia tren price",
+      "training_phrases": [
+        "gợi ý cho tôi sản phẩm trên price",
+        "sản phẩm giá trên price",
+        "có sản phẩm nào giá trên price không?",
+        "giúp tôi tìm sản phẩm giá trên price",
+        "bên bạn có sản phẩm nào giá trên price không"
+      ],
+      "responses": [
+        "Bạn muốn tìm loại sản phẩm nào vậy"
+      ],
+      "query": "query#products#price#{}",
+      "description": "query"
+    },
+    {
+      "intent_name": "tra cuu phuong thuc thanh toan",
+      "training_phrases": [
+        "làm sao để tôi thanh toán",
+        "hệ thống có những phương thức thanh toán nào",
+        "thanh toán bằng cách nào",
+        "thanh toán đơn hàng bằng cách nào",
+        "thanh toán"
+      ],
+      "responses": [
+        "Sau khi lựa chọn bạn có thể vào giỏ hàng để thanh toán, hệ thống có hỗ trợ thanh toán online với paypal"
+      ],
+      "query": "",
+      "description": "casual"
+    },
+    {
+      "intent_name": "tra cuu phuong thuc thanh toan",
+      "training_phrases": [
+        "làm sao để tôi thanh toán",
+        "hệ thống có những phương thức thanh toán nào",
+        "thanh toán bằng cách nào",
+        "thanh toán đơn hàng bằng cách nào",
+        "thanh toán"
+      ],
+      "responses": [
+        "Sau khi lựa chọn bạn có thể vào giỏ hàng để thanh toán, hệ thống có hỗ trợ thanh toán online với paypal"
+      ],
+      "query": "",
+      "description": "casual"
+    },
+    {
+      "intent_name": "tra cuu phuong thuc thanh toan",
+      "training_phrases": [
+        "phương pháp lựa vợt",
+        "cách chọn vợt cầu lông",
+        "làm thế nào để chọn vợt phù hợp",
+        "tôi nên chọn vợt như thế nào",
+        "chọn vợt như thế nào để đánh tốt nhất",
+        "người mới chơi nên chọn vợt như thế nào"
+      ],
+      "responses": [
+        "Nếu mới chơi bạn có thể chọn các loại vợt khoảng từ 200-300 nghìn, đây là những vợt dành cho người mới chơi, có thể đan lưới với mức căng trung bình. Khi đã xác nhận gắn bó với bộ môn thì bạn có thể nâng cấp vợt với các mức giá cao hơn"
+      ],
+      "query": "",
+      "description": "casual"
     }
   ]
 }
