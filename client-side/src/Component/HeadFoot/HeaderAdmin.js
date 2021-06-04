@@ -49,7 +49,7 @@ const HeaderAdmin = () => {
                 <Nav className='mr-auto'>
                     <Nav.Item>
                         <Link
-                            to="/admin/database"
+                            to="/admin/database/owner"
                             className="text-decoration-none text-primary font-weight-bold px-3 header-customer-item"
                         >
                             Database
@@ -57,7 +57,7 @@ const HeaderAdmin = () => {
                     </Nav.Item>
                     <Nav.Item>
                         <Link
-                            to="/admin/chatbot"
+                            to="/admin/chatbot/chat-log"
                             className="text-decoration-none text-primary font-weight-bold px-3 header-customer-item"
                         >
                             Chatbot

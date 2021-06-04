@@ -99,7 +99,7 @@ const OrderStatistic = () => {
                 {statisticToday.length===0?
                     <div>Doanh thu trong ngày: 'Hiện chưa có đơn hàng'</div>
                     :
-                    <div>Doanh thu trong ngày: {statisticToday[0].balance}</div>
+                    <div>Doanh thu trong ngày: {statisticToday[0].balance.toLocaleString()} VND</div>
                 }
             </div>
         </div>

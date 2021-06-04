@@ -83,7 +83,7 @@ const HeaderCourtManagement = withRouter(({history}) => {
                     </NavDropdown>
                     <Nav.Item href="">
                         <Link
-                            to="/home/admin"
+                            to="/home/admin/category"
                             className="header-customer-item text-decoration-none text-primary font-weight-bold px-3"
                         >
                             Admin
@@ -91,7 +91,7 @@ const HeaderCourtManagement = withRouter(({history}) => {
                     </Nav.Item>
                     <Nav.Item>
                         <Link
-                            to='/home/statistic'
+                            to='/home/statistic/order'
                             className="header-customer-item text-decoration-none text-primary font-weight-bold px-3"
                         >
                             Thống kê

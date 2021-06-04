@@ -149,7 +149,7 @@ function Bill() {
             <div className="header-border-table"/>
             <div className="row">
                 <h5 className="p-3">Tổng tiền</h5>
-                <h5 className="p-3 ml-auto">{billPrice.toLocaleString()}</h5>
+                <h5 className="p-3 ml-auto">{billPrice.toLocaleString()} VND</h5>
             </div>
 
             <Button
