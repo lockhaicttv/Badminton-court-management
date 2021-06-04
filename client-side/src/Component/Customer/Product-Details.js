@@ -35,8 +35,11 @@ const ProductDetails = () => {
 
     useEffect(() => {
         loadProductDetails();
-
     }, [])
+
+    useEffect(()=>{
+        loadProductDetails();
+    }, [product_id])
 
     useEffect(() => {
         loadOwner();

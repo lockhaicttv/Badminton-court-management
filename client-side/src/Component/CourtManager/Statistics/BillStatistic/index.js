@@ -40,8 +40,9 @@ const BillStatistic = () => {
     const getStatisticToday = () => {
         let today = new Date()
         let tomorrow = new Date(today)
+        today.setDate(today.getDate() - 1)
         tomorrow.setDate(tomorrow.getDate() + 1)
-
+        console.log(today.toLocaleString(), tomorrow.toLocaleString())
         callApi(`court_bill/statistic/${courtInfo._id}?start=${today}&&end=${tomorrow}`,
             'get',
             null
@@ -68,7 +69,7 @@ const BillStatistic = () => {
         loadDataChart();
     }
 
-    console.log(statisticToday)
+    // console.log(statisticToday)
     return (
         <div>
             <Row>
