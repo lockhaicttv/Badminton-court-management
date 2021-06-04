@@ -1090,83 +1090,387 @@
     },
     {
       "feature": "gợi ý sản phẩm price",
-      "target": "goi y san pham gia duoi price"
+      "target": "goi y san pham gia price"
     },
     {
       "feature": "gợi ý sản phẩm price",
-      "target": "goi y san pham gia duoi price"
+      "target": "goi y san pham gia price"
     },
     {
       "feature": "goi y san pham price",
-      "target": "goi y san pham gia duoi price"
+      "target": "goi y san pham gia price"
     },
     {
       "feature": "goi y san pham price",
-      "target": "goi y san pham gia duoi price"
+      "target": "goi y san pham gia price"
     },
     {
-      "feature": "sản phẩm giá price",
-      "target": "goi y san pham gia duoi price"
+      "feature": "sản phẩm giá thấp hơn price",
+      "target": "goi y san pham gia price"
     },
     {
-      "feature": "sản phẩm giá price",
-      "target": "goi y san pham gia duoi price"
+      "feature": "sản phẩm giá thấp hơn price",
+      "target": "goi y san pham gia price"
     },
     {
-      "feature": "san pham gia price",
-      "target": "goi y san pham gia duoi price"
+      "feature": "san pham gia thap hon price",
+      "target": "goi y san pham gia price"
     },
     {
-      "feature": "san pham gia price",
-      "target": "goi y san pham gia duoi price"
+      "feature": "san pham gia thap hon price",
+      "target": "goi y san pham gia price"
     },
     {
-      "feature": "có sản phẩm nào giá price không",
-      "target": "goi y san pham gia duoi price"
+      "feature": "có sản phẩm nào giá nhỏ hơn price không",
+      "target": "goi y san pham gia price"
     },
     {
-      "feature": "có sản phẩm nào giá price không",
-      "target": "goi y san pham gia duoi price"
+      "feature": "có sản phẩm nào giá nhỏ hơn price không",
+      "target": "goi y san pham gia price"
     },
     {
-      "feature": "co san pham nao gia price khong",
-      "target": "goi y san pham gia duoi price"
+      "feature": "co san pham nao gia nho hon price khong",
+      "target": "goi y san pham gia price"
     },
     {
-      "feature": "co san pham nao gia price khong",
-      "target": "goi y san pham gia duoi price"
+      "feature": "co san pham nao gia nho hon price khong",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "giúp tìm sản phẩm giá bé hơn price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "giúp tìm sản phẩm giá bé hơn price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "giup tim san pham gia be hon price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "giup tim san pham gia be hon price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "bên có sản phẩm nào giá thấp hơn price không",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "bên có sản phẩm nào giá thấp hơn price không",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "ben co san pham nao gia thap hon price khong",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "ben co san pham nao gia thap hon price khong",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "gợi ý sản phẩm price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "gợi ý sản phẩm price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "goi y san pham price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "goi y san pham price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "sản phẩm giá lớn hơn price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "sản phẩm giá lớn hơn price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "san pham gia lon hon price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "san pham gia lon hon price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "có sản phẩm nào giá cao hơn price không",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "có sản phẩm nào giá cao hơn price không",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "co san pham nao gia cao hon price khong",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "co san pham nao gia cao hon price khong",
+      "target": "goi y san pham gia price"
     },
     {
       "feature": "giúp tìm sản phẩm giá price",
-      "target": "goi y san pham gia duoi price"
+      "target": "goi y san pham gia price"
     },
     {
       "feature": "giúp tìm sản phẩm giá price",
-      "target": "goi y san pham gia duoi price"
+      "target": "goi y san pham gia price"
     },
     {
       "feature": "giup tim san pham gia price",
-      "target": "goi y san pham gia duoi price"
+      "target": "goi y san pham gia price"
     },
     {
       "feature": "giup tim san pham gia price",
-      "target": "goi y san pham gia duoi price"
+      "target": "goi y san pham gia price"
     },
     {
       "feature": "bên có sản phẩm nào giá price không",
-      "target": "goi y san pham gia duoi price"
+      "target": "goi y san pham gia price"
     },
     {
       "feature": "bên có sản phẩm nào giá price không",
-      "target": "goi y san pham gia duoi price"
+      "target": "goi y san pham gia price"
     },
     {
       "feature": "ben co san pham nao gia price khong",
-      "target": "goi y san pham gia duoi price"
+      "target": "goi y san pham gia price"
     },
     {
       "feature": "ben co san pham nao gia price khong",
-      "target": "goi y san pham gia duoi price"
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "sản phẩm có giá lớn hơn price nhỏ hơn price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "sản phẩm có giá lớn hơn price nhỏ hơn price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "san pham co gia lon hon price nho hon price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "san pham co gia lon hon price nho hon price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "sản phẩm có price price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "sản phẩm có price price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "san pham co price price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "san pham co price price",
+      "target": "goi y san pham gia price"
+    },
+    {
+      "feature": "thanh toán",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toán",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toan",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toan",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "hệ thống có phương thức thanh toán nào",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "hệ thống có phương thức thanh toán nào",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "he thong co phuong thuc thanh toan nao",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "he thong co phuong thuc thanh toan nao",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toán bằng cách nào",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toán bằng cách nào",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toan bang cach nao",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toan bang cach nao",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toán đơn hàng bằng cách nào",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toán đơn hàng bằng cách nào",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toan don hang bang cach nao",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toan don hang bang cach nao",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toán",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toán",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toan",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "thanh toan",
+      "target": "tra cuu phuong thuc thanh toan"
+    },
+    {
+      "feature": "phương pháp lựa vợt",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "phương pháp lựa vợt",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "phuong phap lua vot",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "phuong phap lua vot",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "cách chọn vợt cầu lông",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "cách chọn vợt cầu lông",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "cach chon vot cau long",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "cach chon vot cau long",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "cách chọn categories",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "cách chọn categories",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "cach chon categories",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "cach chon categories",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "thế nào chọn vợt phù_hợp",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "thế nào chọn vợt phù_hợp",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "the nao chon vot phu_hop",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "the nao chon vot phu_hop",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "chọn vợt thế nào",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "chọn vợt thế nào",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "chon vot the nao",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "chon vot the nao",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "chọn vợt thế nào đánh tốt",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "chọn vợt thế nào đánh tốt",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "chon vot the nao danh tot",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "chon vot the nao danh tot",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "người mới chơi chọn vợt thế nào",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "người mới chơi chọn vợt thế nào",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "nguoi moi choi chon vot the nao",
+      "target": "tra cuu phuong thuc lua vot"
+    },
+    {
+      "feature": "nguoi moi choi chon vot the nao",
+      "target": "tra cuu phuong thuc lua vot"
     }
   ]
 }

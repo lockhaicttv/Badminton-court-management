@@ -24,7 +24,12 @@ const AddCourtBooking = (props) => {
     const handleSave = () => {
        callApi('court_booking', 'post', item)
            .then((res)=>{
-               console.log(res)
+               alert(res.data);
+               props.reload();
+           })
+           .catch((err)=>{
+               alert(err);
+               props.reload();
            })
     }
 

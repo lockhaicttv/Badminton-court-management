@@ -150,7 +150,7 @@ const  CourtBooking = () => {
                                 <SearchBar {...props.searchProps} style={{width: '400px'}}/>
                                 <h3>Lịch đặt sân</h3>
                                 <div>
-                                    <AddCourtBooking isShow={isShowModalAdd} handleClose={handleClose}/>
+                                    <AddCourtBooking isShow={isShowModalAdd} handleClose={handleClose} reload={getCourtBooking()}/>
                                     <Button className="ml-auto" onClick={handleOpen}>
                                         Thêm
                                     </Button>
