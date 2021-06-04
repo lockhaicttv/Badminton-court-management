@@ -3,7 +3,7 @@ import React, {useCallback, useState} from "react";
 import {useEffect} from "react";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import AddService from "./AddService";
-import {areasState, billDetailState, billState, timeCheckInState} from "../../../Store/atom";
+import {areasState, billDetailState, billState, isShowBillState, timeCheckInState} from "../../../Store/atom";
 import {
     faLightbulb,
     faPlusSquare,
@@ -19,8 +19,7 @@ function CourtArea(props) {
     const [bill, setBill] = useRecoilState(billState);
     const setBillDetail = useSetRecoilState(billDetailState);
     const [idBill, setIdBill] = useState("");
-    const [timeCheckIn, setTimeCheckIn] = useState('')
-    const [idCourtArea, setIdCourtArea] = useState('')
+    const setIsShowBill = useSetRecoilState(isShowBillState);
 
     useEffect(() => {
 
@@ -63,8 +62,7 @@ function CourtArea(props) {
         callApi(`court_bill`, "post", newBill).then((res) => {
             console.log(res.data);
         });
-
-        setTimeCheckIn(newBill.time_check_in)
+        props.reloadCourt();
     }
 
     function handleShowModal() {
@@ -101,7 +99,7 @@ function CourtArea(props) {
                 setBillDetail(res2.data);
             });
         });
-        console.log(bill);
+       setIsShowBill(true);
     }
 
     if (props.isUse === false) {

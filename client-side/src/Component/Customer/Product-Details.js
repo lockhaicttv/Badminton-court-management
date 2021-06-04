@@ -43,7 +43,7 @@ const ProductDetails = () => {
 
     useEffect(() => {
         loadOwner();
-    }, [])
+    }, [product_id])
 
     const loadProductDetails = () => {
         callApi(`product/?_id=${product_id}`, 'get', null)

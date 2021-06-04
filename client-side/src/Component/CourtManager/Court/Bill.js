@@ -4,7 +4,7 @@ import Clock from "react-digital-clock";
 import PropTypes from "prop-types";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {Modal} from "react-bootstrap";
-import {billDetailState, billState, areasState} from "../../../Store/atom";
+import {billDetailState, billState, areasState, isShowBillState} from "../../../Store/atom";
 import {Table} from "react-bootstrap";
 import callApi from "../../../Utils/apiCaller";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -19,6 +19,7 @@ function Bill() {
     const [billDetail, setBillDetail] = useRecoilState(billDetailState);
     const [area, setArea] = useRecoilState(areasState);
     const area_index = area.findIndex((x) => x._id === bill.court_area_id);
+    const [isShowBill, setIsShowBill] = useRecoilState(isShowBillState);
 
     function handleBillPayment(billID, priceTotal) {
         let newArea = [...area];
@@ -49,9 +50,10 @@ function Bill() {
         console.log(checkOut)
         callApi(`court_bill/update-status/${billID}`, "put", {price_total: priceTotal, time_check_out: checkOut})
             .then((res) => {
-                console.log(res.data)
-            }
-        );
+                    console.log(res.data)
+                }
+            );
+        setIsShowBill(false);
     }
 
     const courtArea = area.findIndex((x) => x._id === bill.court_area_id);
@@ -70,7 +72,7 @@ function Bill() {
     const getMinutes = (start) => {
         let time_check_in = new Date(start).getTime();
         let end = new Date().getTime();
-        return (end-time_check_in) / (1000*60)
+        return (end - time_check_in) / (1000 * 60)
     }
 
     const formatTime = (unixTime) => {
@@ -98,8 +100,8 @@ function Bill() {
         );
     });
 
-    if (area[area_index]!==undefined) {
-        billPrice +=  getMinutes(bill.time_check_in) * ((area[area_index].price)/60);
+    if (area[area_index] !== undefined) {
+        billPrice += getMinutes(bill.time_check_in) * ((area[area_index].price) / 60);
         billPrice = Math.round(billPrice)
         listBillDetails.push(
             <tr key='-9999999'>
@@ -107,62 +109,68 @@ function Bill() {
                 <td>Giờ chơi</td>
                 <td>{formatTime(getMinutes(bill.time_check_in))}</td>
                 <td>{Math.round(area[area_index].price).toLocaleString()}</td>
-                <td>{Math.round(getMinutes(bill.time_check_in) * ((area[area_index].price)/60)).toLocaleString()}</td>
+                <td>{Math.round(getMinutes(bill.time_check_in) * ((area[area_index].price) / 60)).toLocaleString()}</td>
             </tr>
         )
     }
 
-    let timeCheckIn = (bill.time_check_in!==null)?new Date(bill.time_check_in).toLocaleString():new Date().toLocaleString();
-    let timeCheckOut = (bill.time_check_out!==null)?new Date(bill.time_check_out).toLocaleString():new Date().toLocaleString();
+    let timeCheckIn = (bill.time_check_in !== null) ? new Date(bill.time_check_in).toLocaleString() : new Date().toLocaleString();
+    let timeCheckOut = (bill.time_check_out !== null) ? new Date(bill.time_check_out).toLocaleString() : new Date().toLocaleString();
 
     return (
-        <div className="col-lg-12 border bg-white">
-            <h3 className="text-center">Hoá Đơn</h3>
-            <Table className="">
-                <tbody>
-                <tr>
-                    <th>Sân</th>
-                    <th>{courtArea}</th>
-                </tr>
-                <tr>
-                    <th>Thời gian vào:</th>
-                    <th colSpan="4">{timeCheckIn}</th>
-                </tr>
-                <tr>
-                    <th>Thời gian ra:</th>
-                    <th colSpan="4">{timeCheckOut}</th>
-                </tr>
-                </tbody>
-            </Table>
-            <div className="header-border-table"/>
-            <Table striped border hover>
-                {tHead}
-                <tbody>
-                {listBillDetails}
-                {/* <tr>
+        (isShowBill === true) ?
+            <div className="col-lg-12 border bg-white">
+                <h3 className="text-center">Hoá Đơn</h3>
+                <Table className="">
+                    <tbody>
+                    <tr>
+                        <th>Sân</th>
+                        <th>{courtArea}</th>
+                    </tr>
+                    <tr>
+                        <th>Thời gian vào:</th>
+                        <th colSpan="4">{timeCheckIn}</th>
+                    </tr>
+                    <tr>
+                        <th>Thời gian ra:</th>
+                        <th colSpan="4">{timeCheckOut}</th>
+                    </tr>
+                    </tbody>
+                </Table>
+                <div className="header-border-table"/>
+                <Table striped border hover>
+                    {tHead}
+                    <tbody>
+                    {listBillDetails}
+                    {/* <tr>
             <th>Tổng tiền</th>
             <th colSpan="4" className="text-center"></th>
           </tr> */}
 
-                </tbody>
-            </Table>
-            <div className="header-border-table"/>
-            <div className="row">
-                <h5 className="p-3">Tổng tiền</h5>
-                <h5 className="p-3 ml-auto">{billPrice.toLocaleString()} VND</h5>
-            </div>
+                    </tbody>
+                </Table>
+                <div className="header-border-table"/>
+                <div className="row">
+                    <h5 className="p-3">Tổng tiền</h5>
+                    <h5 className="p-3 ml-auto">{billPrice.toLocaleString()} VND</h5>
+                </div>
 
-            <Button
-                onClick={() => {
-                    handleBillPayment(bill._id, billPrice);
-                }}
-                className="col-lg-12"
-            >
-                <FontAwesomeIcon icon={faMoneyBillWave} className="mr-2"/>
-                Thanh toán
-            </Button>
-        </div>
-    );
+                <Button
+                    onClick={() => {
+                        handleBillPayment(bill._id, billPrice);
+                    }}
+                    className="col-lg-12"
+                >
+                    <FontAwesomeIcon icon={faMoneyBillWave} className="mr-2"/>
+                    Thanh toán
+                </Button>
+            </div>
+            :
+            <div className="col-lg-12 border bg-white">
+                <h3 className="text-center">Hoá Đơn</h3>
+                Nhấn chọn sân để xem hoá đơn
+            </div>
+    )
 }
 
 export default Bill;

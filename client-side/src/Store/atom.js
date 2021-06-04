@@ -65,3 +65,7 @@ export const timeCheckInState = atom({
     default: ''
 })
 
+export const isShowBillState = atom({
+    key: 'isShowBillState',
+    default: false
+})

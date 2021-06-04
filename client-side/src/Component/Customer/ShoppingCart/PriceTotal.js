@@ -12,6 +12,7 @@ import {
 import callApi from "../../../Utils/apiCaller";
 import ls from "../../../Utils/localStorage";
 import Paypal from "./Paypal";
+import {PayPalButton} from "react-paypal-button-v2";
 
 const PriceTotal = () => {
     const priceTotal = useRecoilValue(totalCartState);
@@ -107,14 +108,6 @@ const PriceTotal = () => {
             });
     }
 
-    // const transactionError = () => {
-    //     console.log('Paypal error')
-    // }
-    //
-    // const transactionCancel = () => {
-    //     console.log('Paypal cancel')
-    // }
-
     return (
         <div style={{width: "18rem"}}>
             <Card>
@@ -133,14 +126,25 @@ const PriceTotal = () => {
                     </ListGroup.Item>
                 </ListGroup>
             </Card>
-            <Paypal
-                // onClick={handlePay}
-                toPay={priceTotal.subTotal}
-                email_id={emailId}
-                transactionSuccess={transactionSuccess}
-                // transactionError={transactionError}
-                // // transactionCancel={transactionCancel}
-            />
+            {(authentication.isAuthenticated) ?
+                <Paypal
+                    toPay={priceTotal.subTotal}
+                    email_id={emailId}
+                    transactionSuccess={transactionSuccess}
+                    // // transactionCancel={transactionCancel}
+                />
+                :
+                <Button
+                    onClick={handlePay}
+                    size='lg'
+                    style={{
+                        color: 'dark'
+                    }}
+                    block
+                >
+                    Thanh toán
+                </Button>
+            }
         </div>
     );
 }

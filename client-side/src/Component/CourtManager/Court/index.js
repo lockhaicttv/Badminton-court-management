@@ -28,6 +28,7 @@ function CourtManger() {
                 let initAreasState = [];
                 let initBillState = [];
                 initAreasState = res.data;
+                console.log(res.data)
                 initBillState.push({});
                 setAreas(initAreasState);
               }
@@ -46,7 +47,7 @@ function CourtManger() {
   }, []);
 
   const allCourt = areas.map((item, key) => {
-    return <CourtArea isUse={item.status} idCourtArea={item.area} _id={item._id} key={key} />;
+    return <CourtArea isUse={item.status} idCourtArea={item.area} _id={item._id} key={key} reloadCourt={loadCourtInfo}/>;
   });
 
   return (
