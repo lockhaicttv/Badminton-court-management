@@ -2,7 +2,7 @@ import React from 'react';
 import Carousel from "react-bootstrap/Carousel";
 
 const CarouselHomePage = () => {
-    return(
+    return (
         <Carousel fade className='mb-3'>
             <Carousel.Item>
                 <img

@@ -55,15 +55,16 @@ const HomePage = () => {
     });
 
     return (
-        <div className="container mt-2">
+        <div className="container mt-2 p-0">
             <CarouselHomePage/>
             {(searchProduct.length === 0) ?
                 (
                     <div>
                         <div className='bg-white'>
                             <div className='border border-bottom border-left-0 border-right-0 row bg-white row'>
-                                <FontAwesomeIcon icon={faGifts} size='lg' color='#3399FF' className='my-auto col-lg-1'/>
-                                <div className='p-2 sale-title'><i>Giảm giá</i></div>
+                                {/*<FontAwesomeIcon icon={faGifts} size='lg' color='#3399FF' className='my-auto col-lg-1'/>*/}
+                                <img src='/image/PromotionIcon.png' className='p-0' height={"50px"}/>
+                                {/*<div className='p-2 pl-0 sale-title h3'><i>Giảm giá</i></div>*/}
                             </div>
                             <div className="row bg-white">
                                 {listProductSale}
@@ -71,9 +72,10 @@ const HomePage = () => {
                         </div>
                         <div className='bg-white'>
                             <div className='border border-bottom border-left-0 border-right-0 row bg-white row'>
-                                <FontAwesomeIcon icon={faLightbulb} size='lg' color='#3399FF'
-                                                 className='my-auto col-lg-1'/>
-                                <div className='p-2 sale-title'><i>Gợi ý</i></div>
+                                {/*<FontAwesomeIcon icon={faLightbulb} size='lg' color='#3399FF'*/}
+                                {/*                 className='my-auto col-lg-1'/>*/}
+                                <img src='/image/SuggestIcon.png' className=' p-0' height={"55px"}/>
+                                {/*<div className='p-2 pl-0 h3'>GỢI Ý</div>*/}
                             </div>
                             <div className="row bg-white">
                                 {listProduct}
@@ -86,8 +88,7 @@ const HomePage = () => {
                     <div>
                         <div className='bg-white'>
                             <div className='border border-bottom border-left-0 border-right-0 row bg-white row'>
-                                <FontAwesomeIcon icon={faSearch} size='lg' color='#3399FF' className='my-auto col-lg-1'/>
-                                <div className='p-2 sale-title'><i>Tìm kiếm</i></div>
+                                <img src='/image/LookupIco.png' className=' p-0' height={"55px"}/>
                             </div>
                             <div className="row bg-white">
                                 {listSearchProduct}

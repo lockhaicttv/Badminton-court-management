@@ -10,8 +10,8 @@ function AddProduct(props) {
     const [category, setCategory] = useState([]);
     const [item, setItem] = useState({
         name: '',
-        price:'',
-        description:'',
+        price: '',
+        description: '',
         quantity: 0,
         image: [],
         product_category_id: ''
@@ -21,25 +21,26 @@ function AddProduct(props) {
     const handleSave = () => {
         console.log(item);
         callApi('product', 'post', item)
-            .then((res=>{
-                alert('Thêm thành công');;
-                setRealTime(preventDefault=>preventDefault++);
+            .then((res => {
+                alert('Thêm thành công');
+                ;
+                setRealTime(preventDefault => preventDefault++);
                 console.log(res.data);
             }))
     }
 
     const loadCategory = () => {
-        callApi(`product_category`, 'get',null)
-            .then((res)=>{
+        callApi(`product_category`, 'get', null)
+            .then((res) => {
                 setCategory(res.data);
             })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         loadCategory();
-    },[realTime])
+    }, [realTime])
 
-    const handleChange = (e) =>{
+    const handleChange = (e) => {
         const value = e.target.value;
         setItem({
             ...item,
@@ -47,14 +48,15 @@ function AddProduct(props) {
         });
     }
 
-    const getBase64image = (image) =>{
+    const getBase64image = (image) => {
+        console.log(image)
         setItem({
             ...item,
             image: image
         })
     }
 
-    const listCategory = category.map((item, key)=>{
+    const listCategory = category.map((item, key) => {
         return <option value={item._id} key={key}>{item.name}</option>
     })
 
@@ -109,7 +111,10 @@ function AddProduct(props) {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-addon1">Hình ảnh</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <FileBase64 onDone={getBase64image}/>
+                        <label className='btn btn-secondary'>
+                            Chọn ảnh
+                            <FileBase64 onDone={getBase64image}/>
+                        </label>
                     </InputGroup>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
@@ -130,7 +135,10 @@ function AddProduct(props) {
                     <Button variant="secondary" onClick={props.handleClose}>
                         Đóng
                     </Button>
-                    <Button variant="primary" onClick={()=>{props.handleClose(); handleSave() }}>
+                    <Button variant="primary" onClick={() => {
+                        props.handleClose();
+                        handleSave()
+                    }}>
                         Lưu thay đổi
                     </Button>
                 </Modal.Footer>
