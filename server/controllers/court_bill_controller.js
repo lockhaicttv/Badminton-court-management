@@ -96,7 +96,7 @@ exports.statistic = (req, res) => {
     let start = new Date(req.query.start);
     let end = new Date(req.query.end);
     let court_id = mongoose.Types.ObjectId(req.params.court_id);
-    console.log(start, end)
+
     court_bill_model.aggregate([
         {
             $lookup: {
@@ -124,7 +124,7 @@ exports.statistic = (req, res) => {
                 balance: {$sum: "$price_total"},
             },
         },
-        {$sort: {_id: -1}}
+        {$sort: {_id: 1}}
     ])
         .exec((err, result) => {
             if (err) {
@@ -150,16 +150,14 @@ exports.add_one_bill = (req, res) => {
         )
 }
 
-exports.update_bill_status = (req, res) => {
-    let utc = new Date();
-    utc.setHours( utc.getHours() + 7);
-    console.log(utc)
-
-    court_bill_model
+exports.update_bill_status = async (req, res) => {
+    console.log(req.params._id)
+    console.log(req.body)
+    await court_bill_model
         .findByIdAndUpdate({_id: req.params._id}, {
             $set: {
                 status: true,
-                time_check_out: utc,
+                time_check_out: new Date(),
                 price_total: req.body.price_total * 1
             }
         }, {new: true}, err => {

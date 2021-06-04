@@ -45,9 +45,7 @@ function Bill() {
             console.log(res.data.message);
         });
 
-        let checkOut = new Date().toLocaleString();
-        console.log(checkOut)
-        callApi(`court_bill/update-status/${billID}`, "put", {price_total: priceTotal, time_check_out: checkOut})
+        callApi(`court_bill/update-status/${billID}`, "put", {price_total: priceTotal})
             .then((res) => {
                 console.log(res.data)
             }
@@ -106,8 +104,8 @@ function Bill() {
                 <td>{listBillDetails.length + 1}</td>
                 <td>Giờ chơi</td>
                 <td>{formatTime(getMinutes(bill.time_check_in))}</td>
-                <td>{Math.round(area[area_index].price).toLocaleString()}</td>
-                <td>{Math.round(getMinutes(bill.time_check_in) * ((area[area_index].price)/60)).toLocaleString()}</td>
+                <td>{Math.round(area[area_index].price)}</td>
+                <td>{Math.round(getMinutes(bill.time_check_in) * ((area[area_index].price)/60))}</td>
             </tr>
         )
     }
@@ -149,7 +147,7 @@ function Bill() {
             <div className="header-border-table"/>
             <div className="row">
                 <h5 className="p-3">Tổng tiền</h5>
-                <h5 className="p-3 ml-auto">{billPrice.toLocaleString()}</h5>
+                <h5 className="p-3 ml-auto">{billPrice}</h5>
             </div>
 
             <Button

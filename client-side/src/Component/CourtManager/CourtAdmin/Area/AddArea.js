@@ -18,13 +18,11 @@ function AddArea(props) {
 
     const handleSave = () => {
         callApi('court_area', 'post', item)
-            .then(()=> {
-                props.reload();
+            .then(
                 alert('Thêm thành công')
-            })
-            .catch(()=> {
-                    alert('Thêm thất bại')
-                }
+            )
+            .catch(
+                alert('Thêm thất bại')
             )
         props.reload();
     }
