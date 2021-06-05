@@ -77,7 +77,7 @@ mongoose
     );
 
 //socket
-io.on('connection', socket => {
+let run = (socket) => {
     console.log();
     console.log(`====New client connected at: ${socket.handshake.address} ====`);
 
@@ -87,7 +87,6 @@ io.on('connection', socket => {
     })
 
     socket.on("message", (data) => {
-        /*console.log(data)*/
         let message_item = {
             message: data.message,
             response: ''
@@ -96,10 +95,6 @@ io.on('connection', socket => {
             axios
                 .post(`${global_var.SERVER_PYTHON}/chat-bot/predict`, {
                     input: data,
-                    // created_time: data.created_time,
-                    // session: data.session,
-                    // user: data.user,
-                    // timestamp: data.timestamp,
                 })
                 .then((res) => {
                     message_item['response'] = res.data.response;
@@ -110,36 +105,31 @@ io.on('connection', socket => {
                     });
                 })
                 .catch((err) => {
-                    if (err.code == "ECONNREFUSED") {
-                        socket.emit("greeting", {
-                            text:
+                    if (err.code === "ECONNREFUSED") {
+                        socket.emit("message", {
+                            name: 'Upin',
+                            message:
                                 "Hic...hic, kết nối tới chatbot có vấn đề rồi! Bạn vui lòng thử lại trong giây lát nha!",
-                            // user: { username: "chatbot", color: "blue" },
-                            // send_time: new Date(),
-                            // session: data.session,
+                            time: new Date()
                         });
                     } else {
-                        socket.emit("greeting", {
-                            text: "Đã có lỗi xảy ra. Bạn vui lòng kết nối lại sau nhen!",
-                            // user: { username: "chatbot", color: "blue" },
-                            // send_time: new Date(),
-                            // session: data.session,
+                        socket.emit("message", {
+                            name: 'Upin',
+                            message: "Đã có lỗi xảy ra. Bạn vui lòng kết nối lại sau nhen!",
                         });
                     }
                 });
         } catch (err) {
             console.log(err);
-            socket.emit("greeting", {
-                text: "Đã có lỗi xảy ra. Bạn vui lòng kết nối lại sau nhen!",
-                // user: { username: "chatbot", color: "blue" },
-                // send_time: new Date(),
-                // session: data.session,
+            socket.emit("message", {
+                name: 'Upin',
+                message: "Đã có lỗi xảy ra. Bạn vui lòng kết nối lại sau nhen!",
             });
         }
     });
+};
 
-
-})
+io.on('connection', run)
 
 
 http.listen(PORT, () => {

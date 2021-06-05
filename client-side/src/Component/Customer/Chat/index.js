@@ -14,9 +14,10 @@ const Chat = (props) => {
     const [chat, setChat] = useState({name: 'Chiến', message: '', court_id: props.shop_id});
     const [isOpen, setIsOpen] = useState(false)
     const messageEndRef = useRef(null);
-
+    const [isSend, setIsSend] = useState(false)
     useEffect(() => {
-        socket.on('message', ({name, message}) => {
+        socket.on('message', ({name, message, time}) => {
+            console.log(new Date(time).toLocaleString(), new Date()-new Date(time))
             setChatLog(
                 [
                     ...chatLog,
@@ -24,7 +25,8 @@ const Chat = (props) => {
                 ]
             )
         })
-    })
+        setIsSend(false)
+    }, [isSend])
 
     useEffect(() => {
         setChat({
@@ -45,6 +47,7 @@ const Chat = (props) => {
             name: 'Chiến',
             court_id: props.court_id
         })
+        setIsSend(true)
     }
 
     const handleChangeMessage = (e) => {
@@ -54,14 +57,6 @@ const Chat = (props) => {
                 e.target.value
             }
         );
-        console.log(chat)
-    }
-
-    const handleSubmitMessageEnterKey = (e) => {
-        if (e.key === 'Enter') {
-            console.log('enter')
-            handleSubmitMessage(e);
-        }
     }
 
     const handleClose = () => {
