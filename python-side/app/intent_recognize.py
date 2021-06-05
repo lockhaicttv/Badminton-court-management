@@ -227,13 +227,14 @@ class IntentRecognize:
                 print("condition", condition)
 
                 product_categories = pro_cat.find_one(condition)
+                if product_categories:
+                    child_condition = {"product_category_id": (product_categories["_id"])}
+                    results = list(obj.find_all(child_condition, limit=5))
+                    if len(results) > 0:
+                        products = ', '.join([product["name"] for product in results])
+                        res = 'Các sản  phẩm thuộc loại bạn đang tìm kiếm là: {}'.format(products)
 
-                child_condition = {"product_category_id": (product_categories["_id"])}
-
-                results = list(obj.find_all(child_condition, limit=5))
-                if len(results) > 0:
-                    products = ', '.join([product["name"] for product in results])
-                    res = 'Các sản  phẩm thuộc loại bạn đang tìm kiếm là: {}'.format(products)
+                print("RES", res)
 
         return res
 
