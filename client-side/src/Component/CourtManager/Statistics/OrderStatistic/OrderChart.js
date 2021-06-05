@@ -18,12 +18,13 @@ const OrderChart = (props) => {
     return (
         <div>
             <LineChart height={500} width={1000} data={formatData}
-                padding={{top:100, left:100, bottom:10, right:10 }}
+                       margin={{top:10, left:10, bottom:10, right:10 }}
             >
-                <Line type="monotone" dataKey="value" stroke="#8884d8"/>
-                <CartesianGrid stroke="#ccc"/>
+                <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time"/>
                 <YAxis/>
+                <Tooltip />
+                <Line type="monotone" dataKey="value" stroke="#8884d8"/>
             </LineChart>
         </div>
     )

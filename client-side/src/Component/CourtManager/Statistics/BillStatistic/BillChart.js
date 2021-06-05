@@ -13,9 +13,9 @@ const BillChart = (props) => {
 
     console.log(formatData)
     return (
-        <div>
+        <div className='p-3'>
             <LineChart height={500} width={1000} data={formatData}
-                       padding={{top:100, left:100, bottom:10, right:10 }}
+                       margin={{top:10, left:10, bottom:10, right:10 }}
             >
                 <Line type="monotone" dataKey="value" stroke="#8884d8"/>
                 <CartesianGrid stroke="#ccc"/>

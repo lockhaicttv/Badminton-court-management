@@ -14,9 +14,9 @@ import Order from './Order/Order';
 
 
 const Panel = (
-    <div>
+    <div style={{backgroundImage: 'linear-gradient(to left, #71dbf8 0%, #538eec 100%)', minHeight:'115vh'}}>
         <div className="p-2 border">
-            <Link to="/home/admin/category">
+            <Link to="/home/admin/category" className="text-white">
                 <span className='mr-2'>
                     <FontAwesomeIcon icon={faLayerGroup} />
                 </span>
@@ -24,7 +24,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/home/admin/product">
+            <Link to="/home/admin/product" className="text-white">
                  <span className='mr-2'>
                     <FontAwesomeIcon icon={faCube} />
                 </span>
@@ -32,7 +32,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/home/admin/bill">
+            <Link to="/home/admin/bill" className="text-white">
                  <span className='mr-2'>
                     <FontAwesomeIcon icon={faMoneyBill} />
                 </span>
@@ -40,7 +40,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/home/admin/order">
+            <Link to="/home/admin/order" className="text-white">
                  <span className='mr-2'>
                     <FontAwesomeIcon icon={faShippingFast} />
                 </span>
@@ -48,7 +48,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/home/admin/area">
+            <Link to="/home/admin/area" className="text-white">
                  <span className='mr-2'>
                     <FontAwesomeIcon icon={faSquare} />
                 </span>
@@ -56,7 +56,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/home/admin/promotion">
+            <Link to="/home/admin/promotion" className="text-white">
                 <span className='mr-2'>
                     <FontAwesomeIcon icon={faHockeyPuck} />
                 </span>

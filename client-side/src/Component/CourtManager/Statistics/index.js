@@ -7,9 +7,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChartLine} from "@fortawesome/free-solid-svg-icons";
 
 const Panel = (
-    <div>
+    <div style={{backgroundImage: 'linear-gradient(to left, #71dbf8 0%, #538eec 100%)', minHeight:'115vh'}}>
         <div className="p-2 border">
-            <Link to="/home/statistic/order">
+            <Link to="/home/statistic/order" className='text-white'>
                 <span className='mr-2'>
                     <FontAwesomeIcon icon={faChartLine}/>
                 </span>
@@ -17,7 +17,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/home/statistic/bill">
+            <Link to="/home/statistic/bill" className='text-white'>
                  <span className='mr-2'>
                     <FontAwesomeIcon icon={faChartLine}/>
                 </span>

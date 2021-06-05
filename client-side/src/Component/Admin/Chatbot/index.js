@@ -7,9 +7,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faOutdent, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
 
 const Panel = (
-    <div>
+    <div style={{backgroundImage: 'linear-gradient(to left, #71dbf8 0%, #538eec 100%)', minHeight:'115vh'}}>
         <div className="p-2 border">
-            <Link to="/admin/chatbot/chat-log">
+            <Link to="/admin/chatbot/chat-log" className='text-white'>
                   <span className='mr-2'>
                     <FontAwesomeIcon icon={faOutdent}/>
                 </span>
@@ -17,7 +17,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/admin/chatbot/train">
+            <Link to="/admin/chatbot/train" className='text-white'>
                   <span className='mr-2'>
                     <FontAwesomeIcon icon={faUserAstronaut}/>
                 </span>

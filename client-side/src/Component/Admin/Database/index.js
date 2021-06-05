@@ -27,9 +27,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Panel = (
-    <div>
+    <div style={{backgroundImage: 'linear-gradient(to left, #71dbf8 0%, #538eec 100%)', minHeight:'115vh'}}>
         <div className="p-2 border">
-            <Link to="/admin/database/owner">
+            <Link to="/admin/database/owner" className='text-white'>
                 <span className='mr-2'>
                     <FontAwesomeIcon icon={faUserTie}/>
                 </span>
@@ -37,7 +37,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/admin/database/court-info">
+            <Link to="/admin/database/court-info" className='text-white'>
             <span className='mr-2'>
                     <FontAwesomeIcon icon={faFileContract}/>
                 </span>
@@ -45,14 +45,14 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/admin/database/category">
+            <Link to="/admin/database/category" className='text-white'>
                 <span className='mr-2'>
                     <FontAwesomeIcon icon={faLayerGroup}/>
                 </span>
                 Loại sản phẩm</Link>
         </div>
         <div className="p-2 border">
-            <Link to="/admin/database/product">
+            <Link to="/admin/database/product" className='text-white'>
                 <span className='mr-2'>
                     <FontAwesomeIcon icon={faCube}/>
                 </span>
@@ -60,7 +60,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/admin/database/bill">
+            <Link to="/admin/database/bill" className='text-white'>
                 <span className='mr-2'>
                     <FontAwesomeIcon icon={faMoneyBill}/>
                 </span>
@@ -68,7 +68,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/admin/database/bill-detail">
+            <Link to="/admin/database/bill-detail" className='text-white'>
                 <span className='mr-2'>
                     <FontAwesomeIcon icon={faScroll}/>
                 </span>
@@ -76,7 +76,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/admin/database/customer">
+            <Link to="/admin/database/customer" className='text-white'>
                 <span className='mr-2'>
                     <FontAwesomeIcon icon={faUser}/>
                 </span>
@@ -84,7 +84,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/admin/database/order">
+            <Link to="/admin/database/order" className='text-white'>
                 <span className='mr-2'>
                     <FontAwesomeIcon icon={faShippingFast}/>
                 </span>
@@ -92,7 +92,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/admin/database/order-detail">
+            <Link to="/admin/database/order-detail" className='text-white'>
                 <span className='mr-2'>
                     <FontAwesomeIcon icon={faScroll}/>
                 </span>
@@ -100,7 +100,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/admin/database/area">
+            <Link to="/admin/database/area" className='text-white'>
                 <span className='mr-2'>
                     <FontAwesomeIcon icon={faSquare}/>
                 </span>
@@ -108,7 +108,7 @@ const Panel = (
             </Link>
         </div>
         <div className="p-2 border">
-            <Link to="/admin/database/promotion">
+            <Link to="/admin/database/promotion" className='text-white'>
                 <span className='mr-2'>
                     <FontAwesomeIcon icon={faHockeyPuck}/>
                 </span>

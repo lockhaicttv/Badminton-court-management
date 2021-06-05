@@ -120,7 +120,7 @@ function Bill() {
     return (
         (isShowBill === true) ?
             <div className="col-lg-12 border bg-white">
-                <h3 className="text-center">Hoá Đơn</h3>
+                <h3 className="text-center pt-2">Hoá Đơn</h3>
                 <Table className="">
                     <tbody>
                     <tr>
@@ -167,8 +167,13 @@ function Bill() {
             </div>
             :
             <div className="col-lg-12 border bg-white">
-                <h3 className="text-center">Hoá Đơn</h3>
-                Nhấn chọn sân để xem hoá đơn
+                <h3 className="text-center pt-2">Hoá Đơn</h3>
+                <div>
+                    <img src='/image/BillBackground.jpg' width='100%' className='p-3'/>
+                </div>
+                <h4 className='text-center p-3'>
+                    Vui lòng nhấp chọn sân để xem hoá đơn
+                </h4>
             </div>
     )
 }

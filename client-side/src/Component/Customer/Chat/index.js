@@ -57,6 +57,13 @@ const Chat = (props) => {
         console.log(chat)
     }
 
+    const handleSubmitMessageEnterKey = (e) => {
+        if (e.key === 'Enter') {
+            console.log('enter')
+            handleSubmitMessage(e);
+        }
+    }
+
     const handleClose = () => {
         setIsOpen(!isOpen)
     }
@@ -69,7 +76,7 @@ const Chat = (props) => {
 
     useEffect(() => {
         scrollToBottom();
-    }, [chat])
+    }, [chatLog])
 
     let listChatLog = chatLog.map((item, key) => {
         if (item.name !== 'Upin') {
@@ -93,6 +100,7 @@ const Chat = (props) => {
             </div>
         }
     })
+
     let renderEle =
         <Button
             onClick={handleClose} className='main d-flex justify-content-between fixed-bottom col-lg-2 offset-10'
@@ -123,22 +131,25 @@ const Chat = (props) => {
                     {listChatLog}
                     <div ref={messageEndRef}></div>
                 </div>
-                <nav className="navbar bg-white navbar-expand-sm d-flex justify-content-between">
-                    <input
-                        type="text number"
-                        onChange={handleChangeMessage}
-                        value={chat.message}
-                        name='message'
-                        className="form-control"
-                        placeholder="Type a message..."
-                    />
-                    <div className="d-flex justify-content-end align-content-center text-center ml-2">
-                        <Button onClick={handleSubmitMessage}>
-                            <FontAwesomeIcon icon={faPaperPlane}/>
-                        </Button>
+                <form>
+                    <nav className="navbar bg-white navbar-expand-sm d-flex justify-content-between">
+                        <input
+                            type="text number"
+                            onChange={handleChangeMessage}
+                            value={chat.message}
+                            name='message'
+                            className="form-control"
+                            placeholder="Type a message..."
+                        />
+                        <div className="d-flex justify-content-end align-content-center text-center ml-2">
+                            <button onClick={handleSubmitMessage} className='btn btn-secondary d-inline-block'>
+                                <FontAwesomeIcon icon={faPaperPlane}/>
+                            </button>
+                        </div>
 
-                    </div>
-                </nav>
+                    </nav>
+                </form>
+
             </div>
         // </Card>
     }
