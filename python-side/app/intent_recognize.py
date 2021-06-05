@@ -234,8 +234,6 @@ class IntentRecognize:
                         products = ', '.join([product["name"] for product in results])
                         res = 'Các sản  phẩm thuộc loại bạn đang tìm kiếm là: {}'.format(products)
 
-                print("RES", res)
-
         return res
 
     # def run(self, sentence, user_id):
