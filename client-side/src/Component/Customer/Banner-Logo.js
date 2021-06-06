@@ -6,11 +6,13 @@ import callApi from "../../Utils/apiCaller";
 
 const Banner = (props) => {
     const _id = props._id;
+    console.log(_id)
     const [courtInfo, setCourtInfo] = useState();
 
     useEffect( () => {
         loadBanner()
     }, [])
+
     const loadBanner =() => {
         callApi(`court/get-by-id/${props._id}`, 'get', null)
             .then(res => {

@@ -13,7 +13,10 @@ function AddCategory(props) {
 
     const handleSave = () => {
         callApi('product_category', 'post',item)
-            .then(()=>alert('Thêm thành công'))
+            .then(()=>{
+                alert('Thêm thành công');
+                props.reload();
+            })
             .catch(()=>alert('Thêm thất bại'))
         setItem({name: ''});
     }

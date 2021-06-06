@@ -6,7 +6,8 @@ import {Modal, Form} from "react-bootstrap";
 import callApi from "../../../Utils/apiCaller";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit} from "@fortawesome/free-solid-svg-icons";
-
+import {courtIdState} from "../../../Store/atom";
+import {useRecoilValue} from "recoil";
 
 const ProductCard = (props) => {
     const [isEdit, setIsEdit] = useState(false);
@@ -14,13 +15,14 @@ const ProductCard = (props) => {
     const [itemEdit, setItemEdit] = useState({
         image: props.item.image
     });
+    const courtInfo = useRecoilValue(courtIdState);
 
     useEffect(()=>{
         loadPromotion();
     }, [])
 
     const loadPromotion = () => {
-        callApi('promotion','get', null)
+        callApi(`promotion/get-by-court/${courtInfo._id}`,'get', null)
             .then(res=>{
                 setPromotion(res.data)
             })

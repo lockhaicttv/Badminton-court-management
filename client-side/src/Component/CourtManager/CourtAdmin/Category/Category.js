@@ -10,6 +10,7 @@ import {string} from "prop-types";
 import ToolkitProvider, {Search} from "react-bootstrap-table2-toolkit";
 import AddProduct from "../Product/AddProduct";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import AddCategory from "./AddCategory";
 
 const {SearchBar} = Search
 
@@ -85,16 +86,27 @@ function Category() {
     }
 
     useEffect(() => {
+       loadData();
+    }, [])
+
+    const loadData = () => {
         callApi(`product_category/get-by-court/${courtInfo._id}`, 'get', null)
             .then(res => {
                 setData(res.data);
             })
-    }, [])
+    }
 
     const onDelete = () => {
         if (window.confirm('Bạn muốn xoá những mục đã chọn?')){
-            alert(listDel);
-            // setRealTime(preventDefault=>preventDefault+1);
+            callApi('product_category', 'delete', listDel)
+                .then((res)=>{
+                    alert('Xoá thành công')
+                    setListDel([]);
+                    loadData();
+                })
+                .catch(()=>{
+                    alert('Hệ thống lỗi, vui lòng thử lại sau!')
+                })
         } else {
             return false;
         }
@@ -146,7 +158,7 @@ function Category() {
                             <h3>Loại sản phẩm</h3>
                             <SearchBar {...props.searchProps} style={{width: '600px'}}/>
                             <div>
-                                <AddArea isShow={isShowModalAdd} handleClose={handleClose}/>
+                                <AddCategory isShow={isShowModalAdd} handleClose={handleClose} reload={loadData}/>
                                 <Button className="ml-auto" onClick={handleOpen}>
                                     Thêm
                                 </Button>

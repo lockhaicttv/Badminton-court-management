@@ -249,7 +249,7 @@ function Product() {
                                 <h3>Sản phẩm</h3>
                                 <SearchBar {...props.searchProps} style={{width: '600px'}}/>
                                 <div>
-                                    <AddProduct isShow={isShowModalAdd} handleClose={handleClose}/>
+                                    <AddProduct isShow={isShowModalAdd} handleClose={handleClose} reload={loadData}/>
                                     <Button className="ml-auto" onClick={handleOpen}>
                                         Thêm
                                     </Button>

@@ -31,13 +31,18 @@ const ProductDetails = () => {
         imageAlt: "Example",
         largeImageSrc: "./large-image.jpg",
     });
+    // const [newCart, setNewCart] = useState([]);
     const [productRelated, setProductRelated] = useState([]);
 
     useEffect(() => {
         loadProductDetails();
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
+        loadOwner();
+    }, [])
+
+    useEffect(() => {
         loadProductDetails();
     }, [product_id])
 
@@ -45,9 +50,17 @@ const ProductDetails = () => {
         loadOwner();
     }, [product_id])
 
+    // useEffect(()=>{
+    //     let courtId = ls.getItem('court_id');
+    //     let cart = ls.getItem('cart');
+    //     setShopId(courtId);
+    //     setNewCart(cart)
+    // }, [cart])
+
     const loadProductDetails = () => {
         callApi(`product/?_id=${product_id}`, 'get', null)
             .then(res => {
+                console.log(res.data[0])
                 setProductDetails(res.data[0])
                 setCartItem(prevState => {
                         return {
@@ -63,13 +76,13 @@ const ProductDetails = () => {
                         largeImageSrc: res.data[0].image.base64
                     }
                 })
-                let relateStr = res.data[0].name.substring(0, res.data[0].name.indexOf(' '));
+                let relateStr = res.data[0].name.substring(0, res.data[0].name.indexOf(' ')) || res.data[0].name;
                 console.log(relateStr)
                 callApi(`product/search/${relateStr}`, 'get', null)
-                    .then(res1=>{
+                    .then(res1 => {
                         setProductRelated(res1.data)
                     })
-                    .catch(()=>{
+                    .catch(() => {
                         setProductRelated([])
                     })
             })
@@ -112,20 +125,19 @@ const ProductDetails = () => {
         let newCart = ls.getItem('cart');
         let shop = ls.getItem('court_id')
         let index = newCart.findIndex(x => x.productId === cartItem.productId)
-
-        if (index === -1) {
-            newCart.push(cartItem)
-            setCart(newCart)
+        let check_shop = owner._id !== shop;
+        if (check_shop) {
+            if (window.confirm('Thêm đơn hàng từ cửa hàng khác sẽ xoá hết hàng trong giỏ!!!')) {
+                let newCartItem = {...cartItem}
+                newCartItem['price'] = newCartItem.price * promotionValue
+                newCart = [];
+                newCart.push(newCartItem)
+                setCart(newCart);
+            }
         } else {
-            let check_shop = owner._id !== shop;
-            if (check_shop) {
-                if (window.confirm('Thêm đơn hàng từ cửa hàng khác sẽ xoá hết hàng trong giỏ!!!')) {
-                    let newCartItem = {...cartItem}
-                    newCartItem['price'] = newCartItem.price * promotionValue
-                    newCart = [];
-                    newCart.push(newCartItem)
-                    setCart(newCart);
-                }
+            if (index === -1) {
+                newCart.push(cartItem)
+                setCart(newCart)
             } else {
                 console.log(owner._id, shop)
                 let oldQuantity = newCart[index].quantity;
@@ -149,8 +161,8 @@ const ProductDetails = () => {
         return <ProductCard item={item} key={key}/>;
     });
 
-        let
-    eleRender = <div/>;
+    let
+        eleRender = <div/>;
     if (productDetails !== undefined) {
         eleRender = <Row>
             <Col sm={4}>
@@ -293,8 +305,7 @@ const ProductDetails = () => {
             </Row>
             <div className='bg-white'>
                 <div className='border border-bottom border-left-0 border-right-0 row bg-white row'>
-                    <FontAwesomeIcon icon={faGifts} size='lg' color='#3399FF' className='my-auto col-lg-1'/>
-                    <div className='p-2 sale-title'><i>Sản phẩm liên quan</i></div>
+                    <img src='/image/related-product.png' className=' p-0' height={"55px"}/>
                 </div>
                 <div className="row bg-white">
                     {listProductRelate}

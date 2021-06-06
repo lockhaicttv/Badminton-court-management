@@ -47,7 +47,7 @@ const columns = [
 ];
 
 
-const  CourtBooking = () => {
+const CourtBooking = () => {
     const courtInfo = useRecoilValue(courtIdState)
     const [data, setData] = useState([]);
     const [isShowModalAdd, setIsShowModalAdd] = useState(false);
@@ -59,16 +59,16 @@ const  CourtBooking = () => {
         clickToEdit: true,
         selectColumnPosition: 'right',
         onSelect: (row, isSelect, rowIndex, e) => {
-            if (isSelect){
+            if (isSelect) {
                 setListDel(prevState => {
-                        let newState =[...prevState];
+                        let newState = [...prevState];
                         newState.push(row._id);
                         return newState;
                     }
                 )
             } else {
                 setListDel(prevState => {
-                    let newState=[...prevState];
+                    let newState = [...prevState];
                     newState.splice(newState.indexOf(row._id), 1);
                     return newState;
                 })
@@ -86,14 +86,14 @@ const  CourtBooking = () => {
         }
     };
 
-    const onBeforeEdit = (oldValue, newValue, row, column) =>{
+    const onBeforeEdit = (oldValue, newValue, row, column) => {
         let id = row._id;
         let key = column.dataField;
-        let objUpdate =  {};
+        let objUpdate = {};
         objUpdate[key] = newValue;
 
         callApi(`court_booking/${id}`, 'put', objUpdate)
-            .then(()=>{
+            .then(() => {
                 alert('Update thành công');
             });
     }
@@ -104,21 +104,21 @@ const  CourtBooking = () => {
 
     const getCourtBooking = () => {
         callApi(`court_booking/${courtInfo._id}`, 'get', null)
-            .then(res=>{
+            .then(res => {
                 setData(res.data)
             })
-            .catch(()=>{
+            .catch(() => {
                 setData([])
             })
     }
 
     const onDelete = () => {
-        if (window.confirm('Bạn muốn xoá những mục đã chọn?')){
+        if (window.confirm('Bạn muốn xoá những mục đã chọn?')) {
             callApi('court_booking', 'delete', listDel)
-                .then(res=>{
+                .then(res => {
                     alert('Đã xoá thành công')
                 })
-                .catch(()=>{
+                .catch(() => {
                     alert('Xoá thất bại, vui lòng thử lại sau')
                 })
         } else {
@@ -126,7 +126,7 @@ const  CourtBooking = () => {
         }
     }
 
-    const handleClose = () =>{
+    const handleClose = () => {
         setIsShowModalAdd(false);
     }
     const handleOpen = () => {
@@ -134,7 +134,7 @@ const  CourtBooking = () => {
     }
 
     return (
-        <div>
+        <div className='container-fluid'>
             <ToolkitProvider
                 headerWrapperClasses="foo"
                 keyField='_id'
@@ -146,25 +146,32 @@ const  CourtBooking = () => {
                 {
                     props => (
                         <div>
-                            <div className="d-flex justify-content-between mt-2 mb-0">
-                                <SearchBar {...props.searchProps} style={{width: '400px'}}/>
-                                <h3>Lịch đặt sân</h3>
-                                <div>
-                                    <AddCourtBooking isShow={isShowModalAdd} handleClose={handleClose} reload={getCourtBooking()}/>
-                                    <Button className="ml-auto" onClick={handleOpen}>
-                                        Thêm
-                                    </Button>
-                                    <Button className="btn-danger" onClick={onDelete}>
-                                        Xoá
-                                    </Button>
+                            <div className="row mt-2 mb-0">
+                                <div className='col-5'>
+                                    <SearchBar {...props.searchProps} style={{width: '400px'}}/>
+                                </div>
+                                <h3 className='col-3 pl-lg-5 ml-5'>Lịch đặt sân</h3>
+                                <div className='col'>
+                                    <div className='d-flex justify-content-end'>
+                                        <AddCourtBooking isShow={isShowModalAdd} handleClose={handleClose}
+                                                         reload={getCourtBooking()}/>
+                                        <Button className="ml-auto" onClick={handleOpen}>
+                                            Thêm
+                                        </Button>
+                                        <Button className="btn-danger" onClick={onDelete}>
+                                            Xoá
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
                             <hr/>
                             <BootstrapTable
                                 {...props.baseProps}
                                 cellEdit={cellEditFactory({
-                                    mode:'click',
-                                    beforeSaveCell: (oldValue, newValue, row, column)=>{onBeforeEdit(oldValue, newValue, row, column)}
+                                    mode: 'click',
+                                    beforeSaveCell: (oldValue, newValue, row, column) => {
+                                        onBeforeEdit(oldValue, newValue, row, column)
+                                    }
                                 })}
                                 selectRow={selectRow}
                                 pagination={paginationFactory()}

@@ -33,7 +33,7 @@ function App() {
             <div className="">
                 <Router>
                     <Switch>
-                        <Route path='/chat' component={Chat}/>
+                        {/*<Route path='/chat' component={Chat}/>*/}
                         <Route path='/customer' component={Customer}/>
                         <Route exact path='/login-page/admin' component={AdminLogin}/>
                         <AdminRoute path='/admin' component={Admin} />

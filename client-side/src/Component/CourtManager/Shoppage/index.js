@@ -86,6 +86,7 @@ const Shoppage = () => {
             <AddCategory
                 isShow={isAddCategory}
                 handleClose={handleCloseAddCategory}
+                reload={loadCategory}
             />
             <AddPromotion
                 isShow={isAddPromotion}

@@ -16,6 +16,21 @@ exports.get_all_promotion = (req, res) => {
         })
 }
 
+exports.get_by_court = (req, res) => {
+    let queries = req.query;
+    console.log(queries)
+    promotion.find({court_id: req.params._id}, (err, list)=>{
+        err?
+            res.status(500).send('Can not get list')
+            :
+            res.status(200).json(list)
+
+    })
+        .catch((err)=>{
+            res.status(400).send('Something wrong')
+        })
+}
+
 
 exports.add_one_row = (req, res) => {
     let item = new promotion(req.body);

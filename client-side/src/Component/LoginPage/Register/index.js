@@ -53,11 +53,16 @@ function Register(props) {
 
     const handleCheckUserName = () => {
         console.log(account.username)
-        callApi(`account/check-exist/${account.username}`, 'get', null)
-            .then((res) => {
-                console.log(res.data.message)
-                setCheckUsername(res.data.message);
-            })
+        if (account.username !== '') {
+            callApi(`account/check-exist/${account.username}`, 'get', null)
+                .then((res) => {
+                    console.log(res.data.message)
+                    setCheckUsername(res.data.message);
+                })
+        }
+        else {
+            return
+        }
     }
 
     const handleSubmitOwner = (event) => {
@@ -118,7 +123,7 @@ function Register(props) {
                           name='username'
                           value={account.username}
                           onChange={handleChange}
-                          onKeyPress={handleCheckUserName}
+                          onKeyUp={handleCheckUserName}
                           required
             />
             <Form.Control.Feedback type='invalid'>Tên đăng nhập trùng hoặc trống</Form.Control.Feedback>

@@ -16,7 +16,8 @@ function AddProduct(props) {
         description:'',
         quantity: 0,
         image: [],
-        product_category_id: ''
+        product_category_id: '',
+        promotion_id: null
     })
     const [realTime, setRealTime] = useRecoilState(realTimeState);
 
@@ -24,9 +25,8 @@ function AddProduct(props) {
         console.log(item);
         callApi('product', 'post', item)
             .then((res=>{
-                alert('Thêm thành công');;
-                setRealTime(preventDefault=>preventDefault++);
-                console.log(res.data);
+                alert('Thêm thành công');
+                props.reload();
             }))
     }
 

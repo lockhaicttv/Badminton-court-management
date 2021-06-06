@@ -94,8 +94,8 @@ function Bill() {
                 <td>{key + 1}</td>
                 <td>{item.product_id.name}</td>
                 <td>{item.quantity}</td>
-                <td>{item.product_id.price}</td>
-                <td>{item.product_id.price * item.quantity}</td>
+                <td>{(item.product_id.price).toLocaleString()}</td>
+                <td>{(item.product_id.price * item.quantity).toLocaleString()}</td>
             </tr>
         );
     });
