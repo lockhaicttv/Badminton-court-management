@@ -23,6 +23,7 @@ const Train = () => {
             try {
                 let func = Object.keys(JSON.parse(data))[0];
                 let data_train = { data: JSON.parse(data) };
+                console.log(func)
                 callApi(`chat-bot/${func}`, 'put', data_train)
                     .then(res=>{
                         alert('Huấn luyện thành công');
@@ -40,7 +41,7 @@ const Train = () => {
         }
     }
 
-    console.log(typeof data)
+    console.log(data)
     return (
         <div>
             <div className='row justify-content-between mb-3'>

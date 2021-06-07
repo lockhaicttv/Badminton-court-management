@@ -51,9 +51,12 @@ def update_entities():
 
 @app.route('/chat-bot/intents', methods=['POST'])
 def training():
+    print('yes')
     try:
         data = request.get_json()
+        print(data)
         data_train = data.get('data')
+        print(data_train)
         if data_train is not None:
             utils.save_json(
                 data=data_train,

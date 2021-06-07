@@ -128,10 +128,6 @@
           "description": null
         },
         {
-          "org_val": "Sản phẩm demo",
-          "description": null
-        },
-        {
           "org_val": "demo",
           "description": null
         },
@@ -140,11 +136,23 @@
           "description": null
         },
         {
-          "org_val": "Coca",
+          "org_val": "Vợt cầu lông prokenex",
           "description": null
         },
         {
-          "org_val": "Vợt cầu lông prokenex",
+          "org_val": "Vợt cầu lông",
+          "description": null
+        },
+        {
+          "org_val": "Vợt cầu lông",
+          "description": null
+        },
+        {
+          "org_val": "Vợt cầu lông",
+          "description": null
+        },
+        {
+          "org_val": "Chiến Lê Minh",
           "description": null
         }
       ]
@@ -193,11 +201,7 @@
           "description": null
         },
         {
-          "org_val": "Nước",
-          "description": null
-        },
-        {
-          "org_val": "Vợt cầu lông",
+          "org_val": "Chiến Lê Minh",
           "description": null
         }
       ]
