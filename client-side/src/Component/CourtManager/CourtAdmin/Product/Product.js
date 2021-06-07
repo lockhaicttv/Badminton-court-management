@@ -65,6 +65,12 @@ function Product() {
                     value: true,
                     label: 'Có'
                 }]
+            },
+            formatter: (cell, row) => {
+                if (cell===true) {
+                    return <div>Có</div>
+                }
+                return <div>Không</div>
             }
         },
         {

@@ -129,9 +129,11 @@ const ProductDetails = () => {
         if (check_shop) {
             if (window.confirm('Thêm đơn hàng từ cửa hàng khác sẽ xoá hết hàng trong giỏ!!!')) {
                 let newCartItem = {...cartItem}
-                newCartItem['price'] = newCartItem.price * promotionValue
+                newCartItem['price'] = (newCartItem.price*1) * promotionValue;
+                newCartItem['quantity'] *= 1;
                 newCart = [];
                 newCart.push(newCartItem)
+                console.log(newCart)
                 setCart(newCart);
             }
         } else {
@@ -139,7 +141,6 @@ const ProductDetails = () => {
                 newCart.push(cartItem)
                 setCart(newCart)
             } else {
-                console.log(owner._id, shop)
                 let oldQuantity = newCart[index].quantity;
                 let newCartItem = {...cartItem};
                 newCartItem['quantity'] = newCartItem.quantity * 1 + oldQuantity * 1;
@@ -151,6 +152,7 @@ const ProductDetails = () => {
         ls.setItem('court_id', JSON.stringify(cartItem.shop_id));
         ls.setItem('cart', JSON.stringify(newCart));
     }
+
 
     const checkPromotionTime = (day) => {
         let endTime = new Date(day).getTime();
@@ -216,7 +218,7 @@ const ProductDetails = () => {
     }
 
     let promotionEndday = ''
-    let promotionValue = 0
+    let promotionValue = 1
 
     if (productDetails.promotion_id !== null && productDetails.promotion_id !== undefined) {
         promotionEndday = productDetails.promotion_id.end

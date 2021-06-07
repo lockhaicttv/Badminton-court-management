@@ -64,7 +64,7 @@ function AddProduct(props) {
         <div>
             <Modal show={props.isShow} onHide={props.handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Thêm loại sản phẩm</Modal.Title>
+                    <Modal.Title>Thêm sản phẩm</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <InputGroup className="mb-3">
@@ -108,16 +108,14 @@ function AddProduct(props) {
                         />
                     </InputGroup>
                     <InputGroup className="mb-3">
-                        <InputGroup.Prepend>
-                            <InputGroup.Text id="basic-addon1">Hình ảnh</InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <label className="btn btn btn-secondary">
+                        <label className="btn btn btn-secondary pt-2 pl-2">
                             <FileBase64 id='file' onDone={getBase64image}/>
                             <FontAwesomeIcon icon={faEdit}/>
-                            <i>Chọn ảnh</i>
+                            Chọn ảnh
                         </label>
                     </InputGroup>
-                    <InputGroup className="mb-3">
+                    <img src={item.image.base64 || '/image/add_image.png'} height={200} width={250} className='d-block'/>
+                    <InputGroup className="my-3">
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-addon1">Loại sản phẩm</InputGroup.Text>
                         </InputGroup.Prepend>

@@ -9,6 +9,8 @@ import ToolkitProvider, {Search} from "react-bootstrap-table2-toolkit";
 import AddArea from "../Area/AddArea";
 import cellEditFactory from "react-bootstrap-table2-editor";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import {Col, Media} from "react-bootstrap";
+import Row from "react-bootstrap/Row";
 
 const {SearchBar} = Search;
 
@@ -127,9 +129,32 @@ function Bill(props) {
                 <p>{`Chi tiết hoá đơn mã ${row._id}`}</p>
                 <div>
                     {billDetails.map((billDetail, key) => {
-                        return (
-                            <div>{billDetail.product_id.name} - số lượng: {billDetail.quantity} </div>
-                        )
+                        if (billDetail.product_id !== null) {
+                            return (
+                                <Row>
+                                    <Col sm={6}>
+                                    <Media>
+                                        <img
+                                            width={64}
+                                            height={64}
+                                            className="mr-3"
+                                            src={billDetail.product_id.image.base64}
+                                            alt="Generic placeholder"
+                                        />
+                                        <Media.Body>
+                                            <h5>{billDetail.product_id.name}</h5>
+                                            <p>
+                                                Số lượng: {billDetail.quantity}
+                                            </p>
+                                        </Media.Body>
+                                    </Media>
+                                    </Col>
+                                    <Col>
+                                        <div>{(billDetail.quantity * billDetail.product_id.price).toLocaleString()}</div>
+                                    </Col>
+                                </Row>
+                            )
+                        }
                     })}
                 </div>
             </div>
@@ -138,7 +163,11 @@ function Bill(props) {
         onExpand: async (row, isExpand, rowIndex, e) => {
             await callApi(`court_bill_detail/get-by-bill-id/${row._id}`, 'get', null).then(
                 (res) => {
-                    setBillDetails(res.data)
+                    if (res.data.length !== 0) {
+                        setBillDetails(res.data)
+                    } else {
+                        setBillDetails([])
+                    }
                 }
             )
         },

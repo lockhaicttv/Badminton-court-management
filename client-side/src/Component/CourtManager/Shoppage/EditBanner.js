@@ -25,13 +25,13 @@ const EditBanner = (props) =>{
             <Modal.Title>Chỉnh sửa banner</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <Card.Img variant="top" src={banner.base64}/>
-            <label className="btn btn btn-secondary">
-                <FileBase64 id='file' onDone={getBase64}/>
-                <FontAwesomeIcon icon={faEdit}/>
-                <i>Thay ảnh</i>
-            </label>
+            <Card.Img variant="top" src={banner.base64} className='mb-2'/>
         </Modal.Body>
+        <label className="btn btn btn-secondary m-2">
+            <FileBase64 id='file' onDone={getBase64}/>
+            <FontAwesomeIcon icon={faEdit}/>
+            <i>Thay ảnh</i>
+        </label>
         <Modal.Footer>
             <Button variant="primary" onClick={handleEditBanner}>
                 Lưu thay đổi

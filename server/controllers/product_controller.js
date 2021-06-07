@@ -1,4 +1,6 @@
-var product = require('../models/product_model');
+const product = require('../models/product_model');
+const court_bill_detail = require('../models/court_bill_detail_model');
+const user_bill_detail = require('../models/user_bill_detail_model');
 
 exports.get_product = (req, res) => {
     let queries = req.query;
@@ -232,6 +234,10 @@ exports.delete = (req, res) => {
             $in: req.body
         }
     }
+
+    court_bill_detail.remove({product_id: {$in: req.body}})
+    user_bill_detail.remove({product_id: {$in: req.body}});
+
     product
         .deleteMany(objDel, (err, result) => {
             if (err) {

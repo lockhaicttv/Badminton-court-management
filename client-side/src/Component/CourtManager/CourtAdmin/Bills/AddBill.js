@@ -47,7 +47,7 @@ function AddBill(props) {
         <div>
             <Modal show={props.isShow} onHide={props.handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Thêm sân</Modal.Title>
+                    <Modal.Title>Thêm hoá đơn</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <InputGroup className="mb-3">
@@ -55,6 +55,7 @@ function AddBill(props) {
                             <InputGroup.Text id="basic-addon1">Tên</InputGroup.Text>
                         </InputGroup.Prepend>
                             <input
+                                className='form-control'
                                 type='date'
                                 name='time_check_in'
                                 value={item.time_check_in}
@@ -66,6 +67,7 @@ function AddBill(props) {
                             <InputGroup.Text id="basic-addon1">Mô tả</InputGroup.Text>
                         </InputGroup.Prepend>
                             <input
+                                className='form-control'
                                 type='date'
                                 name='time_check_out'
                                 value={item.time_check_out}

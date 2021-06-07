@@ -4,7 +4,7 @@ import ReactDOM from "react-dom"
 import { PayPalButton } from "react-paypal-button-v2";
 
 const Paypal = (props) => {
-    console.log(props.email_id)
+    console.log(props)
     const createOrder = (data, actions) => {
         return actions.order.create({
             purchase_units: [

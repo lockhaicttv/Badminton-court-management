@@ -22,7 +22,7 @@ import {faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 
 const ShoppingCart = () => {
     const cart = useRecoilValue(cartState)
-    console.log('Hello cart',cart);
+    // console.log('Hello cart',cart);
 
     const listCartItem = cart.length > 0 ?
         (

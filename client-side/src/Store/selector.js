@@ -5,6 +5,7 @@ import {forEach} from "react-bootstrap/ElementChildren";
 export const totalCartState = selector({
     key:'totalCartState',
     get: ({get})=>{
+        console.log(get(cartState))
         const cart=get(cartState);
         let subTotal = 0;
         let quantity = 0;

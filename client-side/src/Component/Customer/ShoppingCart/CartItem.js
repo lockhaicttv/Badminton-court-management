@@ -29,9 +29,11 @@ const CartItem = (props) => {
     }, []);
 
     const increaseQuantity = () => {
+        console.log(item.productId)
         callApi(`product/check-quantity-remain/${item.productId}`, 'get', null)
             .then(res => {
-                if (res.data.quantity < item.quantity + 1) {
+                console.log(res.data.quantity, item.quantity)
+                if (res.data.quantity < (item.quantity*1 + 1)) {
                     alert('Sản phẩm hiện không đủ số lượng cung cấp')
                 } else {
                     let index = cart.findIndex(cartItem => cartItem.productId === item.productId);
@@ -51,7 +53,7 @@ const CartItem = (props) => {
     };
 
     const decreaseQuantity = () => {
-        if (item.quantity !== 1) {
+        if (item.quantity*1 !== 1) {
             let index = cart.findIndex(cartItem => cartItem.productId === item.productId);
             let newCartItem = {...item}
             newCartItem['quantity'] = newCartItem['quantity'] * 1 - 1;

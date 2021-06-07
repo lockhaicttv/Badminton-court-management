@@ -52,6 +52,7 @@ const PriceTotal = () => {
     const getCourtInfo = () => {
         callApi(`court/get-by-id/${court_id}`, 'get', null)
             .then(res => {
+                console.log(emailId)
                 setEmailID(res.data.email_id)
             })
     }

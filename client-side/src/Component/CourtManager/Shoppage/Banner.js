@@ -77,7 +77,7 @@ const Banner = () => {
       </Modal.Header>
       <Modal.Body>
         <Card.Img variant="top" src={courtInfo.banner.base64} />
-          <label className="btn btn btn-secondary">
+          <label className="btn btn btn-secondary my-2">
               <FileBase64 onDone={getBannerBase64}/>
               <FontAwesomeIcon icon={faEdit}/>
               <i>Thay ảnh</i>
@@ -98,7 +98,7 @@ const Banner = () => {
       </Modal.Header>
       <Modal.Body>
         <Card.Img variant="top" src={courtInfo.logo.base64} />
-          <label className="btn btn btn-secondary">
+          <label className="btn btn btn-secondary my-2">
               <FileBase64 onDone={getLogoBase64}/>
               <FontAwesomeIcon icon={faEdit}/>
               <i>Thay ảnh</i>

@@ -1,4 +1,5 @@
-var product_category = require('../models/product_category_model');
+const product_category = require('../models/product_category_model');
+const product = require('../models/product_model');
 const mongoose = require('mongoose')
 
 exports.get_product_category = (req, res) => {
@@ -87,6 +88,9 @@ exports.delete = (req, res) => {
             $in: req.body
         }
     }
+
+    product.remove({product_category_id: {$in: req.body}})
+
     product_category
         .deleteMany(objDel, (err, result)=>{
             if (err) {

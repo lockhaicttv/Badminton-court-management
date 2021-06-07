@@ -43,15 +43,15 @@ const HomePage = () => {
     }
 
     const listProductSale = productSale.map((item, key) => {
-        return <ProductCard item={item} key={key}/>;
+        return <ProductCard item={item} key={item._id}/>;
     });
 
     const listProduct = product.map((item, key) => {
-        return <ProductCard item={item} key={key}/>;
+        return <ProductCard item={item} key={item._id}/>;
     });
 
     const listSearchProduct = searchProduct.map((item, key) => {
-        return <ProductCard item={item} key={key}/>;
+        return <ProductCard item={item} key={item._id}/>;
     });
 
     return (
