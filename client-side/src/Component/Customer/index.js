@@ -15,6 +15,7 @@ import {useSetRecoilState, useRecoilState, useRecoilValue} from "recoil";
 import CustomerAdmin from "./CustomerAdmin";
 import {totalCartState} from "../../Store/selector";
 import callApi from "../../Utils/apiCaller";
+import Footer from "../HeadFoot/Footer";
 
 const Customer = () => {
     const setCart = useSetRecoilState(cartState);
@@ -70,6 +71,7 @@ const Customer = () => {
             <Route exact path="/customer/store/:shop_id" component={OwnerStore}/>
             <Route exact path="/customer/shopping-cart" component={ShoppingCart}/>
             <Route path="/customer/info/" component={CustomerAdmin}/>
+            <Footer />
         </div>
     );
 };

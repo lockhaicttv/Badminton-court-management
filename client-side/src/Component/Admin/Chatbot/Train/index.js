@@ -52,9 +52,9 @@ const Train = () => {
                         onChange={handleLoadData}
                     />
                 </label>
-                <button className='btn btn-primary' onClick={handleTrain}>
+                <Button className='btn btn-primary' onClick={handleTrain} size='md'>
                     Huấn luyện
-                </button>
+                </Button>
             </div>
             <div>
                 <FormControl

@@ -35,9 +35,9 @@
 }
 
 .background-silver {
-    background-color: rgb(244, 244, 244);
+    background-color: #f4f4f4;
 }
-
+/* court css */
 .court {
     height: 400px;
     width: 200px;
@@ -49,6 +49,55 @@
     background-image: url("/image/50055964_1956764354443766_7173773502439227392_n.png");
     background-size: cover;
 }
+
+.court-open {
+    height: 400px;
+    width: 200px;
+    margin: 10px;
+    border-radius: 20px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.court-open:hover {
+    transform: scale(1.05);
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+.court-open::before, .card::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: scale3d(0, 0, 1);
+    transition: transform .3s ease-out 0s;
+    background: rgba(255, 255, 255, 0.1);
+    content: '';
+    pointer-events: none;
+}
+
+.court-open::before {
+    transform-origin: left top;
+}
+
+.court-open::after {
+    transform-origin: right bottom;
+}
+
+.court-open:hover::before, .card:hover::after, .card:focus::before, .card:focus::after {
+    transform: scale3d(1, 1, 1);
+}
+
+/**/
+
+
+/*Bill*/
+.bill-shadow {
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/**/
 
 .banner {
     position: relative;
@@ -224,7 +273,7 @@ body {
 .form-control:focus {
     box-shadow: none;
     overflow: hidden;
-    border: none
+    /*border: none*/
 }
 
 .form-control:focus {
@@ -332,4 +381,15 @@ body {
 
 .p-0-important .nav-link{
     padding: 0 !important;
+}
+
+/*Change input outline */
+/*textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {*/
+/*    border-color: rgba(229, 103, 23, 0.8);*/
+/*    box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 8px rgba(229, 103, 23, 0.6);*/
+/*    outline: 0 none;*/
+/*}*/
+
+.light-through-text {
+    text-decoration: line-through;
 }

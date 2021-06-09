@@ -35,7 +35,10 @@ const columns = [
     },
     {
         dataField: 'price_total',
-        text: 'Tổng tiền'
+        text: 'Tổng tiền (VND)',
+        formatter: (row, cell) => {
+            return row.toLocaleString()
+        }
     },
     {
         dataField: 'status',

@@ -17,20 +17,17 @@ const AddCourtBooking = (props) => {
         court_area_id: ''
     })
 
-    useEffect(()=>{
+    useEffect(() => {
         getCourtArea();
-    },[])
+    }, [])
 
     const handleSave = () => {
-       callApi('court_booking', 'post', item)
-           .then((res)=>{
-               alert(res.data);
-               props.reload();
-           })
-           .catch((err)=>{
-               alert(err);
-               props.reload();
-           })
+        callApi('court_booking', 'post', item)
+            .then((res) => {
+                alert(res.data);
+                props.reload();
+                props.handleClose();
+            })
     }
 
     const handleChange = (e) => {
@@ -46,15 +43,15 @@ const AddCourtBooking = (props) => {
 
     const getCourtArea = () => {
         callApi(`court_area/get-by-court/${courtInfo._id}`, 'get', null)
-            .then(res=>{
+            .then(res => {
                 setArea(res.data);
             })
-            .catch(()=>{
+            .catch(() => {
                 setArea([]);
             })
     }
 
-    const listArea = area.map((areaItem, key)=>{
+    const listArea = area.map((areaItem, key) => {
         return <option key={areaItem._id} value={areaItem._id}>{areaItem.area}</option>
     })
 

@@ -119,7 +119,7 @@ function CourtArea(props) {
     } else {
         return (
             <div className="m-2">
-                <div className="court court-background" onClick={handleShowBill}/>
+                <div className="court-open court-background  p-3" onClick={handleShowBill}/>
                 <div className="justify-content-center bg-dark m-auto"/>
                 <div className="justify-content-center">
                     {/*<Button className="btn-danger "*/}

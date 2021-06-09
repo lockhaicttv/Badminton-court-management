@@ -56,6 +56,7 @@ const EditAddress = () => {
                           name='address'
                           value={address.address}
                           onChange={handleChangeAddress}
+                          witdh='600px'
             />
         </Form.Group>
     }
@@ -64,19 +65,19 @@ const EditAddress = () => {
     return (
         <div className='p-3'>
             <Row>
-                <Col>
-                    Địa chỉ
+                <Col sm={2}>
+                    <div className='h4 py-2'>Địa chỉ</div>
                 </Col>
-                <Col>
+                <Col sm={8}>
                     {addressRender}
                 </Col>
                 <Col>
                     {   isEdit?
-                        <Button variant='secondary' onClick={()=>{changeUpdateState();handleUpdate();}}>
+                        <Button variant='secondary' onClick={()=>{changeUpdateState();handleUpdate();}} className='pt-1'>
                             Lưu
                         </Button>
                         :
-                        <Button variant='success' onClick={changeUpdateState}>
+                        <Button variant='success' onClick={changeUpdateState} className='pt-1'>
                             Chỉnh sửa
                         </Button>
                     }

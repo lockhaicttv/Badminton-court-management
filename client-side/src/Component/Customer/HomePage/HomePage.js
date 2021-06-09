@@ -55,7 +55,7 @@ const HomePage = () => {
     });
 
     return (
-        <div className="container mt-2 p-0">
+        <div className="container mt-2 p-0 col-9">
             <CarouselHomePage/>
             {(searchProduct.length === 0) ?
                 (

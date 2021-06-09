@@ -16,7 +16,10 @@ const {SearchBar} = Search;
 const columns = [
     {
         dataField: '_id',
-        text: 'Mã hoá đơn'
+        text: 'Mã hoá đơn',
+        formatter: cell => {
+            return <div className='text-break'>{cell}</div>
+        }
     },
     {
         dataField: 'pay_time',
@@ -38,7 +41,10 @@ const columns = [
     },
     {
         dataField: 'price_total',
-        text: 'Tổng tiền',
+        text: 'Tổng tiền (VND)',
+        formatter: cell => {
+            return cell.toLocaleString()
+        },
         editTable: false
     },
     {
@@ -59,6 +65,10 @@ const columns = [
                 label: 'Đã giao hàng'
             }]
         }
+    },
+    {
+        dataField: 'address',
+        text: 'Địa chỉ'
     }
 ];
 
@@ -233,7 +243,7 @@ const Order = () => {
                             <BootstrapTable
                                 {...props.baseProps}
                                 cellEdit={cellEditFactory({
-                                    mode: 'click',
+                                    mode: 'dbclick',
                                     beforeSaveCell: (oldValue, newValue, row, column) => {
                                         onBeforeEdit(oldValue, newValue, row, column)
                                     }

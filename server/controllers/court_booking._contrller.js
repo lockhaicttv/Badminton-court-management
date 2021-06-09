@@ -16,17 +16,26 @@ exports.get_all_court_booking = (req, res) => {
 }
 
 exports.get_all_court_booking_by_court_id = (req, res) => {
+    let onComplete = (list) => {
+        if (list.length !== 0) {
+            list = list.filter(court_booking => court_booking.court_area_id !== null);
+            res.status(200).json(list)
+        } else {
+            res.status(200).send('Thất bại');
+        }
+    }
+
     court_booking.find()
         .populate({
             path: 'court_area_id',
             match: {court_id: req.params.court_id}
         })
         .exec((err, list) => {
-            err ?
-                res.status(500).send('Can not get list')
-                :
-                res.status(200).json(list)
-
+            if (err) {
+                res.status(500).send('Cannot get list')
+            } else {
+                onComplete(list);
+            }
         })
 }
 

@@ -119,7 +119,7 @@ function Bill() {
 
     return (
         (isShowBill === true) ?
-            <div className="col-lg-12 border bg-white">
+            <div className="col-lg-12 border bg-white bill-shadow">
                 <h3 className="text-center pt-2">Hoá Đơn</h3>
                 <Table className="">
                     <tbody>
@@ -166,7 +166,7 @@ function Bill() {
                 </Button>
             </div>
             :
-            <div className="col-lg-12 border bg-white">
+            <div className="col-lg-12 border bg-white bill-shadow">
                 <h3 className="text-center pt-2">Hoá Đơn</h3>
                 <div>
                     <img src='/image/BillBackground.jpg' width='100%' className='p-3'/>

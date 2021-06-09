@@ -116,6 +116,7 @@ const CourtBooking = () => {
         if (window.confirm('Bạn muốn xoá những mục đã chọn?')) {
             callApi('court_booking', 'delete', listDel)
                 .then(res => {
+                    getCourtBooking();
                     alert('Đã xoá thành công')
                 })
                 .catch(() => {
@@ -154,7 +155,7 @@ const CourtBooking = () => {
                                 <div className='col'>
                                     <div className='d-flex justify-content-end'>
                                         <AddCourtBooking isShow={isShowModalAdd} handleClose={handleClose}
-                                                         reload={getCourtBooking()}/>
+                                                         reload={getCourtBooking}/>
                                         <Button className="ml-auto" onClick={handleOpen}>
                                             Thêm
                                         </Button>

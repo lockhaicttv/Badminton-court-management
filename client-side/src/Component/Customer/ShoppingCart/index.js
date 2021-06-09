@@ -11,8 +11,8 @@ import {
     CardGroup,
     Button,
 } from "react-bootstrap";
-import {cartState} from "../../../Store/atom";
-import {useRecoilValue} from "recoil";
+import {accountIdState, cartState} from "../../../Store/atom";
+import {useRecoilState, useRecoilValue} from "recoil";
 import CartItem from "./CartItem";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -22,7 +22,7 @@ import {faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 
 const ShoppingCart = () => {
     const cart = useRecoilValue(cartState)
-    // console.log('Hello cart',cart);
+
 
     const listCartItem = cart.length > 0 ?
         (

@@ -27,7 +27,7 @@ function AdminLogin() {
                         isAuthenticated: true,
                         role: "admin",
                     });
-                    history.push("/admin");
+                    history.push("/admin/database/owner");
                 } else {
                    alert('Đăng nhập thất bại')
                 }

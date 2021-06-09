@@ -17,16 +17,16 @@ const ProductCard = (props) => {
     });
     const courtInfo = useRecoilValue(courtIdState);
 
-    useEffect(()=>{
+    useEffect(() => {
         loadPromotion();
     }, [])
 
     const loadPromotion = () => {
-        callApi(`promotion/get-by-court/${courtInfo._id}`,'get', null)
-            .then(res=>{
+        callApi(`promotion/get-by-court/${courtInfo._id}`, 'get', null)
+            .then(res => {
                 setPromotion(res.data)
             })
-            .catch(()=>{
+            .catch(() => {
                 console.log('Load promotion fail')
             })
     }
@@ -56,8 +56,11 @@ const ProductCard = (props) => {
 
     const updateProductInfo = () => {
         callApi(`product/${props.item._id}`, 'put', itemEdit)
-            .then(alert('Cập nhật thông tin sản phẩm thành công!'));
-        props.reload(props.item.product_category_id);
+            .then(res => {
+                props.reload(props.item.product_category_id);
+                alert(
+                    'Cập nhật thông tin sản phẩm thành công!')
+            });
     }
 
     const listPromotion = promotion.map((promotion, key) => {
@@ -80,12 +83,15 @@ const ProductCard = (props) => {
                     Mô tả: {props.item.description}
                 </Card.Text>
             </Card.Body>
-            <Card.Footer>
-                <small className="text-muted">Giá: {props.item.price}đ
-                    <Button variant='btn primary' onClick={handleChangeEditState}>
-                        Chỉnh sửa
-                    </Button>
-                </small>
+            <Card.Footer className='d-flex justify-content-between'>
+                <medium className="text-muted mt-2">Giá: {props.item.price.toLocaleString()}đ
+                </medium>
+                <Button variant='outline-secondary'
+                        size='md'
+                        className='mt-2'
+                        onClick={handleChangeEditState}>
+                    Chỉnh sửa
+                </Button>
             </Card.Footer>
         </Card>
         :
@@ -137,10 +143,16 @@ const ProductCard = (props) => {
                     value={itemEdit.price}
                     onChange={handleChange}
                 />
-                <Button variant='btn secondary' onClick={() => {
-                    handleChangeEditState();
-                    updateProductInfo()
-                }}>
+                <Button variant='outline-secondary'
+                        size='sm'
+                        className='mt-2'
+                        onClick={
+                            () => {
+                                handleChangeEditState();
+                                updateProductInfo()
+                            }
+                        }
+                >
                     Lưu
                 </Button>
             </Card.Footer>

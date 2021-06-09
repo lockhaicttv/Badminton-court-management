@@ -22,7 +22,7 @@ const OrderDetailCart = (props) => {
                 </Media>
             </Col>
             <Col>
-                <div>{props.orderDetail.quantity * props.orderDetail.product_id.price}</div>
+                <div>{(props.orderDetail.quantity * props.orderDetail.product_id.price).toLocaleString()}</div>
             </Col>
         </Row>
     )

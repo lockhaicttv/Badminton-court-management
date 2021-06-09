@@ -9,6 +9,7 @@ const user_bill_model = new Schema(
         pay_time: {type: Date, default: new Date()},
         description: {type: String},
         price_total: {type: Number},
+        address: {type: String},
         status: {type: String, default: 'Chưa thanh toán'},
         user_id: {type: Schema.Types.ObjectId, ref: user},
         court_id: {type: Schema.Types.ObjectId, ref: court},

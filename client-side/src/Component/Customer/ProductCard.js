@@ -75,7 +75,7 @@ const ProductCard = (props) => {
         //     </Card.Footer>
         <div className="col-md-3 col-sm-6 mt-1" onClick={handleDirectToDetail}>
             <div className="card card-block p-3 border-0">
-                <img src={props.item.image.base64} alt="Photo of sunset" style={{height: '200px', width: '100%'}}/>
+                <img src={props.item.image.base64} alt="Photo of sunset" style={{height: '250px', width: '250px'}}/>
                 <h5 className="card-title mt-2 mb-2">{props.item.name}</h5>
                 {/*<p className="card-text">*/}
                 {/*    {props.item.description}*/}

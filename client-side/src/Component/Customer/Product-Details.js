@@ -228,10 +228,10 @@ const ProductDetails = () => {
     }
 
     return (
-        <div className='container pt-5 '>
+        <div className='container pt-3 '>
             <Row className='bg-white border'>
-                <Col sm={4}>
-                    <div className='border-right border-dark'>
+                <Col sm={4} className='border-right border-dark'>
+                    <div>
                         <div className='ml-0 p-2'>
                             {/*<ReactImageZoom {...props}/>*/}
                             <ReactImageMagnify {...{
@@ -240,19 +240,19 @@ const ProductDetails = () => {
                                     // isFluidWidth: true,
                                     src: props.imageSrc,
                                     isHintEnabled: true,
-                                    width: 260,
+                                    width: 340,
                                     height: 350,
                                 },
                                 largeImage: {
                                     src: props.largeImageSrc,
                                     width: 1000,
                                     height: 1000,
-                                    className: 'zindex-modal'
+                                    className: 'z-index-modal'
                                 },
                                 isHintEnabled: true,
                                 shouldHideHintAfterFirstActivation: false,
                                 enlargedImageContainerClassName: 'z-index-1',
-                                imageClassName: ''
+                                imageClassName: 'm-auto'
                             }} />
                         </div>
                     </div>
@@ -263,31 +263,31 @@ const ProductDetails = () => {
                         <Col xs={7}>
                             {promotionEndday !== '' && promotionValue !== 0
                                 ?
-                                <div className='my-2 background-silver border-dark border-bottom'> {/*Giá*/}
-                                    <div className='my-2 background-silver border-dark border-bottom'> {/*Giá*/}
-                                        <h5 className='p-2 card-title'>
-                                            Giá gốc: {Number(productDetails.price).toLocaleString()}đ
-                                        </h5>
+                                <div className='my-2 border-dark border-bottom'> {/*Giá*/}
+                                    <div className='my-2 border-dark border-bottom'> {/*Giá*/}
+                                        <div className='p-2'>
+                                            <span className='h5'>Giá gốc: </span>
+                                            <span className='light-through-text'>{Number(productDetails.price).toLocaleString()}đ</span>
+                                        </div>
                                     </div>
-                                    <h5 className='p-2 card-title text-danger'>
+                                    <h4 className='p-2 text-danger'>
                                         Khuyến mãi: {Number(productDetails.price * promotionValue).toLocaleString()}đ
-                                    </h5>
+                                    </h4>
                                 </div>
                                 :
-                                <div className='my-2 background-silver border-dark border-bottom'> {/*Giá*/}
-                                    <h5 className='p-2 card-title'>{Number(productDetails.price).toLocaleString()} đ</h5>
+                                <div className='my-2 border-dark border-bottom'> {/*Giá*/}
+                                    <h4 className='p-2'>{Number(productDetails.price).toLocaleString()} đ</h4>
                                 </div>
                             }
 
-                            <div className='my-3 border-bottom border-dark'>
-                                Bạn hãy NHẬP ĐỊA CHỈ nhận hàng để được dự báo thời gian & chi phí giao hàng một cách
-                                chính xác nhất.
+                            <div className='my-3 border-bottom border-dark pb-2'>
+                                Thêm sản phẩm và vào giỏ hàng để xác kiểm tra và thanh toán
                             </div>
-                            <div className='mt-3 col-8'>
+                            <div className='mt-3 col-8 p-0'>
                                 <h4>Số lượng:</h4>
                                 <InputGroup className="mb-3">
                                     <input type='number' min="1" className='form-control'
-                                           values={cartItem.quantity}
+                                           value={cartItem.quantity}
                                            name='quantity'
                                            onChange={handleChangeQuantity}
                                     />
@@ -305,6 +305,13 @@ const ProductDetails = () => {
                     </Row>
                 </Col>
             </Row>
+            <div className='bg-white row'>
+                <div className="bg-white ml-2 mt-2" style={{minHeight:'200px'}}>
+                    <div className='h3'>Mô tả</div>
+                    <p className='ml-4'>{productDetails.description}</p>
+                    <div className='h4 text-danger'>Lưu ý: Giá ship đã bao gồm trong giá sản phẩm</div>
+                </div>
+            </div>
             <div className='bg-white'>
                 <div className='border border-bottom border-left-0 border-right-0 row bg-white row'>
                     <img src='/image/related-product.png' className=' p-0' height={"55px"}/>

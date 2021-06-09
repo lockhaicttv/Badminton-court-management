@@ -50,7 +50,7 @@ const HeaderCourtManagement = withRouter(({history}) => {
                     <span className="font-weight-bold mx-3 text-dark">BCM</span>
                 </Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Item>
+                    <Nav.Item className='p-0'>
                         <Link
                             to="/home"
                             className="text-decoration-none text-primary font-weight-bold px-3 header-customer-item"
@@ -81,7 +81,7 @@ const HeaderCourtManagement = withRouter(({history}) => {
                             </Link>
                         </NavDropdown.Item>
                     </NavDropdown>
-                    <Nav.Item href="">
+                    <Nav.Item className='p-0'>
                         <Link
                             to="/home/admin/category"
                             className="header-customer-item text-decoration-none text-primary font-weight-bold px-3"
@@ -89,7 +89,7 @@ const HeaderCourtManagement = withRouter(({history}) => {
                             Admin
                         </Link>
                     </Nav.Item>
-                    <Nav.Item>
+                    <Nav.Item className='p-0'>
                         <Link
                             to='/home/statistic/order'
                             className="header-customer-item text-decoration-none text-primary font-weight-bold px-3"
@@ -97,7 +97,7 @@ const HeaderCourtManagement = withRouter(({history}) => {
                             Thống kê
                         </Link>
                     </Nav.Item>
-                    <Nav.Item>
+                    <Nav.Item className='p-0'>
                         <Link
                             to={shopPageRoute}
                             className="header-customer-item text-decoration-none text-primary font-weight-bold px-3"

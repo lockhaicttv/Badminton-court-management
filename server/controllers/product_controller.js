@@ -17,7 +17,7 @@ exports.get_product = (req, res) => {
 }
 
 exports.get_all_on_shop_page = (req, res) => {
-    product.find({on_shop_page: true})
+    product.find({on_shop_page: true, quantity: {$gte: 1}})
         .populate('promotion_id')
         .exec((err, list) => {
             err ?
@@ -42,7 +42,7 @@ exports.get_product_by_category = (req, res) => {
 
 exports.get_product_by_category_on_shoppage = (req, res) => {
     product
-        .find({product_category_id: req.params.product_category_id, on_shop_page: true})
+        .find({product_category_id: req.params.product_category_id, on_shop_page: true, quantity: {$gte: 1}})
         .exec((err, list) => {
             err ?
                 res.status(500).json('cannot get list')
@@ -94,7 +94,7 @@ exports.get_product_by_court_on_shoppage = (req, res) => {
         onComplte(list);
     } else {
         product
-            .find({on_shop_page: true})
+            .find({on_shop_page: true, quantity: {$gte: 1}})
             .populate({
                 path: 'product_category_id',
                 match: {court_id: req.params.court_id}
@@ -251,7 +251,7 @@ exports.delete = (req, res) => {
 exports.search = (req, res) => {
     let search_content = req.params.search_content;
     product
-        .find({name: {'$regex': search_content, '$options': 'i'}})
+        .find({name: {'$regex': search_content, '$options': 'i'}, quantity: {$gte: 1}})
         .populate({
             path: 'promotion_id'
         })

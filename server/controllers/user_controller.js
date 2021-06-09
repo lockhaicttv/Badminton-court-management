@@ -1,7 +1,9 @@
 var user = require('../models/user_model');
+const mongoose = require('mongoose')
 
 exports.get_user = (req, res) => {
     let queries = req.query;
+    queries['_id'] = mongoose.mongo.ObjectID(req.query._id);
     user
         .find(queries,(err, list) => {
             err ?
@@ -9,8 +11,9 @@ exports.get_user = (req, res) => {
                 :
                 res.json(list);
         })
-        .catch(() => {
-            res.status(500).send('Something went wrong');
+        .catch((err) => {
+            console.log(err)
+            res.status(400).send('Something went wrong');
         });
 }
 
@@ -25,7 +28,7 @@ exports.add_one_user = (req, res) => {
             res.json({message: 'Thêm thất bại'});
         })
         .catch(()=>{
-            res.status(500).send('Something wrong')
+            res.status(400).send('Something wrong')
         })
 }
 
@@ -42,7 +45,7 @@ exports.update_one_row = (req, res) => {
             }
         })
         .catch(()=>{
-            res.status(500).send('Something wrong')
+            res.status(400).send('Something wrong')
         })
 }
 
@@ -61,7 +64,7 @@ exports.delete = (req, res) => {
             }
         })
         .catch(()=>{
-            res.status(500).send('Something wrong')
+            res.status(400).send('Something wrong')
         })
 }
 

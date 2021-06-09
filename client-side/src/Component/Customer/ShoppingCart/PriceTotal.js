@@ -14,7 +14,7 @@ import ls from "../../../Utils/localStorage";
 import Paypal from "./Paypal";
 import {PayPalButton} from "react-paypal-button-v2";
 
-const PriceTotal = () => {
+const PriceTotal = (props) => {
     const priceTotal = useRecoilValue(totalCartState);
     const authentication = useRecoilValue(authenticationState);
     const user_id = useRecoilValue(accountIdState);
@@ -24,14 +24,40 @@ const PriceTotal = () => {
     const [bill, setBill] = useState({
         pay_time: new Date(),
         description: "",
-        price_total: priceTotal.subTotal,
+        address: props.address,
+        price_total: '',
         status: "Chưa thanh toán",
         user_id: "",
         court_id: "",
     });
+    const [info, setInfo] = useState({
+        full_name: "",
+        address: "",
+        phone_number: 0,
+        gender: "male",
+        birthday: new Date(),
+    })
+
+    const accountID = useRecoilValue(accountIdState);
     const [billDetail, setBillDetail] = useState([]);
-    const courtInfo = useRecoilValue(courtState)
     const [emailId, setEmailID] = useState('')
+
+    useEffect(()=>{
+        loadInfo();
+    },[])
+
+    const loadInfo = () => {
+        callApi(`user/?_id=${accountID}`, 'get', null)
+            .then(res => {
+                console.log(res.data[0])
+                setInfo(res.data[0])
+            })
+            .catch(() => {
+                setInfo(prevState => {
+                    return {...prevState}
+                })
+            })
+    }
 
     useEffect(() => {
         let description = `Đã mua ${cart.length} sản phẩm. Bấm vào để xem chi tiết`;
@@ -40,6 +66,7 @@ const PriceTotal = () => {
         setBill({
             pay_time: new Date(),
             description: description,
+            address: info.address,
             price_total: priceTotal.subTotal,
             status: status,
             user_id: user_id,
@@ -92,7 +119,8 @@ const PriceTotal = () => {
                 ...bill,
                 user_id: user_id,
                 court_id: court_id,
-                payment_data: data
+                payment_data: data,
+                address: info.address
             },
             bill_details: billDetail,
 
@@ -108,7 +136,7 @@ const PriceTotal = () => {
                 alert("Thanh toán thất bại");
             });
     }
-
+    console.log(info.address)
     return (
         <div style={{width: "18rem"}}>
             <Card>
