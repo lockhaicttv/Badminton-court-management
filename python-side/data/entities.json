@@ -4,35 +4,11 @@
       "key": "products",
       "values": [
         {
-          "org_val": "Bánh Bò",
-          "description": null
-        },
-        {
-          "org_val": "Snack",
-          "description": null
-        },
-        {
-          "org_val": "Pepsi",
-          "description": null
-        },
-        {
-          "org_val": "Coca",
-          "description": null
-        },
-        {
-          "org_val": "Sprite",
+          "org_val": "Áo thể thao adidas",
           "description": null
         },
         {
           "org_val": "Áo cầu lông 1796",
-          "description": null
-        },
-        {
-          "org_val": "Vợt lining",
-          "description": null
-        },
-        {
-          "org_val": "victor",
           "description": null
         },
         {
@@ -45,18 +21,6 @@
         },
         {
           "org_val": "Vợt Victor",
-          "description": null
-        },
-        {
-          "org_val": "Bánh Bao",
-          "description": null
-        },
-        {
-          "org_val": "Tất yonex",
-          "description": null
-        },
-        {
-          "org_val": "Quần chạy bộ",
           "description": null
         },
         {
@@ -154,6 +118,18 @@
         {
           "org_val": "Chiến Lê Minh",
           "description": null
+        },
+        {
+          "org_val": "Coca",
+          "description": null
+        },
+        {
+          "org_val": "Coca",
+          "description": null
+        },
+        {
+          "org_val": "Vợt cầu prokenex 12546",
+          "description": null
         }
       ]
     },
@@ -201,7 +177,11 @@
           "description": null
         },
         {
-          "org_val": "Chiến Lê Minh",
+          "org_val": "Nước",
+          "description": null
+        },
+        {
+          "org_val": "Vợt cầu lông",
           "description": null
         }
       ]
@@ -219,10 +199,6 @@
         },
         {
           "org_val": "Chiến Lê Minh",
-          "description": null
-        },
-        {
-          "org_val": "Trung Ngọc",
           "description": null
         },
         {

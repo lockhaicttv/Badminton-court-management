@@ -5,10 +5,10 @@ const timeZone = require('mongoose-timezone');
 const message_model = new Schema(
     {
         message: {type: String},
-        response: {type: String}
+        response: {type: String},
+        date: {type: Date, default: new Date()}
     },
-    {versionKey: false}
-
+    {versionKey: false},
 );
 
 message_model.plugin(timeZone);

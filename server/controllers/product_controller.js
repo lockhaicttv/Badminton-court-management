@@ -8,6 +8,7 @@ exports.get_product = (req, res) => {
     product
         .find(queries)
         .populate('promotion_id')
+        .populate('product_category_id')
         .exec((err, list) => {
             err ?
                 res.status(500).send('Cannot get list')

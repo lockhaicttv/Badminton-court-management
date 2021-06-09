@@ -178,7 +178,7 @@ function OrderDetail() {
                 props => (
                     <div>
                         <div className="d-flex justify-content-between mt-2 mb-0">
-                            <h3>Tài khoản chủ sân</h3>
+                            <h3>Chi tiết đơn hàng</h3>
                             <SearchBar {...props.searchProps} style={{width: '600px'}}/>
                             <div>
                                 <AddOrderDetail isShow={isShowModalAdd} handleClose={handleClose}/>

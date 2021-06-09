@@ -148,7 +148,7 @@ function Area() {
                 props => (
                     <div>
                         <div className="d-flex justify-content-between mt-2 mb-0">
-                            <h3>Tài khoản chủ sân</h3>
+                            <h3>Khu vực sân</h3>
                             <SearchBar {...props.searchProps} style={{width: '600px'}}/>
                             <div>
                                 <AddArea isShow={isShowModalAdd} handleClose={handleClose} handaleOpen={handleOpen}

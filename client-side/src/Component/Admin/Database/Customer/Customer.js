@@ -14,15 +14,14 @@ const {SearchBar} = Search;
 const columns = [
     {
         dataField: '_id',
-        text: 'ID khách hàng'
+        text: 'ID khách hàng',
+        formatter: cell=>{
+            return <div className='text-break'>{cell}</div>
+        }
     },
     {
         dataField: 'username',
         text: 'Tài khoản'
-    },
-    {
-        dataField: 'password',
-        text: 'Mật khẩu'
     },
     {
         dataField: 'full_name',
@@ -115,7 +114,7 @@ function Customer() {
     }
 
     const loadData = () => {
-        callApi(`user`, 'get', null)
+        callApi(`user/get-all`, 'get', null)
             .then(res => {
                 setData(res.data);
             })
@@ -184,7 +183,7 @@ function Customer() {
                 props => (
                     <div>
                         <div className="d-flex justify-content-between mt-2 mb-0">
-                            <h3>Tài khoản chủ sân</h3>
+                            <h3>Tài khoản khách hàng</h3>
                             <SearchBar {...props.searchProps} style={{width: '600px'}}/>
                             <div>
                                 <AddCustomer isShow={isShowModalAdd} handleClose={handleClose}/>

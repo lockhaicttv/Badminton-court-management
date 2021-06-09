@@ -126,7 +126,7 @@ function Bill(props) {
                 <b>+</b>
             );
         },
-
+        onlyOneExpanding: true,
         renderer: row => (
             <div>
                 <p>{`Chi tiết hoá đơn mã ${row._id}`}</p>

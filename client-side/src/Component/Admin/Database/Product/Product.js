@@ -29,7 +29,10 @@ const options = callApi('product_category', 'get', null)
 const columns = [
     {
         dataField: '_id',
-        text: 'ID sản phẩm'
+        text: 'ID sản phẩm',
+        formatter: cell=>{
+            return <div className='text-break'>{cell}</div>
+        }
     },
     {
         dataField: 'name',
@@ -188,8 +191,16 @@ function Product() {
 
     const onDelete = () => {
         if (window.confirm('Bạn muốn xoá những mục đã chọn?')) {
-            alert(listDel);
-            setRealTime(preventDefault => preventDefault + 1);
+            callApi('product', 'delete', listDel)
+                .then(res => {
+                        alert('Xoá thành công');
+                        loadData();
+                        setListDel([])
+                    }
+                )
+                .catch(() => {
+                    alert('Xoá thất bại, vui lòng thử lại sau');
+                })
         } else {
             return false;
         }
@@ -244,7 +255,7 @@ function Product() {
                 props => (
                     <div>
                         <div className="d-flex justify-content-between mt-2 mb-0">
-                            <h3>Tài khoản chủ sân</h3>
+                            <h3>Sản phẩm</h3>
                             <SearchBar {...props.searchProps} style={{width: '600px'}}/>
                             <div>
                                 <AddProduct isShow={isShowModalAdd} handleClose={handleClose}/>
@@ -265,7 +276,8 @@ function Product() {
                             })}
                             selectRow={selectRow}
                             expandRow={expandRow}
-                            defaultSorted={ defaultSorted }
+                            pagination={paginationFactory()}
+                            defaultSorted={ defaultSorted}
                         />
                     </div>
                 )

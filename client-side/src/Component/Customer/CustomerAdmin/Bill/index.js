@@ -103,6 +103,7 @@ const Bill = () => {
         ),
         showExpandColumn: true,
         expandByColumnOnly: true,
+        onlyOneExpanding: true,
         onExpand: async (row, isExpand, rowIndex, e) => {
             await callApi(`user_bill_detail/get-by-user-bill-id/${row._id}`, 'get', null).then(
                 (res) => {

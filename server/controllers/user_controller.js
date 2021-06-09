@@ -17,6 +17,20 @@ exports.get_user = (req, res) => {
         });
 }
 
+exports.get_all_user = (req, res) => {
+    user
+        .find({},(err, list) => {
+            err ?
+                res.status(500).send('Cannot get list')
+                :
+                res.json(list);
+        })
+        .catch((err) => {
+            console.log(err)
+            res.status(400).send('Something went wrong');
+        });
+}
+
 exports.add_one_user = (req, res) => {
     let item = new user(req.body);
     item

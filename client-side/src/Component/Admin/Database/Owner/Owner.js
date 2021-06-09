@@ -27,14 +27,6 @@ const columns = [
         text: 'Tài khoản'
     },
     {
-        dataField: 'password_1',
-        text: 'Mật khẩu cấp 1'
-    },
-    {
-        dataField: 'password_2',
-        text: 'Mật khẩu cấp 2'
-    },
-    {
         dataField: 'full_name',
         text: 'Họ tên'
     },

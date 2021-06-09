@@ -2,7 +2,7 @@ const message_model = require('../models/message_model')
 
 exports.get_message = (req, res) => {
     message_model
-        .find({}, (err, list)=>{
+        .find({},null,{sort: {date: -1}}, (err, list)=>{
             if (err) {
                 console.log(err)
             }

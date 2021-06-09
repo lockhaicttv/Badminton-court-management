@@ -15,7 +15,10 @@ const {SearchBar} = Search;
 const columns = [
     {
         dataField: '_id',
-        text: 'ID khách hàng'
+        text: 'ID khách hàng',
+        formatter: cell=>{
+            return <div className='text-break'>{cell}</div>
+        }
     },
     {
         dataField: 'name',
@@ -27,7 +30,10 @@ const columns = [
     },
     {
         dataField: 'website',
-        text: 'Link shop'
+        text: 'Link shop',
+        formatter: (cell, row) => {
+            return <div className='text-break'>/customer/store/{row._id}</div>
+        }
     },
     {
         dataField: 'description',
@@ -43,7 +49,10 @@ const columns = [
     },
     {
         dataField: 'email_id',
-        text: 'Tài khoản paypal'
+        text: 'Tài khoản paypal',
+        formatter: cell => {
+            return <div className='text-break'>{cell}</div>
+        }
     },
     {
         dataField: 'account_id.username',
@@ -179,7 +188,7 @@ function CourtInfo() {
                 props => (
                     <div>
                         <div className="d-flex justify-content-between mt-2 mb-0">
-                            <h3>Tài khoản chủ sân</h3>
+                            <h3>Thông tin sân</h3>
                             <SearchBar {...props.searchProps} style={{width: '600px'}}/>
                             <div>
                                 <AddCourtInfo isShow={isShowModalAdd} handleClose={handleClose} loadData={loadData}/>
