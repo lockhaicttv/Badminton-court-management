@@ -64,7 +64,7 @@ const OwnerStore = () => {
     })
 
     return (
-        <div className='container'>
+        <div className='container col-10'>
             <div className='mb-2'>
                 <Banner _id={shop_id}/></div>
             <div className='row'>

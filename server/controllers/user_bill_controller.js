@@ -42,7 +42,8 @@ exports.get_by_court_id = (req, res) => {
 }
 
 //For payment on client side, add bill and bill details
-exports.add_one_bill = async (req, res) => {
+exports.add_one_bill = async (req, res) =>{
+    console.log(req.body.bill_details)
     let finishTask = 0;
     let bill = new user_bill(req.body.bill);
     let listBillDetails = [];
@@ -61,6 +62,7 @@ exports.add_one_bill = async (req, res) => {
                 )
             )
     }
+    console.log('sau khi map', listBillDetails)
 
     bill
         .save(err => {
@@ -76,7 +78,7 @@ exports.add_one_bill = async (req, res) => {
                                     } else {
 
                                         newBillDetails.quantity = newBillDetails.quantity - billDetail.quantity
-                                        // console.log('new quantity', newBillDetails.quantity)
+                                        console.log('Sau khi trừ số lượng', newBillDetails)
                                         newBillDetails.save((err, updateBllDetail) => {
                                             if (err) {
                                                 console.log(err)

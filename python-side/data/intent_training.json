@@ -103,6 +103,24 @@
       "description": "tam biet"
     },
     {
+      "intent_name": "hoi tham suc khoe",
+      "training_phrases": [
+        "Bạn khỏe không",
+        "Bạn thế nào rồi",
+        "Bạn khỏe chứ",
+        "Dạo này bạn thế nào",
+        "Bạn có khỏe không",
+        "Sức khỏe bạn thế nào",
+        "Khoẻ không",
+        "Bạn khoẻ không"
+      ],
+      "responses": [
+        "Mình khỏe. Cảm ơn bạn!"
+      ],
+      "query": "",
+      "description": "casual"
+    },
+    {
       "intent_name": "chatbot ten gi",
       "training_phrases": [
         "bạn tên gì",

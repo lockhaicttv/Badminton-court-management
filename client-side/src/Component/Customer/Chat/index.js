@@ -15,9 +15,20 @@ const Chat = (props) => {
     const [isOpen, setIsOpen] = useState(false)
     const messageEndRef = useRef(null);
     const [isSend, setIsSend] = useState(false)
+
     useEffect(() => {
-        socket.on('message', ({name, message, time}) => {
-            console.log(new Date(time).toLocaleString(), new Date()-new Date(time))
+        socket.on('message', ({name, message}) => {
+            setChatLog(
+                [
+                    ...chatLog,
+                    {name, message}
+                ]
+            )
+        })
+    }, [])
+
+    useEffect(() => {
+        socket.on('message', ({name, message}) => {
             setChatLog(
                 [
                     ...chatLog,

@@ -44,7 +44,7 @@ const PriceTotal = (props) => {
 
     useEffect(()=>{
         loadInfo();
-    },[])
+    },[authentication])
 
     const loadInfo = () => {
         callApi(`user/?_id=${accountID}`, 'get', null)
